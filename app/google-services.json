@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "630151790380",
+    "firebase_url": "https://expense-ad7a2.firebaseio.com",
+    "project_id": "expense-ad7a2",
+    "storage_bucket": "expense-ad7a2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:630151790380:android:0f87c7b6187c6ece72b689",
+        "android_client_info": {
+          "package_name": "com.simoes.expense"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "630151790380-73u0f0tk40iapg4nfus1tlt7cgr5b6q0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoCTQ1mAO5DB-mMxcLkZCiNdEaoJsKEk8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "630151790380-73u0f0tk40iapg4nfus1tlt7cgr5b6q0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
