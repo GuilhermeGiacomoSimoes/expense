@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         btn_expenses.setOnClickListener {
-            btn_expenses.setBackgroundColor(resources.getColor(R.color.background_color_card))
+            btn_expenses.setBackgroundColor(resources.getColor(R.color.background_color_card_and_container))
             btn_history .setBackgroundColor(resources.getColor(R.color.background_color))
             btn_more    .setBackgroundColor(resources.getColor(R.color.background_color))
 

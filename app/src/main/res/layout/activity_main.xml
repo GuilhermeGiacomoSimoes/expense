@@ -15,8 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginBottom="40dp"
-        android:background="#FFF"
+        android:layout_marginBottom="50dp"
+        android:background="@color/background_color_card_and_container"
         >
 
 
@@ -24,47 +24,44 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         >
 
-     <ImageView
-            android:layout_width="55dp"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+        <ImageView
             android:id="@+id/btn_expenses"
-            android:layout_marginLeft="10sp"
-            android:layout_marginBottom="10sp"
+            android:layout_width="55dp"
+            android:layout_height="35dp"
             android:layout_marginStart="10sp"
+            android:layout_marginLeft="10sp"
             android:background="@color/background_color"
             android:src="@drawable/ic_expense"
-            />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/btn_history"
             android:layout_width="55dp"
-            android:layout_height="match_parent"
+            android:layout_height="35dp"
+            android:background="@color/background_color"
+            android:src="@drawable/ic_hour"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginBottom="10sp"
-            android:background="@color/background_color"
-            android:src="@drawable/ic_hour"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/btn_more"
             android:layout_width="55dp"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="10sp"
+            android:layout_height="35dp"
             android:layout_marginRight="10sp"
             android:background="@color/background_color"
             android:src="@drawable/ic_more"
-            />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
