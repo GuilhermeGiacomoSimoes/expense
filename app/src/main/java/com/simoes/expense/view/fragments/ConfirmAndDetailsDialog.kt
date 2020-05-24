@@ -1,6 +1,8 @@
 package com.simoes.expense.view.fragments
 
-class ConfirmAndDetailsDialog {
+import androidx.fragment.app.DialogFragment
+
+class ConfirmAndDetailsDialog : DialogFragment() {
 
     companion object {
 
