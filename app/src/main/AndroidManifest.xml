@@ -11,7 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".view.activitys.LoginActivity"></activity>
+        <activity android:name=".view.activitys.PaymentActivity"></activity>
+        <activity android:name=".view.activitys.ChangePassActivity" />
+        <activity android:name=".view.activitys.AddExpenseActivity" />
+        <activity android:name=".view.activitys.AddAmountActivity" />
+        <activity android:name=".view.activitys.AddBankActivity" />
+        <activity android:name=".view.activitys.LoginActivity" />
         <activity android:name=".view.activitys.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
