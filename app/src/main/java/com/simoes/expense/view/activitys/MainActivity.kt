@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.simoes.expense.R
 import com.simoes.expense.view.fragments.ExpenseFragment
+import com.simoes.expense.view.fragments.MoreFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -32,6 +33,10 @@ class MainActivity : AppCompatActivity() {
             btn_expenses.setBackgroundColor(resources.getColor(R.color.background_color))
             btn_history .setBackgroundColor(resources.getColor(R.color.background_color))
             btn_more    .setBackgroundColor(resources.getColor(R.color.background_color_card_and_container))
+
+            val ft = supportFragmentManager.beginTransaction()
+            ft.replace(R.id.container, MoreFragment())
+            ft.commit()
         }
 
 
