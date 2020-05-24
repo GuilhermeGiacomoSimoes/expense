@@ -21,5 +21,19 @@ class MainActivity : AppCompatActivity() {
             ft.replace(R.id.container, ExpenseFragment())
             ft.commit()
         }
+
+        btn_history.setOnClickListener {
+            btn_expenses.setBackgroundColor(resources.getColor(R.color.background_color))
+            btn_history .setBackgroundColor(resources.getColor(R.color.background_color_card_and_container))
+            btn_more    .setBackgroundColor(resources.getColor(R.color.background_color))
+        }
+
+        btn_more.setOnClickListener {
+            btn_expenses.setBackgroundColor(resources.getColor(R.color.background_color))
+            btn_history .setBackgroundColor(resources.getColor(R.color.background_color))
+            btn_more    .setBackgroundColor(resources.getColor(R.color.background_color_card_and_container))
+        }
+
+
     }
 }
