@@ -32,9 +32,17 @@ class ConfirmAndDetailsDialog : DialogFragment() {
                     isCancelable = false
 
                     this.title = title
-                    this.description    = description?
-                    this.titleBtnOk     = titleBtnOk?
-                    this.titleBtnCancel = titleBtnCancel?
+                    if( !description.isNullOrEmpty() ) {
+                        this.description = description
+                    }
+
+                    if(!titleBtnOk.isNullOrEmpty()) {
+                        this.titleBtnOk = titleBtnOk
+                    }
+
+                    if(!titleBtnCancel.isNullOrEmpty()) {
+                        this.titleBtnCancel = titleBtnCancel
+                    }
 
                     show(fragmentManager, "")
                 }
