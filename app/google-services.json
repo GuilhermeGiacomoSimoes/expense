@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "630151790380-uppuqmtul6bqopt73lbp511onchdn0l4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.simoes.expense",
+            "certificate_hash": "466ac7a4474f0ab0af2ce5e9afa2c75b069db2f7"
+          }
+        },
+        {
           "client_id": "630151790380-73u0f0tk40iapg4nfus1tlt7cgr5b6q0.apps.googleusercontent.com",
           "client_type": 3
         }
