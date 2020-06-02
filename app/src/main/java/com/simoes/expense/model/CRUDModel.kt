@@ -11,49 +11,57 @@ class CRUDModel {
 
     companion object {
 
-        fun findByUUID(`object`: Any, uuid: String) : Boolean{
+        fun findByUUID(`object`: Any, uuid: String) : Any? {
             return try {
                 val firebase = FirebaseConfiguration.firebase
+                val obj = `object`
 
-                firebase.child(`object`.javaClass.name).orderByChild("uuid").equalTo(uuid).addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(p0: DataSnapshot) {
+                suspend {
+                    firebase.child(`object`.javaClass.name).orderByChild("uuid").equalTo(uuid).addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(p0: DataSnapshot) {
 
-                        val obj = p0.children.elementAt(0).getValue(`object`::class.java)
+                            val obj = p0.children.elementAt(0).getValue(`object`::class.java)
 
-                    }
 
-                    override fun onCancelled(p0: DatabaseError) {
+                        }
 
-                    }
-                })
+                        override fun onCancelled(p0: DatabaseError) {
 
-                true
+                        }
+                    })
+
+                }
+
+                 obj
             }catch (e:Exception) {
-                false
+                null
             }
         }
 
-        fun findAll(`object`: Any) : Boolean{
-            return try {
+        fun findAll(`object`: Any): ArrayList<Any>? {
+             try {
                 val firebase = FirebaseConfiguration.firebase
                 val list = ArrayList<Any>()
 
-                firebase.child(`object`.javaClass.name).addValueEventListener(object : ValueEventListener {
-                    override fun onDataChange(p0: DataSnapshot) {
+               suspend {
+                   firebase.child(`object`.javaClass.name).addValueEventListener(object : ValueEventListener {
+                       override fun onDataChange(p0: DataSnapshot) {
 
-                        for (data in p0.children){
-                            list.add(data)
-                        }
+                           for (data in p0.children){
+                               list.add(data)
+                           }
 
-                    }
+                       }
 
-                    override fun onCancelled(p0: DatabaseError) {
+                       override fun onCancelled(p0: DatabaseError) {
 
-                    }
-                })
-                true
+                       }
+                   })
+               }
+
+                return list
             }catch (e:Exception) {
-                false
+                 return null
             }
         }
 

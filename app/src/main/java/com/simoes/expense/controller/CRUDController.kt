@@ -10,23 +10,34 @@ class CRUDController {
 
     companion object {
 
-        fun findByUUID(`object`: Any, uuid: String, context: Activity){
+        fun findByUUID(`object`: Any, uuid: String, context: Activity) : Any?{
             try {
-                if(CRUDModel.findByUUID(`object`, uuid)){
-                    FeedbackDialog.showDialog( context.fragmentManager, "Deletado com sucesso" )
+
+                val obj = CRUDModel.findByUUID(`object`, uuid)
+
+                if (obj != null) {
+                    return obj
                 }
                 else {
                     FeedbackDialog.showDialog( context.fragmentManager, "Erro ao deletar" )
                 }
+
+
             }catch (e:Exception) {
                 FeedbackDialog.showDialog( context.fragmentManager, e.toString() )
             }
+
+            return null
         }
 
-        fun findAll(`object`: Any, context: Activity){
+        fun findAll(`object`: Any, context: Activity) : ArrayList<Any> ? {
             try {
-                if(CRUDModel.findAll(`object`)){
+
+                val list = CRUDModel.findAll(`object`)
+
+                if(list != null){
                     FeedbackDialog.showDialog( context.fragmentManager, "Deletado com sucesso" )
+                    return list
                 }
                 else {
                     FeedbackDialog.showDialog( context.fragmentManager, "Erro ao deletar" )
@@ -34,6 +45,8 @@ class CRUDController {
             }catch (e:Exception) {
                 FeedbackDialog.showDialog( context.fragmentManager, e.toString() )
             }
+
+            return null
         }
 
         fun delete (`object`: Any, uuid: String, context: Activity) {
