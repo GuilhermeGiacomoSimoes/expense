@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import com.simoes.expense.R
 import kotlinx.android.synthetic.main.error_dialog.*
 
@@ -17,7 +18,7 @@ class FeedbackDialog: DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.confirm_and_details_dialog, container, false)
+        return inflater.inflate(R.layout.error_dialog, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,7 +34,7 @@ class FeedbackDialog: DialogFragment() {
     companion object {
         private fun getInstance()  = FeedbackDialog()
 
-        fun showDialog(fragmentManager: android.app.FragmentManager, description: String?) {
+        fun showDialog(fragmentManager: FragmentManager, description: String?) {
             with(getInstance()) {
                 if(!isAdded) {
                     isCancelable = false
