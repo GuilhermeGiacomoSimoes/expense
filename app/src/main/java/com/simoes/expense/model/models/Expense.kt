@@ -1,4 +1,4 @@
-package com.simoes.expense.model
+package com.simoes.expense.model.models
 
 import java.io.Serializable
 
