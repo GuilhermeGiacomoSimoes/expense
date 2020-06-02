@@ -5,11 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentManager
 import com.simoes.expense.R
 import kotlinx.android.synthetic.main.error_dialog.*
 
-class ErrorDialog: DialogFragment() {
+class FeedbackDialog: DialogFragment() {
 
     private lateinit var description    : String
 
@@ -32,9 +31,9 @@ class ErrorDialog: DialogFragment() {
     }
 
     companion object {
-        private fun getInstance()  = ErrorDialog()
+        private fun getInstance()  = FeedbackDialog()
 
-        fun showDialog(fragmentManager: FragmentManager, description: String?) {
+        fun showDialog(fragmentManager: android.app.FragmentManager, description: String?) {
             with(getInstance()) {
                 if(!isAdded) {
                     isCancelable = false
