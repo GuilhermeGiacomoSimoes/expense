@@ -40,7 +40,7 @@ class CRUDModel {
             }
         }
 
-        fun findAll(`object`: Any): ArrayList<Any>? {
+        fun findAll(`object`: Any): ArrayList<Any>?  {
              try {
                 val firebase = FirebaseConfiguration.firebase
                 val list = ArrayList<Any>()
@@ -100,7 +100,9 @@ class CRUDModel {
         fun update(`object`: Any) : Boolean {
             return try {
                 val firebase = FirebaseConfiguration.firebase
-                firebase.child( `object`.javaClass.name ).setValue(`object`)
+                val nameObject = getObjectName(`object`)
+
+                firebase.child( nameObject ).setValue(`object`)
                 true
 
             }catch (e: Exception){

@@ -47,6 +47,7 @@
         android:backgroundTint="@color/background_color"
         app:cardCornerRadius="10dp"
         android:layout_margin="20dp"
+        android:id="@+id/openScreenAddCredit"
         >
 
         <LinearLayout
@@ -79,6 +80,7 @@
         app:cardCornerRadius="10dp"
         android:layout_margin="20dp"
         android:backgroundTint="@color/background_color"
+        android:id="@+id/openScreenAddExpense"
         >
 
         <LinearLayout
@@ -111,6 +113,7 @@
         app:cardCornerRadius="10dp"
         android:layout_margin="20dp"
         android:backgroundTint="@color/background_color"
+        android:id="@+id/openScreenChangePass"
         >
 
         <LinearLayout
@@ -143,6 +146,7 @@
         android:backgroundTint="@color/background_color"
         app:cardCornerRadius="10dp"
         android:layout_margin="20dp"
+        android:id="@+id/exit"
         >
 
         <LinearLayout

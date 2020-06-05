@@ -4,6 +4,7 @@ import androidx.fragment.app.FragmentManager
 import com.simoes.expense.model.CRUDModel
 import com.simoes.expense.view.fragments.FeedbackDialog
 import java.lang.Exception
+import java.util.ArrayList
 
 class CRUDController {
 
@@ -30,7 +31,7 @@ class CRUDController {
             return null
         }
 
-        fun findAll(`object`: Any, fragmentManager: FragmentManager) : ArrayList<Any> ? {
+        fun findAll(`object`: Any, fragmentManager: FragmentManager) : ArrayList<Any>  {
             try {
 
                 val list = CRUDModel.findAll(`object`)
@@ -46,7 +47,7 @@ class CRUDController {
                 FeedbackDialog.showDialog( fragmentManager, e.toString(), "Erro" )
             }
 
-            return null
+            return ArrayList()
         }
 
         fun delete (`object`: Any, uuid: String, fragmentManager: FragmentManager) {
