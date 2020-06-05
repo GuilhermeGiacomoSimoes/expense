@@ -32,7 +32,7 @@ class AddBankActivity : AppCompatActivity() {
 
 
     private fun saveBank(bank: Bank) {
-        CRUDController.createOrUpdate( bank, this.supportFragmentManager )
+        CRUDController.create( bank, this.supportFragmentManager )
     }
 
 }

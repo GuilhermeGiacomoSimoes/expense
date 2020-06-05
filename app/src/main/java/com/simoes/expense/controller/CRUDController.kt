@@ -63,13 +63,27 @@ class CRUDController {
             }
         }
 
-        fun createOrUpdate(`object`: Any, fragmentManager: FragmentManager)  {
+        fun create(`object`: Any, fragmentManager: FragmentManager)  {
             try {
-                if(CRUDModel.createOrUpdate(`object`)) {
+                if(CRUDModel.create(`object`)) {
                     FeedbackDialog.showDialog( fragmentManager, "Cadastrado com sucesso", "OK" )
                 }
                 else {
                     FeedbackDialog.showDialog( fragmentManager, "Erro ao cadastrar", "Erro" )
+                }
+
+            }catch (e: Exception){
+                FeedbackDialog.showDialog( fragmentManager, e.toString(), "Erro" )
+            }
+        }
+
+        fun update(`object`: Any, fragmentManager: FragmentManager) {
+            try {
+                if(CRUDModel.update(`object`)) {
+                    FeedbackDialog.showDialog( fragmentManager, "Editado com sucesso", "OK" )
+                }
+                else {
+                    FeedbackDialog.showDialog( fragmentManager, "Erro ao editar", "Erro" )
                 }
 
             }catch (e: Exception){

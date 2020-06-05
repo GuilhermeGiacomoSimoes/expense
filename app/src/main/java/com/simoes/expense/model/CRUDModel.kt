@@ -18,7 +18,7 @@ class CRUDModel {
 
                 suspend {
                     val nameObject = getObjectName(`object`)
-                    
+
                     firebase.child(nameObject).orderByChild("uuid").equalTo(uuid).addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(p0: DataSnapshot) {
 
@@ -83,12 +83,12 @@ class CRUDModel {
             }
         }
 
-        fun createOrUpdate(`object`: Any)  : Boolean {
+        fun create(`object`: Any)  : Boolean {
             return try {
                 val firebase = FirebaseConfiguration.firebase
                 val nameObject = getObjectName(`object`)
 
-                firebase.child( nameObject ).setValue(`object`)
+                firebase.child( nameObject ).push().setValue(`object`)
                 true
 
             }catch (e: Exception){
@@ -96,6 +96,17 @@ class CRUDModel {
             }
         }
 
+
+        fun update(`object`: Any) : Boolean {
+            return try {
+                val firebase = FirebaseConfiguration.firebase
+                firebase.child( `object`.javaClass.name ).setValue(`object`)
+                true
+
+            }catch (e: Exception){
+                false
+            }
+        }
 
 
         private fun getObjectName(`object` : Any) : String {
