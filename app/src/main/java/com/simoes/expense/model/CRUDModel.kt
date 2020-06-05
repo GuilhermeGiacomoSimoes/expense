@@ -1,8 +1,10 @@
 package com.simoes.expense.model
 
+import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.simoes.expense.helpers.CallBackReturn
 import com.simoes.expense.helpers.FirebaseConfiguration
 import java.lang.Exception
 import java.util.ArrayList
@@ -40,29 +42,32 @@ class CRUDModel {
             }
         }
 
-        fun findAll(`object`: Any): ArrayList<Any>?  {
+        fun findAll(`object`: Any, callBack : CallBackReturn ): ArrayList<Any>?  {
              try {
-                val firebase = FirebaseConfiguration.firebase
-                val list = ArrayList<Any>()
 
-               suspend {
+                val firebase        = FirebaseConfiguration.firebase
+                val list            = ArrayList<Any>()
+                val nameObject      = getObjectName(`object`)
 
-                   val nameObject = getObjectName(`object`)
 
-                   firebase.child(nameObject).addValueEventListener(object : ValueEventListener {
-                       override fun onDataChange(p0: DataSnapshot) {
+                 firebase.child(nameObject).addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(p0: DataSnapshot) {
 
-                           for (data in p0.children){
-                               list.add(data)
-                           }
-
+                       for (data in p0.children){
+                           list.add(data)
                        }
 
-                       override fun onCancelled(p0: DatabaseError) {
+                        if ( list.isNotEmpty() ) {
+                            callBack.callback( list )
+                        }
 
-                       }
-                   })
-               }
+                    }
+
+                    override fun onCancelled(p0: DatabaseError) {
+                        Log.e("erro", "deu ruim")
+                    }
+                })
+
 
                 return list
             }catch (e:Exception) {

@@ -1,6 +1,7 @@
 package com.simoes.expense.controller
 
 import androidx.fragment.app.FragmentManager
+import com.simoes.expense.helpers.CallBackReturn
 import com.simoes.expense.model.CRUDModel
 import com.simoes.expense.view.fragments.FeedbackDialog
 import java.lang.Exception
@@ -31,17 +32,16 @@ class CRUDController {
             return null
         }
 
-        fun findAll(`object`: Any, fragmentManager: FragmentManager) : ArrayList<Any>  {
+        fun findAll(`object`: Any, fragmentManager: FragmentManager, callBack: CallBackReturn) : ArrayList<Any>  {
             try {
 
-                val list = CRUDModel.findAll(`object`)
+                val list = CRUDModel.findAll(`object`, callBack)
 
-                if(list != null){
-                    FeedbackDialog.showDialog( fragmentManager, "Deletado com sucesso", "OK" )
+                if(!list.isNullOrEmpty()){
                     return list
                 }
                 else {
-                    FeedbackDialog.showDialog( fragmentManager, "Erro ao deletar", "Erro" )
+                    FeedbackDialog.showDialog( fragmentManager, "Erro ao buscar dados", "Erro" )
                 }
             }catch (e:Exception) {
                 FeedbackDialog.showDialog( fragmentManager, e.toString(), "Erro" )

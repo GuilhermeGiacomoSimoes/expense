@@ -5,27 +5,26 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
+import com.simoes.expense.helpers.CallBackReturn
 import com.simoes.expense.model.models.Bank
 import kotlinx.android.synthetic.main.activity_add_amount.*
 import java.util.*
 
-class AddAmountActivity : AppCompatActivity() {
+class AddAmountActivity : AppCompatActivity(), CallBackReturn {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_amount)
 
-        val listBank = CRUDController.findAll( Bank(), supportFragmentManager ) as ArrayList<Bank>
+        val listBank = CRUDController.findAll( Bank(), supportFragmentManager , this) as ArrayList<Bank>
 
-        if (!listBank.isNullOrEmpty()){
+        if ( !listBank.isNullOrEmpty() ) {
             val listBankName  = getListBankName     ( listBank )
             inflateListBank                         ( listBankName )
         }
-
     }
 
     private fun inflateListBank( listBank : ArrayList<String> ) {
-
         val adapter : ArrayAdapter<String> = ArrayAdapter<String>(
             this,
             android.R.layout.simple_spinner_item, listBank
@@ -35,7 +34,6 @@ class AddAmountActivity : AppCompatActivity() {
     }
 
     private fun getListBankName( listBank: ArrayList<Bank> ) : ArrayList<String> {
-
         val names = ArrayList<String>()
 
         for ( bank in listBank ) {
@@ -43,6 +41,11 @@ class AddAmountActivity : AppCompatActivity() {
         }
 
         return names
+    }
+
+    override fun callback(list: ArrayList<Any>){
+        val listBank = getListBankName( list as ArrayList<Bank> )
+        inflateListBank(listBank)
     }
 
 }
