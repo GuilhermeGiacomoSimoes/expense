@@ -17,7 +17,9 @@ class CRUDModel {
                 val obj = `object`
 
                 suspend {
-                    firebase.child(`object`.javaClass.name).orderByChild("uuid").equalTo(uuid).addListenerForSingleValueEvent(object : ValueEventListener {
+                    val nameObject = getObjectName(`object`)
+                    
+                    firebase.child(nameObject).orderByChild("uuid").equalTo(uuid).addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(p0: DataSnapshot) {
 
                             val obj = p0.children.elementAt(0).getValue(`object`::class.java)
@@ -44,7 +46,10 @@ class CRUDModel {
                 val list = ArrayList<Any>()
 
                suspend {
-                   firebase.child(`object`.javaClass.name).addValueEventListener(object : ValueEventListener {
+
+                   val nameObject = getObjectName(`object`)
+
+                   firebase.child(nameObject).addValueEventListener(object : ValueEventListener {
                        override fun onDataChange(p0: DataSnapshot) {
 
                            for (data in p0.children){
@@ -68,7 +73,9 @@ class CRUDModel {
         fun delete(`object`: Any, uuid: String) : Boolean {
             return try {
                 val firebase = FirebaseConfiguration.firebase
-                firebase.child( `object`.javaClass.name ).child(uuid).removeValue()
+                val nameObject = getObjectName(`object`)
+
+                firebase.child(  nameObject ).child(uuid).removeValue()
                 true
 
             }catch (e: Exception){
@@ -79,12 +86,21 @@ class CRUDModel {
         fun createOrUpdate(`object`: Any)  : Boolean {
             return try {
                 val firebase = FirebaseConfiguration.firebase
-                firebase.child( `object`.javaClass.name ).setValue(`object`)
+                val nameObject = getObjectName(`object`)
+
+                firebase.child( nameObject ).setValue(`object`)
                 true
 
             }catch (e: Exception){
                 false
             }
+        }
+
+
+
+        private fun getObjectName(`object` : Any) : String {
+            val arrayPathObject = `object`.javaClass.name.split(".")
+            return arrayPathObject[ arrayPathObject.size - 1 ]
         }
 
     }

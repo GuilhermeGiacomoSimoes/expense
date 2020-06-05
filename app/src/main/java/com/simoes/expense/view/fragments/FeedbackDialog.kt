@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.error_dialog.*
 class FeedbackDialog: DialogFragment() {
 
     private lateinit var description    : String
+    private lateinit var title          : String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,17 +25,18 @@ class FeedbackDialog: DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        description_dialog_error    .text = description
+        title_dialog_error          .text = title
 
-        description_dialog_error.text = description
         btn_positive_error.setOnClickListener {
-            dismissLoading()
+            super.dismiss()
         }
     }
 
     companion object {
         private fun getInstance()  = FeedbackDialog()
 
-        fun showDialog(fragmentManager: FragmentManager, description: String?) {
+        fun showDialog(fragmentManager: FragmentManager, description: String?, title: String?) {
             with(getInstance()) {
                 if(!isAdded) {
                     isCancelable = false
@@ -43,18 +45,14 @@ class FeedbackDialog: DialogFragment() {
                         this.description = description
                     }
 
+                    if ( !title.isNullOrEmpty() ) {
+                        this.title = title
+                    }
 
                     show(fragmentManager, "")
                 }
             }
         }
 
-        fun dismissLoading() {
-            with(getInstance()) {
-                if(isAdded) {
-                    dismiss()
-                }
-            }
-        }
     }
 }

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.simoes.expense.R
+import kotlinx.android.synthetic.main.error_dialog.*
 
 class ConfirmAndDetailsDialog : DialogFragment() {
 
@@ -27,6 +28,9 @@ class ConfirmAndDetailsDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
+        btn_positive_error.setOnClickListener {
+            dismissDialog()
+        }
 
 
     }
@@ -57,11 +61,9 @@ class ConfirmAndDetailsDialog : DialogFragment() {
             }
         }
 
-        fun dismissLoading() {
+        fun dismissDialog() {
             with(getInstance()) {
-                if(isAdded) {
-                    dismiss()
-                }
+                dismiss()
             }
         }
     }

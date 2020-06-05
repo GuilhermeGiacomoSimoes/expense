@@ -19,12 +19,12 @@ class CRUDController {
                     return obj
                 }
                 else {
-                    FeedbackDialog.showDialog( fragmentManager , "Erro ao deletar" )
+                    FeedbackDialog.showDialog( fragmentManager , "Erro ao deletar", "Erro")
                 }
 
 
             }catch (e:Exception) {
-                FeedbackDialog.showDialog( fragmentManager, e.toString() )
+                FeedbackDialog.showDialog( fragmentManager, e.toString(), "Erro" )
             }
 
             return null
@@ -36,14 +36,14 @@ class CRUDController {
                 val list = CRUDModel.findAll(`object`)
 
                 if(list != null){
-                    FeedbackDialog.showDialog( fragmentManager, "Deletado com sucesso" )
+                    FeedbackDialog.showDialog( fragmentManager, "Deletado com sucesso", "OK" )
                     return list
                 }
                 else {
-                    FeedbackDialog.showDialog( fragmentManager, "Erro ao deletar" )
+                    FeedbackDialog.showDialog( fragmentManager, "Erro ao deletar", "Erro" )
                 }
             }catch (e:Exception) {
-                FeedbackDialog.showDialog( fragmentManager, e.toString() )
+                FeedbackDialog.showDialog( fragmentManager, e.toString(), "Erro" )
             }
 
             return null
@@ -52,28 +52,28 @@ class CRUDController {
         fun delete (`object`: Any, uuid: String, fragmentManager: FragmentManager) {
             try {
                 if(CRUDModel.delete(`object`, uuid)){
-                    FeedbackDialog.showDialog( fragmentManager, "Deletado com sucesso" )
+                    FeedbackDialog.showDialog( fragmentManager, "Deletado com sucesso", "OK" )
                 }
                 else {
-                    FeedbackDialog.showDialog( fragmentManager, "Erro ao deletar" )
+                    FeedbackDialog.showDialog( fragmentManager, "Erro ao deletar", "Erro" )
                 }
 
             }catch (e: Exception){
-                FeedbackDialog.showDialog( fragmentManager, e.toString() )
+                FeedbackDialog.showDialog( fragmentManager, e.toString(), "Erro" )
             }
         }
 
         fun createOrUpdate(`object`: Any, fragmentManager: FragmentManager)  {
             try {
                 if(CRUDModel.createOrUpdate(`object`)) {
-                    FeedbackDialog.showDialog( fragmentManager, "Cadastrado com sucesso" )
+                    FeedbackDialog.showDialog( fragmentManager, "Cadastrado com sucesso", "OK" )
                 }
                 else {
-                    FeedbackDialog.showDialog( fragmentManager, "Erro ao cadastrar" )
+                    FeedbackDialog.showDialog( fragmentManager, "Erro ao cadastrar", "Erro" )
                 }
 
             }catch (e: Exception){
-                FeedbackDialog.showDialog( fragmentManager, e.toString() )
+                FeedbackDialog.showDialog( fragmentManager, e.toString(), "Erro" )
             }
         }
     }
