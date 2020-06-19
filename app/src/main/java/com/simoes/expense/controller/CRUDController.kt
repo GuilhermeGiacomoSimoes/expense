@@ -9,7 +9,6 @@ import java.util.ArrayList
 
 class CRUDController {
 
-
     companion object {
 
         fun findByUUID(`object`: Any, uuid: String, fragmentManager: FragmentManager) : Any?{
@@ -23,7 +22,6 @@ class CRUDController {
                 else {
                     FeedbackDialog.showDialog( fragmentManager , "Erro ao deletar", "Erro")
                 }
-
 
             }catch (e:Exception) {
                 FeedbackDialog.showDialog( fragmentManager, e.toString(), "Erro" )
