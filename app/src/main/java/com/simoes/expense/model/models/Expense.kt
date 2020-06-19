@@ -4,7 +4,6 @@ import java.io.Serializable
 
 class Expense : Serializable {
 
-    lateinit var uuid    : String
     lateinit var name    : String
     lateinit var dueDate : String
     lateinit var bank    : Bank
