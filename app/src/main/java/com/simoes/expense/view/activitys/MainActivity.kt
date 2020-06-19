@@ -1,10 +1,8 @@
 package com.simoes.expense.view.activitys
 
-import android.Manifest
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.simoes.expense.R
-import com.simoes.expense.helpers.PermissionsHelper
 import com.simoes.expense.view.fragments.ExpenseFragment
 import com.simoes.expense.view.fragments.MoreFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -13,7 +11,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)  
+        setContentView(R.layout.activity_main)
 
         btn_expenses.setOnClickListener {
             val ft = supportFragmentManager.beginTransaction()

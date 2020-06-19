@@ -6,6 +6,7 @@ import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.model.models.Bank
 import kotlinx.android.synthetic.main.activity_add_bank.*
+import java.util.*
 
 class AddBankActivity : AppCompatActivity() {
 
