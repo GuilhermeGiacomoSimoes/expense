@@ -1,12 +1,10 @@
 package com.simoes.expense.model
 
-import android.Manifest
 import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.simoes.expense.helpers.CallBackReturn
-import com.simoes.expense.helpers.ConnectionHelper
 import com.simoes.expense.helpers.FirebaseConfiguration
 import java.lang.Exception
 import java.util.ArrayList
@@ -105,9 +103,6 @@ class CRUDModel {
 
 
         fun update(`object`: Any) : Boolean {
-
-            verifyConnection()
-
             return try {
                 val firebase = FirebaseConfiguration.firebase
                 val nameObject = getObjectName(`object`)
@@ -124,11 +119,6 @@ class CRUDModel {
         private fun getObjectName(`object` : Any) : String {
             val arrayPathObject = `object`.javaClass.name.split(".")
             return arrayPathObject[ arrayPathObject.size - 1 ]
-        }
-
-
-        private fun verifyConnection() {
-
         }
 
     }

@@ -16,7 +16,7 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_amount)
 
-        val listBank = CRUDController.findAll( Bank(), supportFragmentManager , this) as ArrayList<Bank>
+        val listBank = CRUDController.findAll( Bank(), supportFragmentManager , this, this) as ArrayList<Bank>
 
         if ( !listBank.isNullOrEmpty() ) {
             val listBankName  = getListBankName     ( listBank )
