@@ -7,11 +7,6 @@ class FirebaseConfiguration {
 
     companion object {
         val firebase = FirebaseDatabase.getInstance().reference
-
-
-        fun teste ( collection : String) : DatabaseReference {
-            return FirebaseDatabase.getInstance().getReference( collection )
-        }
     }
 
 }

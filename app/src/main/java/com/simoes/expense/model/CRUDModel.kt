@@ -42,19 +42,21 @@ class CRUDModel {
             }
         }
 
-        fun findAll(`object`: Any, callBack : CallBackReturn ): ArrayList<Any>?  {
+        fun findAll(`object`: Any, callBack : CallBackReturn ) : Boolean {
              try {
 
                 val firebase        = FirebaseConfiguration.firebase
                 val list            = ArrayList<Any>()
                 val nameObject      = getObjectName(`object`)
 
-
                  firebase.child(nameObject).addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(p0: DataSnapshot) {
 
                        for (data in p0.children){
-                           list.add(data)
+
+                           if ( data.getValue(`object` ::class.java) != null) {
+                               list.add(data.getValue(`object` ::class.java)!!)
+                           }
                        }
 
                         if ( list.isNotEmpty() ) {
@@ -69,9 +71,10 @@ class CRUDModel {
                 })
 
 
-                return list
+                return true
+
             }catch (e:Exception) {
-                 return null
+                 return false
             }
         }
 

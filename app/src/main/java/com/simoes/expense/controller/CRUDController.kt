@@ -40,14 +40,10 @@ class CRUDController {
             if ( verifyConnection( context, fragmentManager ) ) {
                 try {
 
-                    val list = CRUDModel.findAll(`object`, callBack)
-
-                    if(!list.isNullOrEmpty()){
-                        return list
-                    }
-                    else {
+                    if ( ! CRUDModel.findAll(`object`, callBack) ) {
                         FeedbackDialog.showDialog( fragmentManager, "Erro ao buscar dados", "Erro" )
                     }
+
                 }catch (e:Exception) {
                     FeedbackDialog.showDialog( fragmentManager, e.toString(), "Erro" )
                 }
