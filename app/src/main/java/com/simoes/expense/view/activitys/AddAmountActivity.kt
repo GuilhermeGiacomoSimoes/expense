@@ -16,11 +16,10 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_amount)
 
-        val listBank = CRUDController.findAll( Bank(), supportFragmentManager , this, this) as ArrayList<Bank>
+        CRUDController.findAll( Bank(), supportFragmentManager , this, this)
 
-        if ( !listBank.isNullOrEmpty() ) {
-            val listBankName  = getListBankName     ( listBank )
-            inflateListBank                         ( listBankName )
+        btn_add_amount_bank.setOnClickListener {
+            addAmountBank()
         }
     }
 
@@ -43,9 +42,17 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
         return names
     }
 
-    override fun callback(list: ArrayList<Any>){
-        val listBank = getListBankName( list as ArrayList<Bank> )
-        inflateListBank(listBank)
+
+    private fun addAmountBank() {
+
+        val edtAmount = edt_amount_add.text
+        val bank      =
+
     }
 
+
+    override fun callback(list: ArrayList<Any>){
+        val listBankName = getListBankName( list as ArrayList<Bank> )
+        inflateListBank(listBankName)
+    }
 }

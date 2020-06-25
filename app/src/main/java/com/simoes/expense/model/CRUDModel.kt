@@ -6,8 +6,9 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.simoes.expense.helpers.CallBackReturn
 import com.simoes.expense.helpers.FirebaseConfiguration
+import com.simoes.expense.model.models.Object
 import java.lang.Exception
-import java.util.ArrayList
+import java.util.*
 
 class CRUDModel {
 
@@ -91,10 +92,12 @@ class CRUDModel {
             }
         }
 
-        fun create(`object`: Any)  : Boolean {
+        fun create(`object`: Object)  : Boolean {
             return try {
                 val firebase   = FirebaseConfiguration.firebase
                 val nameObject = getObjectName(`object`)
+
+                `object`.uuid = ""
 
                 firebase.child( nameObject ).push().setValue(`object`)
                 true

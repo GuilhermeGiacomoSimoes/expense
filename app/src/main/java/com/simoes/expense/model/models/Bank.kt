@@ -1,9 +1,8 @@
 package com.simoes.expense.model.models
 
-import java.io.Serializable
-
-class Bank  : Serializable {
+class Bank  : Object() {
 
     lateinit    var name    : String
                 var balance : Double = .0
+
 }
