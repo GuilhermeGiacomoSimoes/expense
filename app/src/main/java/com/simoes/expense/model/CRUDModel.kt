@@ -43,7 +43,7 @@ class CRUDModel {
             }
         }
 
-        fun findAll(`object`: Any, callBack : CallBackReturn ) : Boolean {
+        fun findAll(`object`: Object, callBack : CallBackReturn ) : Boolean {
              try {
 
                 val firebase        = FirebaseConfiguration.firebase
@@ -56,7 +56,11 @@ class CRUDModel {
                        for (data in p0.children){
 
                            if ( data.getValue(`object` ::class.java) != null) {
-                               list.add(data.getValue(`object` ::class.java)!!)
+
+                               val objectClass  = data.getValue(`object` ::class.java)  !!
+                               objectClass.uuid = data.key                              !!
+                               
+                               list.add( objectClass )
                            }
                        }
 

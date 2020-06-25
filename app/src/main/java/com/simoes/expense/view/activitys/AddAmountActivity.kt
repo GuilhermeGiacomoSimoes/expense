@@ -46,7 +46,6 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
     private fun addAmountBank() {
 
         val edtAmount = edt_amount_add.text
-        val bank      =
 
     }
 

@@ -1,8 +1,6 @@
 package com.simoes.expense.model.models
 
-import java.io.Serializable
-
-class Expense : Serializable {
+class Expense : Object() {
 
     lateinit var name    : String
     lateinit var dueDate : String
