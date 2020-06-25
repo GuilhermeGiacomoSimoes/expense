@@ -59,7 +59,7 @@ class CRUDModel {
 
                                val objectClass  = data.getValue(`object` ::class.java)  !!
                                objectClass.uuid = data.key                              !!
-                               
+
                                list.add( objectClass )
                            }
                        }
