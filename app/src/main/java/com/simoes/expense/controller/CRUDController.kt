@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager
 import com.simoes.expense.helpers.CallBackReturn
 import com.simoes.expense.helpers.ConnectionHelper
 import com.simoes.expense.model.CRUDModel
+import com.simoes.expense.model.models.Object
 import com.simoes.expense.view.fragments.FeedbackDialog
 import java.lang.Exception
 import java.util.ArrayList
@@ -35,7 +36,7 @@ class CRUDController {
             return null
         }
 
-        fun findAll(`object`: Any, fragmentManager: FragmentManager, callBack: CallBackReturn, context: Context) : ArrayList<Any>  {
+        fun findAll(`object`: Object, fragmentManager: FragmentManager, callBack: CallBackReturn, context: Context) : ArrayList<Any>  {
 
             if ( verifyConnection( context, fragmentManager ) ) {
                 try {
@@ -73,7 +74,7 @@ class CRUDController {
 
         }
 
-        fun create(`object`: Any, fragmentManager: FragmentManager, context: Context)  {
+        fun create(`object`: Object, fragmentManager: FragmentManager, context: Context)  {
 
             if ( verifyConnection( context, fragmentManager ) ) {
                 try {
@@ -92,7 +93,7 @@ class CRUDController {
 
         }
 
-        fun update(`object`: Any, fragmentManager: FragmentManager, context: Context) {
+        fun update(`object`: Object, fragmentManager: FragmentManager, context: Context) {
             if ( verifyConnection( context, fragmentManager ) ) {
                 try {
                     if(CRUDModel.update(`object`)) {

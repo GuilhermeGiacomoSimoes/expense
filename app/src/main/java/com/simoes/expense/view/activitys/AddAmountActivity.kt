@@ -67,8 +67,13 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
 
     private fun addAmountBank() {
 
-        val edtAmount   = edt_amount_add.text
-        val bank        = listBanks[0]
+        val edtAmount   =  edt_amount_add.text.toString().toDouble()
+        val bank        = bankSelected
+
+        bank.balance += edtAmount
+
+        CRUDController.update( bank, supportFragmentManager, this )
+
     }
 
 

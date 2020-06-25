@@ -14,28 +14,25 @@ class CRUDModel {
 
     companion object {
 
-        fun findByUUID(`object`: Any, uuid: String) : Any? {
+        fun findByUUID(`object`: Object, uuid: String) : Object? {
             return try {
-                val firebase = FirebaseConfiguration.firebase
-                val obj = `object`
+                val firebase    = FirebaseConfiguration.firebase
+                val nameObject  = getObjectName(`object`)
 
-                suspend {
-                    val nameObject = getObjectName(`object`)
+                firebase.child(nameObject).orderByChild("uuid").equalTo(uuid).addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(p0: DataSnapshot) {
 
-                    firebase.child(nameObject).orderByChild("uuid").equalTo(uuid).addListenerForSingleValueEvent(object : ValueEventListener {
-                        override fun onDataChange(p0: DataSnapshot) {
-
-                            val obj = p0.children.elementAt(0).getValue(`object`::class.java)
+                        val obj = p0.children.elementAt(0).getValue(`object`::class.java)
 
 
-                        }
+                    }
 
-                        override fun onCancelled(p0: DatabaseError) {
+                    override fun onCancelled(p0: DatabaseError) {
 
-                        }
-                    })
+                    }
+                })
 
-                }
+
 
                  obj
             }catch (e:Exception) {
@@ -83,7 +80,7 @@ class CRUDModel {
             }
         }
 
-        fun delete(`object`: Any, uuid: String) : Boolean {
+        fun delete(`object`: Object, uuid: String) : Boolean {
             return try {
                 val firebase = FirebaseConfiguration.firebase
                 val nameObject = getObjectName(`object`)
@@ -112,7 +109,7 @@ class CRUDModel {
         }
 
 
-        fun update(`object`: Any) : Boolean {
+        fun update(`object`: Object) : Boolean {
             return try {
                 val firebase = FirebaseConfiguration.firebase
                 val nameObject = getObjectName(`object`)
