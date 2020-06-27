@@ -14,7 +14,7 @@ class CRUDModel {
 
     companion object {
 
-        fun findByUUID(`object`: Object, uuid: String) : Object? {
+        fun findByUUID(`object`: Object, uuid: String) {
             return try {
                 val firebase    = FirebaseConfiguration.firebase
                 val nameObject  = getObjectName(`object`)
@@ -34,9 +34,9 @@ class CRUDModel {
 
 
 
-                 obj
+
             }catch (e:Exception) {
-                null
+
             }
         }
 
@@ -55,7 +55,6 @@ class CRUDModel {
                            if ( data.getValue(`object` ::class.java) != null) {
 
                                val objectClass  = data.getValue(`object` ::class.java)  !!
-                               objectClass.uuid = data.key                              !!
 
                                list.add( objectClass )
                            }
@@ -98,9 +97,9 @@ class CRUDModel {
                 val firebase   = FirebaseConfiguration.firebase
                 val nameObject = getObjectName(`object`)
 
-                `object`.uuid = ""
+                `object`.uuid = UUID.randomUUID().toString()
 
-                firebase.child( nameObject ).push().setValue(`object`)
+                firebase.child( nameObject ).child( `object`.uuid ).setValue(`object`)
                 true
 
             }catch (e: Exception){

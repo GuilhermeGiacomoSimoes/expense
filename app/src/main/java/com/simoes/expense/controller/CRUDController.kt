@@ -14,7 +14,7 @@ class CRUDController {
 
     companion object {
 
-        fun findByUUID(`object`: Any, uuid: String, fragmentManager: FragmentManager, context: Context) : Any?{
+        fun findByUUID(`object`: Object, uuid: String, fragmentManager: FragmentManager, context: Context) : Any?{
 
             if ( verifyConnection( context, fragmentManager ) ) {
                 try {
@@ -53,7 +53,7 @@ class CRUDController {
             return ArrayList()
         }
 
-        fun delete (`object`: Any, uuid: String, fragmentManager: FragmentManager, context: Context) {
+        fun delete (`object`: Object, uuid: String, fragmentManager: FragmentManager, context: Context) {
 
             if ( verifyConnection( context, fragmentManager ) ) {
 

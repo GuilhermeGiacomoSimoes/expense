@@ -45,7 +45,7 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
     }
 
     private fun inflateListBank( listBank : ArrayList<String> ) {
-        val adapter : ArrayAdapter<String> = ArrayAdapter<String>(
+        val adapter : ArrayAdapter<String> = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
             listBank
