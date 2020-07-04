@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
+import com.simoes.expense.helpers.NameClasses
 import com.simoes.expense.model.models.Bank
+import com.simoes.expense.model.models.Expense
 import kotlinx.android.synthetic.main.fragment_expense.*
 import java.util.ArrayList
 
@@ -27,12 +29,12 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         return inflater.inflate(R.layout.fragment_expense , container, false)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if ( fragmentManager != null && context != null ){
-            CRUDController.findAll(Bank(), fragmentManager!!, this, context!!)
+        if ( fragmentManager != null && context != null ) {
+            CRUDController.findAll( Bank(),     fragmentManager!!, this, context!! )
+            CRUDController.findAll( Expense(),  fragmentManager!!, this, context!! )
         }
 
         hide_balance.setOnClickListener {
@@ -90,13 +92,18 @@ class ExpenseFragment : Fragment(), CallBackReturn {
     }
 
     override fun callback(list: ArrayList<Any>) {
-        listBanks           = list as ArrayList<Bank>
-        val listBankBalance    = getListBankBalance ( listBanks )
-        val sumOfBalances   = sumOfBalances         ( listBankBalance )
-        changeBalanceView( sumOfBalances )
+        if ( list[0].javaClass.name == NameClasses.Bank.name ){
+            listBanks           = list as ArrayList<Bank>
+            val listBankBalance    = getListBankBalance ( listBanks )
+            val sumOfBalances   = sumOfBalances         ( listBankBalance )
+            changeBalanceView( sumOfBalances )
 
-        this.sumBalance = sumOfBalances
+            this.sumBalance = sumOfBalances
+        }
+
+        else if ( list[0].javaClass.name == NameClasses.Expense.name ){
+            
+        }
     }
-
 
 }
