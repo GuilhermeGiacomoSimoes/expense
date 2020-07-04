@@ -100,10 +100,6 @@ class ExpenseFragment : Fragment(), CallBackReturn {
 
             this.sumBalance = sumOfBalances
         }
-
-        else if ( list[0].javaClass.name == NameClasses.Expense.name ){
-            
-        }
     }
 
 }
