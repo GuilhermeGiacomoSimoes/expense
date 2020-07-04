@@ -75,7 +75,6 @@ class CRUDController {
         }
 
         fun create(`object`: Object, fragmentManager: FragmentManager, context: Context)  {
-
             if ( verifyConnection( context, fragmentManager ) ) {
                 try {
                     if(CRUDModel.create(`object`)) {
@@ -89,8 +88,6 @@ class CRUDController {
                     FeedbackDialog.showDialog( fragmentManager, e.toString(), "Erro" )
                 }
             }
-
-
         }
 
         fun update(`object`: Object, fragmentManager: FragmentManager, context: Context) {

@@ -24,16 +24,12 @@ class CRUDModel {
 
                         val obj = p0.children.elementAt(0).getValue(`object`::class.java)
 
-
                     }
 
                     override fun onCancelled(p0: DatabaseError) {
 
                     }
                 })
-
-
-
 
             }catch (e:Exception) {
 
@@ -48,14 +44,11 @@ class CRUDModel {
                 val nameObject      = getObjectName(`object`)
 
                  firebase.child(nameObject).addValueEventListener(object : ValueEventListener {
-                    override fun onDataChange(p0: DataSnapshot) {
 
+                     override fun onDataChange(p0: DataSnapshot) {
                        for (data in p0.children){
-
                            if ( data.getValue(`object` ::class.java) != null) {
-
                                val objectClass  = data.getValue(`object` ::class.java)  !!
-
                                list.add( objectClass )
                            }
                        }
@@ -113,7 +106,7 @@ class CRUDModel {
                 val firebase = FirebaseConfiguration.firebase
                 val nameObject = getObjectName(`object`)
 
-                firebase.child( nameObject ).setValue(`object`)
+                firebase.child( nameObject ).child( `object`.uuid ).setValue(`object`)
                 true
 
             }catch (e: Exception){
