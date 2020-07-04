@@ -47,15 +47,22 @@
         android:gravity="center"
         >
 
-        <EditText
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="R$ 0,00"
-            android:id="@+id/edt_amount_add"
-            android:layout_margin="10dp"
-            android:inputType="numberDecimal"
-            />
+            android:layout_marginBottom="12dp"
+            android:layout_margin="10dp">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="saldo"
+                android:inputType="numberDecimal"
+                android:id="@+id/edt_amount_add"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Spinner
             android:layout_width="match_parent"

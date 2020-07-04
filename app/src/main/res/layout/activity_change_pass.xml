@@ -47,33 +47,56 @@
         android:gravity="center"
         >
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="senha antiga"
-            android:id="@+id/edt_old_pass"
-            android:layout_margin="10dp"
-            android:inputType="textPassword"
-            />
+            android:layout_marginBottom="12dp"
+            android:layout_margin="10dp">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="senha antiga"
+                android:id="@+id/edt_old_pass"
+                android:layout_margin="10dp"
+                android:inputType="textPassword"
+                />
 
-        <EditText
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="nova senha"
-            android:id="@+id/edt_new_pass"
-            android:layout_margin="10dp"
-            android:inputType="textPassword"
-            />
+            android:layout_marginBottom="12dp"
+            android:layout_margin="10dp">
 
-        <EditText
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="nova senha"
+                android:id="@+id/edt_new_pass"
+                android:layout_margin="10dp"
+                android:inputType="textPassword"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="repetir nova senha"
-            android:id="@+id/edt_new_pass_repeat"
-            android:layout_margin="10dp"
-            android:inputType="textPassword"
-            />
+            android:layout_marginBottom="12dp"
+            android:layout_margin="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="repetir nova senha"
+                android:id="@+id/edt_new_pass_repeat"
+                android:layout_margin="10dp"
+                android:inputType="textPassword"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
 
         <androidx.cardview.widget.CardView

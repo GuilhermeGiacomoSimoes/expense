@@ -12,7 +12,6 @@ import com.simoes.expense.helpers.CallBackReturn
 import com.simoes.expense.model.models.Bank
 import kotlinx.android.synthetic.main.activity_add_amount.*
 
-
 class AddAmountActivity : AppCompatActivity(), CallBackReturn {
 
     private lateinit var listBanks      : ArrayList<Bank>
