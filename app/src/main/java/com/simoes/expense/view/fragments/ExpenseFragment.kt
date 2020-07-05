@@ -21,6 +21,8 @@ class ExpenseFragment : Fragment(), CallBackReturn {
     private          var hideBalance    = false
     private          var sumBalance     = .0
 
+    private lateinit var listExpense : ArrayList<Expense>
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -91,14 +93,28 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         return summation
     }
 
+    private fun getListExpenseDescription( listExpense : ArrayList<Expense> ) : ArrayList<String> {
+        val expenseDescription = ArrayList<String>()
+
+        for ( expense in listExpense ) {
+            expenseDescription.add( expense.toString() )
+        }
+
+        return expenseDescription
+    }
+
     override fun callback(list: ArrayList<Any>) {
         if ( list[0].javaClass.name == NameClasses.Bank.name ){
-            listBanks           = list as ArrayList<Bank>
-            val listBankBalance    = getListBankBalance ( listBanks )
-            val sumOfBalances   = sumOfBalances         ( listBankBalance )
+            listBanks               = list as ArrayList<Bank>
+            val listBankBalance     = getListBankBalance ( listBanks )
+            val sumOfBalances       = sumOfBalances      ( listBankBalance )
             changeBalanceView( sumOfBalances )
 
             this.sumBalance = sumOfBalances
+        }
+        else if ( list[0].javaClass.name == NameClasses.Expense.name ) {
+            listExpense = list as ArrayList<Expense>
+            val listExpenseDescription = getListExpenseDescription( listExpense )
         }
     }
 

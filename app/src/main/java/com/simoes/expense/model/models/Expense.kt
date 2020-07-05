@@ -9,4 +9,8 @@ class Expense : Object() {
     var isFixed: Boolean = false
     var value: Double    = .0
     var repeat : Boolean = false
+
+    fun toString() : String {
+        return "$name - venc: $dueDate"
+    }
 }
