@@ -68,13 +68,10 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
 
         val edtAmount   =  edt_amount_add.text.toString().toDouble()
         val bank        = bankSelected
-
-        bank.balance += edtAmount
+        bank.balance    += edtAmount
 
         CRUDController.update( bank, supportFragmentManager, this )
-
     }
-
 
     override fun callback(list: ArrayList<Any>){
         listBanks           = list as ArrayList<Bank>

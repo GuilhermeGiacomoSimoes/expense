@@ -1,7 +1,6 @@
 package com.simoes.expense.view.fragments
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -131,7 +130,9 @@ class ExpenseFragment : Fragment(), CallBackReturn {
 
         if ( this.chargingTerminal == 2 ) {
             this.chargingTerminal = 0
-            swiperefresh.isRefreshing = false
+            if ( swiperefresh != null && swiperefresh.isRefreshing ){
+                swiperefresh.isRefreshing = false
+            }
         }
     }
 }

@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         val ft = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.container, ExpenseFragment())
+        ft.replace(R.id.container, MoreFragment())
         ft.commit()
 
         super.onResume()
