@@ -1,6 +1,7 @@
 package com.simoes.expense.view.fragments
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,10 +19,12 @@ import java.util.ArrayList
 
 class ExpenseFragment : Fragment(), CallBackReturn {
 
-    private lateinit var listExpense    : ArrayList<Expense>
-    private lateinit var listBanks      : ArrayList<Bank>
-    private          var hideBalance    = false
-    private          var sumBalance     = .0
+    private lateinit var listExpense        : ArrayList<Expense>
+    private lateinit var listBanks          : ArrayList<Bank>
+    private          var hideBalance        = false
+    private          var sumBalance         = .0
+    private          var chargingTerminal   = 0
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,13 +38,22 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         super.onViewCreated(view, savedInstanceState)
 
         if ( fragmentManager != null && context != null ) {
-            CRUDController.findAll( Bank(),     fragmentManager!!, this, context!! )
-            CRUDController.findAll( Expense(),  fragmentManager!!, this, context!! )
+            findInformations()
         }
 
         hide_balance.setOnClickListener {
             hideBalance()
         }
+
+        swiperefresh.setOnRefreshListener {
+            findInformations()
+        }
+    }
+
+    private fun findInformations() {
+        list_expenses.invalidate ( )
+        CRUDController.findAll  ( Bank(),     fragmentManager!!, this, context!! )
+        CRUDController.findAll  ( Expense(),  fragmentManager!!, this, context!! )
     }
 
     private fun hideBalance() {
@@ -107,10 +119,19 @@ class ExpenseFragment : Fragment(), CallBackReturn {
             changeBalanceView( sumOfBalances )
 
             this.sumBalance = sumOfBalances
+
+            this.chargingTerminal ++
         }
         else if ( list[0].javaClass.name == "com.simoes.expense.model.models.${NameClasses.Expense.name}" ) {
             listExpense = list as ArrayList<Expense>
             configListViewExpense()
+
+            this.chargingTerminal ++
+        }
+
+        if ( this.chargingTerminal == 2 ) {
+            this.chargingTerminal = 0
+            swiperefresh.isRefreshing = false
         }
     }
 }
