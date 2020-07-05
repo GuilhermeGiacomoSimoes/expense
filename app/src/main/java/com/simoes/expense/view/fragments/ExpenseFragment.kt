@@ -12,16 +12,16 @@ import com.simoes.expense.helpers.CallBackReturn
 import com.simoes.expense.helpers.NameClasses
 import com.simoes.expense.model.models.Bank
 import com.simoes.expense.model.models.Expense
+import com.simoes.expense.view.adapters.ExpenseAdapter
 import kotlinx.android.synthetic.main.fragment_expense.*
 import java.util.ArrayList
 
 class ExpenseFragment : Fragment(), CallBackReturn {
 
-    private lateinit var listBanks  : ArrayList<Bank>
+    private lateinit var listExpense    : ArrayList<Expense>
+    private lateinit var listBanks      : ArrayList<Bank>
     private          var hideBalance    = false
     private          var sumBalance     = .0
-
-    private lateinit var listExpense : ArrayList<Expense>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -93,14 +93,8 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         return summation
     }
 
-    private fun getListExpenseDescription( listExpense : ArrayList<Expense> ) : ArrayList<String> {
-        val expenseDescription = ArrayList<String>()
-
-        for ( expense in listExpense ) {
-            expenseDescription.add( expense.toString() )
-        }
-
-        return expenseDescription
+    private fun configListViewExpense() {
+        list_expenses.adapter = ExpenseAdapter( listExpense )
     }
 
     override fun callback(list: ArrayList<Any>) {
@@ -114,7 +108,8 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         }
         else if ( list[0].javaClass.name == NameClasses.Expense.name ) {
             listExpense = list as ArrayList<Expense>
-            val listExpenseDescription = getListExpenseDescription( listExpense )
+
+            configListViewExpense()
         }
     }
 
