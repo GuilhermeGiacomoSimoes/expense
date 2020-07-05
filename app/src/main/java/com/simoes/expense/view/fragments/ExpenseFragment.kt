@@ -94,7 +94,9 @@ class ExpenseFragment : Fragment(), CallBackReturn {
     }
 
     private fun configListViewExpense() {
-        list_expenses.adapter = ExpenseAdapter( listExpense )
+        if ( context != null ) {
+            list_expenses.adapter = ExpenseAdapter( listExpense , context!!)
+        }
     }
 
     override fun callback(list: ArrayList<Any>) {
@@ -108,7 +110,6 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         }
         else if ( list[0].javaClass.name == NameClasses.Expense.name ) {
             listExpense = list as ArrayList<Expense>
-
             configListViewExpense()
         }
     }
