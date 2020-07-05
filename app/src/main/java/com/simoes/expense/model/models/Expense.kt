@@ -10,7 +10,7 @@ class Expense : Object() {
     var value: Double    = .0
     var repeat : Boolean = false
 
-    fun toString() : String {
+    override fun toString() : String {
         return "$name - venc: $dueDate"
     }
 }
