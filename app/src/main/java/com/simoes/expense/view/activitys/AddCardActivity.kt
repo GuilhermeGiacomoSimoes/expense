@@ -36,59 +36,68 @@ class AddCardActivity : AppCompatActivity() {
     }
 
     private fun configListDays () {
-        list_day.onItemSelectedListener = object :
-            AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parentView          : AdapterView<*>?,
-                selectedItemView    : View?,
-                position            : Int,
-                id                  : Long
-            ) {
-                day = Integer.parseInt( days[ position ] )
-            }
+        if ( list_day != null ) {
+            list_day.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parentView          : AdapterView<*>?,
+                    selectedItemView    : View?,
+                    position            : Int,
+                    id                  : Long
+                ) {
+                    day = Integer.parseInt( days[ position ] )
+                }
 
-            override fun onNothingSelected(parentView: AdapterView<*>?) {
-                //TODO implements
+                override fun onNothingSelected(parentView: AdapterView<*>?) {
+                    //TODO implements
+                }
             }
         }
     }
 
     private fun configListFlags () {
-        flag_card.onItemSelectedListener = object :
-            AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parentView          : AdapterView<*>?,
-                selectedItemView    : View?,
-                position            : Int,
-                id                  : Long
-            ) {
-                flagSelected = listFlags[position]
-            }
+        if ( flag_card != null ) {
+            flag_card.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parentView          : AdapterView<*>?,
+                    selectedItemView    : View?,
+                    position            : Int,
+                    id                  : Long
+                ) {
+                    flagSelected = listFlags[position]
+                }
 
-            override fun onNothingSelected(parentView: AdapterView<*>?) {
-                //TODO implements
+                override fun onNothingSelected(parentView: AdapterView<*>?) {
+                    //TODO implements
+                }
             }
         }
+
     }
 
     private fun inflateListFlags( ) {
-        val adapter : ArrayAdapter<String> = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_item,
-            listFlags
-        )
+        if ( flag_card != null ){
+            val adapter : ArrayAdapter<String> = ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_item,
+                listFlags
+            )
 
-        flag_card.adapter = adapter
+            flag_card.adapter = adapter
+        }
     }
 
     private fun inflateListDays( ){
-        days =  resources.getStringArray( R.array.days )
+        if ( list_day != null ) {
+            days =  resources.getStringArray( R.array.days )
 
-        ArrayAdapter.createFromResource(this, R.array.days, android.R.layout.simple_spinner_item)
-            .also {adapter ->
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                list_day.adapter = adapter
-            }
+            ArrayAdapter.createFromResource(this, R.array.days, android.R.layout.simple_spinner_item)
+                .also {adapter ->
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    list_day.adapter = adapter
+                }
+        }
     }
 
     private fun createCard() {
