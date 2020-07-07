@@ -9,19 +9,19 @@ import androidx.appcompat.app.AppCompatActivity
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
-import com.simoes.expense.model.models.Bank
+import com.simoes.expense.model.models.Card
 import kotlinx.android.synthetic.main.activity_add_amount.*
 
 class AddAmountActivity : AppCompatActivity(), CallBackReturn {
 
-    private lateinit var listBanks      : ArrayList<Bank>
-    private lateinit var bankSelected   : Bank
+    private lateinit var listCards      : ArrayList<Card>
+    private lateinit var cardSelected   : Card
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_amount)
 
-        CRUDController.findAll( Bank(), supportFragmentManager , this, this)
+        CRUDController.findAll( Card(), supportFragmentManager , this, this)
 
         btn_add_amount_bank.setOnClickListener {
             addAmountBank()
@@ -34,7 +34,7 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
                 position            : Int,
                 id                  : Long
             ) {
-                bankSelected = listBanks[position]
+                cardSelected = listCards[position]
             }
 
             override fun onNothingSelected(parentView: AdapterView<*>?) {
@@ -53,10 +53,10 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
         list_bank_for_add_amount.adapter = adapter
     }
 
-    private fun getListBankName( listBank: ArrayList<Bank> ) : ArrayList<String> {
+    private fun getListBankName(listCard: ArrayList<Card> ) : ArrayList<String> {
         val names = ArrayList<String>()
 
-        for ( bank in listBank ) {
+        for ( bank in listCard ) {
             names.add( bank.name )
         }
 
@@ -67,15 +67,15 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
     private fun addAmountBank() {
 
         val edtAmount   =  edt_amount_add.text.toString().toDouble()
-        val bank        = bankSelected
+        val bank        = cardSelected
         bank.balance    += edtAmount
 
         CRUDController.update( bank, supportFragmentManager, this )
     }
 
     override fun callback(list: ArrayList<Any>){
-        listBanks           = list as ArrayList<Bank>
-        val listBankName    = getListBankName( listBanks )
+        listCards           = list as ArrayList<Card>
+        val listBankName    = getListBankName( listCards )
         inflateListBank(listBankName)
     }
 }

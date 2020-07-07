@@ -10,7 +10,7 @@ import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
 import com.simoes.expense.helpers.NameClasses
-import com.simoes.expense.model.models.Bank
+import com.simoes.expense.model.models.Card
 import com.simoes.expense.model.models.Expense
 import com.simoes.expense.view.adapters.ExpenseAdapter
 import kotlinx.android.synthetic.main.fragment_expense.*
@@ -19,7 +19,7 @@ import java.util.ArrayList
 class ExpenseFragment : Fragment(), CallBackReturn {
 
     private lateinit var listExpense        : ArrayList<Expense>
-    private lateinit var listBanks          : ArrayList<Bank>
+    private lateinit var listCards          : ArrayList<Card>
     private          var hideBalance        = false
     private          var sumBalance         = .0
     private          var chargingTerminal   = 0
@@ -51,7 +51,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
 
     private fun findInformations() {
         list_expenses.invalidate ( )
-        CRUDController.findAll  ( Bank(),     fragmentManager!!, this, context!! )
+        CRUDController.findAll  ( Card(),     fragmentManager!!, this, context!! )
         CRUDController.findAll  ( Expense(),  fragmentManager!!, this, context!! )
     }
 
@@ -78,10 +78,10 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         }
     }
 
-    private fun getListBankBalance( listBank : ArrayList<Bank> ) : ArrayList<Double> {
+    private fun getListBankBalance(listCard : ArrayList<Card> ) : ArrayList<Double> {
         val listBalance = ArrayList<Double>()
 
-        for ( bank in listBank ) {
+        for ( bank in listCard ) {
             listBalance.add( bank.balance )
         }
 
@@ -112,8 +112,8 @@ class ExpenseFragment : Fragment(), CallBackReturn {
 
     override fun callback(list: ArrayList<Any>) {
         if ( list[0].javaClass.name == "com.simoes.expense.model.models.${NameClasses.Bank.name}" ){
-            listBanks               = list as ArrayList<Bank>
-            val listBankBalance     = getListBankBalance ( listBanks )
+            listCards               = list as ArrayList<Card>
+            val listBankBalance     = getListBankBalance ( listCards )
             val sumOfBalances       = sumOfBalances      ( listBankBalance )
             changeBalanceView( sumOfBalances )
 

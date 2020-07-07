@@ -3,7 +3,7 @@ package com.simoes.expense.model.models
 class Expense : Object() {
     lateinit var name    : String
     lateinit var dueDate : String
-    lateinit var bank    : Bank
+    lateinit var card    : Card
 
     var paidOut: Boolean = false
     var isFixed: Boolean = false

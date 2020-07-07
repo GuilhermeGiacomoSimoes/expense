@@ -11,15 +11,7 @@ import com.simoes.expense.model.models.Expense
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ExpenseAdapter : BaseAdapter {
-
-    private var listExpense : ArrayList<Expense>
-    private var context     : Context
-
-    constructor( listExpense : ArrayList<Expense>, context: Context ) {
-        this.listExpense = listExpense
-        this.context = context
-    }
+class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var context: Context) : BaseAdapter() {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val expense = listExpense[position]

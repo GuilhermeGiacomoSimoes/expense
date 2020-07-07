@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
-import com.simoes.expense.model.models.Bank
+import com.simoes.expense.model.models.Card
 import com.simoes.expense.model.models.Expense
 import kotlinx.android.synthetic.main.activity_add_expense.*
 import java.util.ArrayList
@@ -18,14 +18,14 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
     private          var day = "0"
     private lateinit var days : Array<String>
 
-    private lateinit var listBanks      : ArrayList<Bank>
-    private lateinit var bankSelected   : Bank
+    private lateinit var listCards      : ArrayList<Card>
+    private lateinit var cardSelected   : Card
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_expense)
 
-        CRUDController.findAll( Bank(), supportFragmentManager , this, this)
+        CRUDController.findAll( Card(), supportFragmentManager , this, this)
 
         days =  resources.getStringArray( R.array.days )
 
@@ -59,7 +59,7 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
                 position            : Int,
                 id                  : Long
             ) {
-                bankSelected = listBanks[position]
+                cardSelected = listCards[position]
             }
 
             override fun onNothingSelected(parentView: AdapterView<*>?) {
@@ -77,7 +77,7 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
     private fun saveExpense() {
 
         val expense     = Expense()
-        expense.bank    = bankSelected
+        expense.card    = cardSelected
         expense.dueDate = day.toString()
         expense.name    = edt_expense_name  .text.toString()
         expense.value   = edt_amount_expense.text.toString().toDouble()
@@ -96,10 +96,10 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
         list_bank_for_add_expense.adapter = adapter
     }
 
-    private fun getListBankName( listBank: ArrayList<Bank> ) : ArrayList<String> {
+    private fun getListBankName(listCard: ArrayList<Card> ) : ArrayList<String> {
         val names = ArrayList<String>()
 
-        for ( bank in listBank ) {
+        for ( bank in listCard ) {
             names.add( bank.name )
         }
 
@@ -107,8 +107,8 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
     }
 
     override fun callback(list: ArrayList<Any>){
-        listBanks           = list as ArrayList<Bank>
-        val listBankName    = getListBankName( listBanks )
+        listCards           = list as ArrayList<Card>
+        val listBankName    = getListBankName( listCards )
         inflateListBank(listBankName)
     }
 
