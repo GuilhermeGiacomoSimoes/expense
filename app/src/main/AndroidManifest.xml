@@ -16,7 +16,7 @@
         <activity android:name=".view.activitys.ChangePassActivity" />
         <activity android:name=".view.activitys.AddExpenseActivity" />
         <activity android:name=".view.activitys.AddAmountActivity" />
-        <activity android:name=".view.activitys.AddBankActivity" />
+        <activity android:name=".view.activitys.AddCardActivity" />
         <activity android:name=".view.activitys.LoginActivity" />
         <activity android:name=".view.activitys.MainActivity">
             <intent-filter>

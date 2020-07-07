@@ -7,10 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.simoes.expense.R
-import com.simoes.expense.view.activitys.AddAmountActivity
-import com.simoes.expense.view.activitys.AddBankActivity
-import com.simoes.expense.view.activitys.AddExpenseActivity
-import com.simoes.expense.view.activitys.ChangePassActivity
+import com.simoes.expense.view.activitys.*
 import kotlinx.android.synthetic.main.fragment_more.*
 
 class MoreFragment : Fragment() {
@@ -27,7 +24,7 @@ class MoreFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         openScreenCreateBank.setOnClickListener {
-            startActivity(Intent( context, AddBankActivity ::class.java ))
+            startActivity(Intent( context, AddCardActivity ::class.java ))
         }
 
         openScreenAddCredit.setOnClickListener {
@@ -40,6 +37,10 @@ class MoreFragment : Fragment() {
 
         openScreenChangePass.setOnClickListener {
             startActivity(Intent( context, ChangePassActivity::class.java ))
+        }
+
+        openListCards.setOnClickListener {
+            startActivity(Intent( context, ListCardActivity::class.java ))
         }
 
     }

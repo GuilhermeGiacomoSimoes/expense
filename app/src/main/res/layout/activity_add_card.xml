@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.activitys.AddBankActivity"
+    tools:context=".view.activitys.AddCardActivity"
     android:orientation="vertical"
     android:padding="10dp">
 
@@ -18,7 +18,7 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/ic_bank"
+            android:src="@drawable/ic_card"
             />
 
         <LinearLayout
@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="30sp"
-                android:text="adicionar banco"
+                android:text="adicionar cartão"
                 />
 
         </LinearLayout>
@@ -56,8 +56,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="nome do banco"
-                android:id="@+id/edt_name_bank"
+                android:hint="nome"
+                android:id="@+id/edt_name_card"
                 android:layout_margin="10dp"
                 />
 
@@ -72,14 +72,27 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="saldo"
-                android:id="@+id/edt_amount_bank"
+                android:hint="limite"
+                android:id="@+id/edt_limit_card"
                 android:layout_margin="10dp"
                 android:inputType="numberDecimal"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:id="@+id/due_day"
+            />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:id="@+id/flag_card"
+            />
 
         <androidx.cardview.widget.CardView
             android:layout_margin="10dp"
@@ -87,7 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
-            android:id="@+id/btn_save_bank"
+            android:id="@+id/btn_save_card"
             >
 
             <TextView

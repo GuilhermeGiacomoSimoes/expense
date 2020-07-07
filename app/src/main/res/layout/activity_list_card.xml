@@ -8,14 +8,14 @@
     >
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swiperefresh"
+        android:id="@+id/swiperefreshCards"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/list_banks"
+            android:id="@+id/list_cards"
             />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

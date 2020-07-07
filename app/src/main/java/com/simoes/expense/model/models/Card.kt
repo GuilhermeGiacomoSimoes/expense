@@ -8,5 +8,5 @@ class Card  : Object() {
     lateinit    var name     : String
                 var balance  = .0
                 var dueDate  =  0
-                var spent    = .0
+                var limit    = .0
 }

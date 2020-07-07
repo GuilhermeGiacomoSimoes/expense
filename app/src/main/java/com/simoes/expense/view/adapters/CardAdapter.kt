@@ -1,15 +1,18 @@
 package com.simoes.expense.view.adapters
 
-import android.animation.ObjectAnimator
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.simoes.expense.R
+import com.simoes.expense.helpers.FlagCards
 import com.simoes.expense.model.models.Card
-import java.util.ArrayList
+import java.text.SimpleDateFormat
+import java.util.*
 
 class CardAdapter( private var listCard: ArrayList<Card>, private var context: Context ) : BaseAdapter() {
 
@@ -25,30 +28,89 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
             convertView
         }
 
-        val progresBarCard      = layout.findViewById<TextView>(R.id.progres_bar_card)
+        val progresBarCard      = layout.findViewById<ProgressBar>(R.id.progres_bar_card)
+        val txtDescription      = layout.findViewById<TextView>(R.id.txt_description)
+        val txtNameCard         = layout.findViewById<TextView>(R.id.txt_name_card)
+        val txtVencDard         = layout.findViewById<TextView>(R.id.txt_venc_card)
+        val simbleFlag          = layout.findViewById<ImageView>(R.id.simble_flag)
 
-
-
-
-        var progressBarAnimator : ObjectAnimator =
-            ObjectAnimator.ofInt( progresBarCard, "", 0, 1000 )
-
-
+        buildCard(              progresBarCard,
+                                txtDescription,
+                                txtNameCard,
+                                txtVencDard,
+                                simbleFlag,
+                                card
+                 )
 
         return layout
 
     }
 
+
+    private fun buildCard(  progresBarCard   : ProgressBar,
+                            txtDescription   : TextView,
+                            txtNameCard      : TextView,
+                            txtVencDard      : TextView,
+                            simbleFlag       : ImageView,
+                            card             : Card
+    ){
+
+        txtDescription.text = buildDescription( card.balance, card.limit )
+        txtNameCard   .text = card.name
+        txtVencDard   .text = buildVencDescription( card.dueDate )
+
+        buildProgressBar( progresBarCard, card )
+        changeImage     ( simbleFlag,     card )
+    }
+
+    private fun changeImage( simbleFlag: ImageView, card: Card ) {
+
+        if ( card.flagCards.name == FlagCards.MASTERCARD.name ){
+            simbleFlag.setImageResource( R.drawable.ic_simble_mastercard )
+        }
+
+        else if ( card.flagCards.name == FlagCards.VISA.name ){
+            simbleFlag.setImageResource( R.drawable.ic_simble_visa )
+        }
+
+    }
+
+    private fun buildProgressBar( progresBarCard: ProgressBar, card: Card ){
+        progresBarCard.max      = card.limit.toInt()
+        progresBarCard.progress = card.balance.toInt()
+    }
+
+    private fun getDueData( dueDay : Int ) : String {
+        val dateFormat  = SimpleDateFormat("dd/MM/yyyy")
+        val date        = Date()
+        val now = dateFormat.format(date).toString()
+
+        val nowArray = now.split("/")
+
+        var month   = Integer.parseInt( nowArray[1] )
+        val day     = Integer.parseInt( nowArray[0] )
+
+        if ( day >= dueDay ) {
+            month ++;
+        }
+
+        return "$dueDay/$month"
+    }
+
+    private fun buildVencDescription( dueDate : Int )                       = "Venc: ${getDueData( dueDate )}"
+
+    private fun buildDescription    ( balance : Double, limit : Double )    = "R$$balance de R$$limit"
+
     override fun getItem(position: Int): Any {
-        TODO("Not yet implemented")
+        return listCard[position]
     }
 
     override fun getItemId(position: Int): Long {
-        TODO("Not yet implemented")
+        return 0
     }
 
     override fun getCount(): Int {
-        TODO("Not yet implemented")
+        return listCard.size
     }
 
 
