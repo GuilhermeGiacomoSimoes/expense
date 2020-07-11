@@ -2,7 +2,7 @@ package com.simoes.expense.helpers
 
 enum class NameClasses {
 
-    Bank,
+    Card,
     Expense,
     Object,
     User

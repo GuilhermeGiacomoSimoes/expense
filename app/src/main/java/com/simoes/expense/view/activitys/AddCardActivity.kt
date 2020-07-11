@@ -32,7 +32,6 @@ class AddCardActivity : AppCompatActivity() {
         btn_save_card.setOnClickListener {
             createCard()
         }
-
     }
 
     private fun configListDays () {

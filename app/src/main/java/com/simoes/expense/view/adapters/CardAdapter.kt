@@ -1,6 +1,7 @@
 package com.simoes.expense.view.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,9 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import com.simoes.expense.R
 import com.simoes.expense.helpers.FlagCards
+import com.simoes.expense.helpers.Helper
 import com.simoes.expense.model.models.Card
+import com.simoes.expense.view.activitys.AddExpenseActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -33,17 +36,18 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
         val txtNameCard         = layout.findViewById<TextView>(R.id.txt_name_card)
         val txtVencDard         = layout.findViewById<TextView>(R.id.txt_venc_card)
         val simbleFlag          = layout.findViewById<ImageView>(R.id.simble_flag)
+        val addExpenseCard      = layout.findViewById<TextView>(R.id.txt_add_expense_card)
 
         buildCard(              progresBarCard,
                                 txtDescription,
                                 txtNameCard,
                                 txtVencDard,
                                 simbleFlag,
-                                card
+                                card,
+                                addExpenseCard
                  )
 
         return layout
-
     }
 
 
@@ -52,8 +56,13 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
                             txtNameCard      : TextView,
                             txtVencDard      : TextView,
                             simbleFlag       : ImageView,
-                            card             : Card
+                            card             : Card,
+                            addExpenseCard   : TextView
     ){
+
+        addExpenseCard.setOnClickListener {
+            openAddExpense( card )
+        }
 
         txtDescription.text = buildDescription( card.balance, card.limit )
         txtNameCard   .text = card.name
@@ -61,6 +70,12 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
 
         buildProgressBar( progresBarCard, card )
         changeImage     ( simbleFlag,     card )
+    }
+
+    private fun openAddExpense( card: Card ) {
+        val intent = Intent(context, AddExpenseActivity ::class.java)
+        intent.putExtra( Helper.UUIDCARD, card )
+        context.startActivity( intent )
     }
 
     private fun changeImage( simbleFlag: ImageView, card: Card ) {
@@ -76,8 +91,14 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
     }
 
     private fun buildProgressBar( progresBarCard: ProgressBar, card: Card ){
+        var progress = .0
+
+        for ( expense in card.expenses ) {
+            progress += expense.value
+        }
+
         progresBarCard.max      = card.limit.toInt()
-        progresBarCard.progress = card.balance.toInt()
+        progresBarCard.progress = progress.toInt()
     }
 
     private fun getDueData( dueDay : Int ) : String {

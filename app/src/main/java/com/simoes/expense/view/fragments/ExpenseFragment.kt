@@ -111,7 +111,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
     }
 
     override fun callback(list: ArrayList<Any>) {
-        if ( list[0].javaClass.name == "com.simoes.expense.model.models.${NameClasses.Bank.name}" ){
+        if ( list[0].javaClass.name == "com.simoes.expense.model.models.${NameClasses.Card.name}" ){
             listCards               = list as ArrayList<Card>
             val listBankBalance     = getListBankBalance ( listCards )
             val sumOfBalances       = sumOfBalances      ( listBankBalance )

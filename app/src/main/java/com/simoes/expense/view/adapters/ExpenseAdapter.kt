@@ -28,7 +28,7 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
         txtNameExpense.text     = expense.name
 
         val txtDueDate          = layout.findViewById<TextView>(R.id.txt_due_date)
-        txtDueDate.text         = getDueData( Integer.parseInt( expense.dueDate ) )
+        txtDueDate.text         = getDueData( expense.dueDate )
 
         val txtValueExpense     = layout.findViewById<TextView>(R.id.txt_value_expense)
         txtValueExpense.text    = expense.value.toString()
