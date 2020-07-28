@@ -99,7 +99,6 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
     }
 
     private fun saveExpense() {
-
         val expense     = Expense()
         expense.card    = cardSelected
         expense.dueDate = day.toInt()

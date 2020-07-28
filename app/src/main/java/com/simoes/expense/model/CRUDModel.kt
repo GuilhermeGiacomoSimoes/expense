@@ -47,8 +47,9 @@ class CRUDModel {
 
                      override fun onDataChange(p0: DataSnapshot) {
                        for (data in p0.children){
-                           if ( data.getValue(`object` ::class.java) != null) {
+                           if ( data.getValue(`object` ::class.java) != null && data.key != null) {
                                val objectClass  = data.getValue(`object` ::class.java)  !!
+                               objectClass.uuid = data.key                              !!
                                list.add( objectClass )
                            }
                        }
