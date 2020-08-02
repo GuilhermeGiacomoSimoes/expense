@@ -111,7 +111,6 @@ class CRUDModel {
             }
         }
 
-
         private fun getObjectName(`object` : Any) : String {
             val arrayPathObject = `object`.javaClass.name.split(".")
             return arrayPathObject[ arrayPathObject.size - 1 ]

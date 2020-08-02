@@ -1,7 +1,6 @@
 package com.simoes.expense.view.activitys
 
 import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
@@ -14,9 +13,9 @@ import java.util.ArrayList
 class ListCardActivity : AppCompatActivity(), CallBackReturn {
 
     private lateinit var listCard: ArrayList<Card>
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    
+    override fun onResume() {
+        super.onResume()
         setContentView(R.layout.activity_list_card)
 
         findCards()
@@ -24,7 +23,6 @@ class ListCardActivity : AppCompatActivity(), CallBackReturn {
         swiperefreshCards.setOnRefreshListener {
             findCards()
         }
-
     }
 
     private fun findCards() {
@@ -36,7 +34,6 @@ class ListCardActivity : AppCompatActivity(), CallBackReturn {
     }
 
     override fun callback(list: ArrayList<Any>) {
-
         this.listCard = list as ArrayList<Card>
         configListViewCards()
 

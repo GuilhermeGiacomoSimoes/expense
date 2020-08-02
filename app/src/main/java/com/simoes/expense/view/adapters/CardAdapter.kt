@@ -64,12 +64,24 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
             openAddExpense( card )
         }
 
-        txtDescription.text = buildDescription( card.balance, card.limit )
+        val totalExpenses = getTotalExpenses( card )
+
+        txtDescription.text = buildDescription( totalExpenses, card.limit )
         txtNameCard   .text = card.name
         txtVencDard   .text = buildVencDescription( card.dueDate )
 
-        buildProgressBar( progresBarCard, card )
+        buildProgressBar( progresBarCard, card.limit.toInt(), totalExpenses.toInt() )
         changeImage     ( simbleFlag,     card )
+    }
+
+    private fun getTotalExpenses( card: Card ) : Double {
+        var progress = .0
+
+        for ( expense in card.expenses ) {
+            progress += expense.value
+        }
+
+        return progress
     }
 
     private fun openAddExpense( card: Card ) {
@@ -90,15 +102,9 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
 
     }
 
-    private fun buildProgressBar( progresBarCard: ProgressBar, card: Card ){
-        var progress = .0
-
-        for ( expense in card.expenses ) {
-            progress += expense.value
-        }
-
-        progresBarCard.max      = card.limit.toInt()
-        progresBarCard.progress = progress.toInt()
+    private fun buildProgressBar( progresBarCard: ProgressBar, limit : Int, progress : Int ){
+        progresBarCard.max      = limit
+        progresBarCard.progress = progress
     }
 
     private fun getDueData( dueDay : Int ) : String {
@@ -118,9 +124,9 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
         return "$dueDay/$month"
     }
 
-    private fun buildVencDescription( dueDate : Int )                       = "Venc: ${getDueData( dueDate )}"
+    private fun buildVencDescription( dueDate : Int )                               = "Venc: ${getDueData( dueDate )}"
 
-    private fun buildDescription    ( balance : Double, limit : Double )    = "R$$balance de R$$limit"
+    private fun buildDescription    ( totalExpenses : Double, limit : Double )      = "R$$totalExpenses de R$$limit"
 
     override fun getItem(position: Int): Any {
         return listCard[position]

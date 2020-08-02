@@ -11,6 +11,7 @@ import com.simoes.expense.helpers.CallBackReturn
 import com.simoes.expense.helpers.Helper
 import com.simoes.expense.model.models.Card
 import com.simoes.expense.model.models.Expense
+import com.simoes.expense.model.models.Object
 import kotlinx.android.synthetic.main.activity_add_expense.*
 import java.util.ArrayList
 
@@ -79,7 +80,9 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
         }
 
         btn_save_bank.setOnClickListener {
-            saveExpense()
+            val expense = createExpense()
+            saveExpense( expense )
+            updateCard ( expense )
         }
 
     }
@@ -98,7 +101,7 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
         list_bank_for_add_expense.visibility    = View.VISIBLE
     }
 
-    private fun saveExpense() {
+    private fun createExpense() : Expense {
         val expense     = Expense()
         expense.card    = cardSelected
         expense.dueDate = day.toInt()
@@ -106,6 +109,16 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
         expense.value   = edt_amount_expense.text.toString().toDouble()
         expense.repeat  = chk_repeat.isChecked
 
+        return expense
+    }
+
+    private fun updateCard( expense: Expense ) {
+        expense.card = null
+        cardSelected.expenses.add( expense )
+        CRUDController.update( cardSelected, supportFragmentManager, this     )
+    }
+
+    private fun saveExpense( expense: Expense ){
         CRUDController.create(expense, supportFragmentManager, this)
     }
 
