@@ -1,6 +1,8 @@
 package com.simoes.expense.model.models
 
-class Expense : Object() {
+import java.io.Serializable
+
+class Expense : Object(), Serializable {
 
              lateinit   var name    : String
     override lateinit   var uuid     : String
