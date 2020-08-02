@@ -1,8 +1,10 @@
 package com.simoes.expense.model.models
 
 class Expense : Object() {
-    lateinit var name    : String
-    lateinit var card    : Card
+
+             lateinit var name    : String
+             lateinit var card    : Card
+    override lateinit   var uuid      : String
 
     var paidOut : Boolean = false
     var isFixed : Boolean = false

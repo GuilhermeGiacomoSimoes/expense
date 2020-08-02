@@ -6,7 +6,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.simoes.expense.helpers.CallBackReturn
 import com.simoes.expense.helpers.FirebaseConfiguration
-import com.simoes.expense.model.models.Object
 import java.lang.Exception
 import java.util.*
 
@@ -14,7 +13,7 @@ class CRUDModel {
 
     companion object {
 
-        fun findByUUID(`object`: Object, uuid: String) {
+        fun findByUUID(`object`: com.simoes.expense.model.models.Object, uuid: String) {
             return try {
                 val firebase    = FirebaseConfiguration.firebase
                 val nameObject  = getObjectName(`object`)
@@ -36,9 +35,8 @@ class CRUDModel {
             }
         }
 
-        fun findAll(`object`: Object, callBack : CallBackReturn ) : Boolean {
+        fun findAll(`object`: Any, callBack : CallBackReturn ) : Boolean {
              try {
-
                 val firebase        = FirebaseConfiguration.firebase
                 val list            = ArrayList<Any>()
                 val nameObject      = getObjectName(`object`)
@@ -49,7 +47,7 @@ class CRUDModel {
                        for (data in p0.children){
                            if ( data.getValue(`object` ::class.java) != null && data.key != null) {
                                val objectClass  = data.getValue(`object` ::class.java)  !!
-                               objectClass.uuid = data.key                              !!
+
                                list.add( objectClass )
                            }
                        }
@@ -57,14 +55,12 @@ class CRUDModel {
                         if ( list.isNotEmpty() ) {
                             callBack.callback( list )
                         }
-
                     }
 
                     override fun onCancelled(p0: DatabaseError) {
                         Log.e("erro", "deu ruim")
                     }
                 })
-
 
                 return true
 
@@ -73,7 +69,7 @@ class CRUDModel {
             }
         }
 
-        fun delete(`object`: Object, uuid: String) : Boolean {
+        fun delete(`object`: com.simoes.expense.model.models.Object, uuid: String) : Boolean {
             return try {
                 val firebase = FirebaseConfiguration.firebase
                 val nameObject = getObjectName(`object`)
@@ -86,7 +82,7 @@ class CRUDModel {
             }
         }
 
-        fun create(`object`: Object)  : Boolean {
+        fun create(`object`: com.simoes.expense.model.models.Object)  : Boolean {
             return try {
                 val firebase   = FirebaseConfiguration.firebase
                 val nameObject = getObjectName(`object`)
@@ -102,7 +98,7 @@ class CRUDModel {
         }
 
 
-        fun update(`object`: Object) : Boolean {
+        fun update(`object`: com.simoes.expense.model.models.Object) : Boolean {
             return try {
                 val firebase = FirebaseConfiguration.firebase
                 val nameObject = getObjectName(`object`)
