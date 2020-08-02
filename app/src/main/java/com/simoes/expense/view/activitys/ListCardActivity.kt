@@ -15,6 +15,7 @@ class ListCardActivity : AppCompatActivity(), CallBackReturn {
 
     override fun onResume() {
         super.onResume()
+
         setContentView(R.layout.activity_list_card)
 
         showOrHideSpinner( !swiperefreshCards.isRefreshing )
