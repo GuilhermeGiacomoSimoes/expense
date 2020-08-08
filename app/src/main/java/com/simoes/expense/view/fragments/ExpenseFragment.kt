@@ -1,6 +1,8 @@
 package com.simoes.expense.view.fragments
 
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,14 +16,16 @@ import com.simoes.expense.model.models.Card
 import com.simoes.expense.model.models.Expense
 import com.simoes.expense.view.adapters.ExpenseAdapter
 import kotlinx.android.synthetic.main.fragment_expense.*
-import java.util.ArrayList
+import java.util.*
+import kotlin.concurrent.schedule
+import kotlin.math.log
 
 class ExpenseFragment : Fragment(), CallBackReturn {
 
     private lateinit var listExpense        : ArrayList<Expense>
     private lateinit var listCards          : ArrayList<Card>
     private          var hideBalance        = false
-    private          var sumBalance         = .0
+    private          var breakCount         = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,6 +56,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
 
         list_expenses.invalidate ( )
         CRUDController.findAll  ( Card(),     fragmentManager!!, this, context!! )
+        CRUDController.findAll  ( Expense(),     fragmentManager!!, this, context!! )
     }
 
     private fun hideBalance() {
@@ -109,32 +114,29 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         }
     }
 
-    private fun getAllExpenses( listCards : ArrayList<Card>) : ArrayList<Expense> {
-        val expenses = ArrayList<Expense>()
-
-        for ( card in listCards ) {
-            expenses.addAll( card.expenses )
-        }
-
-        return expenses
-    }
-
     override fun callback(list: ArrayList<Any>) {
         if ( list[0].javaClass.name == "com.simoes.expense.model.models.${NameClasses.Card.name}" ){
             listCards               = list as ArrayList<Card>
 
             val listBankBalance     = getListBankBalance ( listCards )
             val sumOfBalances       = sumOfBalances      ( listBankBalance )
-            this.listExpense        = getAllExpenses     ( listCards )
 
             changeBalanceView       ( sumOfBalances )
+
+            breakCount ++;
+        }
+        else if ( list[0].javaClass.name == "com.simoes.expense.model.models.${NameClasses.Expense.name}" ) {
+            this.listExpense        = list as ArrayList<Expense>
             configListViewExpense   ( )
-            this.sumBalance = sumOfBalances
+
+            breakCount ++;
         }
 
-        if ( swiperefresh != null && swiperefresh.isRefreshing ){
-            swiperefresh.isRefreshing = false
+        if (breakCount == 2) {
+            breakCount = 0
+            if ( swiperefresh != null && swiperefresh.isRefreshing ){
+                swiperefresh.isRefreshing = false
+            }
         }
-
     }
 }

@@ -38,6 +38,7 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
             buildScreenWithParameterCard( cardToAddExpense as Card )
             cardSelected = cardToAddExpense
             day          = cardToAddExpense.dueDate.toString()
+            typeExpense  = TypeExpense.CARD
         }
 
         btn_save_bank.setOnClickListener {

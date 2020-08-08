@@ -1,12 +1,15 @@
 package com.simoes.expense.view.adapters
 
 import android.content.Context
+import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.ImageView
 import android.widget.TextView
 import com.simoes.expense.R
+import com.simoes.expense.helpers.TypeExpense
 import com.simoes.expense.model.models.Expense
 import java.text.SimpleDateFormat
 import java.util.*
@@ -32,6 +35,10 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
 
         val txtValueExpense     = layout.findViewById<TextView>(R.id.txt_value_expense)
         txtValueExpense.text    = expense.value.toString()
+
+        val imgExpense          = layout.findViewById<ImageView>(R.id.img_expense)
+        val imageCardOrMoney    = getImageCardOrMoney( expense )
+        imgExpense.setImageResource( imageCardOrMoney )
 
         return layout
     }
@@ -63,6 +70,14 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
         }
 
         return "$dueDay/$month"
+    }
+
+    private fun getImageCardOrMoney( expense : Expense ) : Int {
+        return if ( expense.typeExpense == TypeExpense.MONEY ){
+            R.drawable.ic_money_expense
+        } else {
+            R.drawable.ic_card_expense
+        }
     }
 
 }
