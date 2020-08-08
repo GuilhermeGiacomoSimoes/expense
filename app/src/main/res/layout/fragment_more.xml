@@ -27,14 +27,14 @@
             <ImageView
                 android:layout_width="42dp"
                 android:layout_height="42dp"
-                android:src="@drawable/ic_bank"
+                android:src="@drawable/ic_card"
                 android:layout_marginBottom="10dp"
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="adicionar banco"
+                android:text="adicionar cartão"
                 />
 
         </LinearLayout>
@@ -159,7 +159,7 @@
             <ImageView
                 android:layout_width="42dp"
                 android:layout_height="42dp"
-                android:src="@drawable/ic_card"
+                android:src="@drawable/ic_list"
                 android:layout_marginBottom="10dp"
                 />
 
