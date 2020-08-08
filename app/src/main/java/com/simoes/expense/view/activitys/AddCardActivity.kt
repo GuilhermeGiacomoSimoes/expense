@@ -79,7 +79,7 @@ class AddCardActivity : AppCompatActivity() {
         if ( flag_card != null ){
             val adapter : ArrayAdapter<String> = ArrayAdapter(
                 this,
-                android.R.layout.simple_spinner_item,
+                android.R.layout.simple_spinner_dropdown_item,
                 listFlags
             )
 
@@ -88,13 +88,13 @@ class AddCardActivity : AppCompatActivity() {
     }
 
     private fun inflateListDays( ){
-        if ( list_day != null ) {
+        if ( due_day != null ) {
             days =  resources.getStringArray( R.array.days )
 
             ArrayAdapter.createFromResource(this, R.array.days, android.R.layout.simple_spinner_item)
                 .also {adapter ->
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    list_day.adapter = adapter
+                    due_day.adapter = adapter
                 }
         }
     }
