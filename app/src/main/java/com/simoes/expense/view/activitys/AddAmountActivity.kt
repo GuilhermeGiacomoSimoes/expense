@@ -46,7 +46,7 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
     private fun inflateListBank( listBank : ArrayList<String> ) {
         val adapter : ArrayAdapter<String> = ArrayAdapter(
             this,
-            android.R.layout.simple_spinner_item,
+            android.R.layout.simple_spinner_dropdown_item,
             listBank
         )
 
@@ -65,7 +65,6 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
 
 
     private fun addAmountBank() {
-
         val edtAmount   =  edt_amount_add.text.toString().toDouble()
         val bank        = cardSelected
         bank.balance    += edtAmount

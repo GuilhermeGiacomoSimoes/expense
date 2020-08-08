@@ -35,4 +35,9 @@
         <item>30</item>
     </string-array>
 
+    <string-array name="cardOrMoney">
+        <item>cartão</item>
+        <item>dinheiro</item>
+    </string-array>
+
 </resources>

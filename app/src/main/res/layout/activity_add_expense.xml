@@ -39,12 +39,20 @@
 
     </LinearLayout>
 
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:id="@+id/choise_card_or_money"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
+        android:visibility="gone"
+        android:id="@+id/screen_view"
         >
 
         <TextView

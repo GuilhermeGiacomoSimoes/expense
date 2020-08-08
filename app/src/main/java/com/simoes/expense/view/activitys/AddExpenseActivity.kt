@@ -9,19 +9,22 @@ import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
 import com.simoes.expense.helpers.Helper
+import com.simoes.expense.helpers.TypeExpense
 import com.simoes.expense.model.models.Card
 import com.simoes.expense.model.models.Expense
-import com.simoes.expense.model.models.Object
 import kotlinx.android.synthetic.main.activity_add_expense.*
+import kotlinx.android.synthetic.main.activity_list_card.*
 import java.util.ArrayList
 
 class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
 
-    private          var day = "0"
-    private lateinit var days : Array<String>
+    private var choiseCardOrMoney   = arrayOf("cartão", "dinheiro")
+    private var day                 = "0"
 
+    private lateinit var days           : Array<String>
     private lateinit var listCards      : ArrayList<Card>
     private lateinit var cardSelected   : Card
+    private lateinit var typeExpense    : TypeExpense
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +34,6 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
 
         if ( cardToAddExpense == null ) {
             buildScreenWithoutParameterCard()
-            CRUDController.findAll( Card(), supportFragmentManager , this, this)
         }
         else {
             buildScreenWithParameterCard( cardToAddExpense as Card )
@@ -39,6 +41,65 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
             day          = cardToAddExpense.dueDate.toString()
         }
 
+        btn_save_bank.setOnClickListener {
+            val expense = createExpense()
+            saveExpense( expense )
+            updateCard ( expense )
+        }
+
+    }
+
+    private fun configListCardOrMoney(){
+        if ( choise_card_or_money != null ){
+            val adapter : ArrayAdapter<String> = ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_dropdown_item,
+                choiseCardOrMoney
+            )
+
+            choise_card_or_money.adapter = adapter
+        }
+
+
+        choise_card_or_money.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parentView          : AdapterView<*>?,
+                selectedItemView    : View?,
+                position            : Int,
+                id                  : Long
+            ) {
+                typeExpense = if ( choiseCardOrMoney[position].equals("cartão") ) {
+                    mountCardSelectionScreen()
+                    TypeExpense.CARD
+                } else {
+                    screen_view.visibility = View.VISIBLE
+                    mountMoneySelectionScreen()
+                    TypeExpense.MONEY
+                }
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>?) {
+                //TODO implements
+            }
+        }
+    }
+
+    private fun mountCardSelectionScreen() {
+        list_day.visibility                     = View.GONE
+        list_bank_for_add_expense.visibility    = View.VISIBLE
+
+        configListCards()
+    }
+
+    private fun mountMoneySelectionScreen() {
+        list_day.visibility                     = View.VISIBLE
+        list_bank_for_add_expense.visibility    = View.GONE
+
+        configListDays()
+    }
+
+    private fun configListDays() {
         days =  resources.getStringArray( R.array.days )
 
         ArrayAdapter.createFromResource(this, R.array.days, android.R.layout.simple_spinner_item)
@@ -62,6 +123,12 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
                 //TODO implements
             }
         }
+    }
+
+    private fun configListCards(){
+
+        //swipe_refresh_for_list_cards_in_add_expense.isRefreshing = true
+        CRUDController.findAll( Card(), supportFragmentManager , this, this)
 
         list_bank_for_add_expense.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
@@ -78,19 +145,15 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
                 //TODO implements
             }
         }
-
-        btn_save_bank.setOnClickListener {
-            val expense = createExpense()
-            saveExpense( expense )
-            updateCard ( expense )
-        }
-
     }
 
     private fun buildScreenWithParameterCard( card: Card ) {
+        screen_view.visibility                  = View.VISIBLE
+        choise_card_or_money.visibility         = View.GONE
         txt_card_to_expense.visibility          = View.VISIBLE
         list_day.visibility                     = View.GONE
         list_bank_for_add_expense.visibility    = View.GONE
+        choise_card_or_money.visibility         = View.GONE
 
         txt_card_to_expense.text                = card.name
     }
@@ -99,6 +162,9 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
         txt_card_to_expense.visibility          = View.GONE
         list_day.visibility                     = View.VISIBLE
         list_bank_for_add_expense.visibility    = View.VISIBLE
+        choise_card_or_money.visibility         = View.VISIBLE
+
+        configListCardOrMoney()
     }
 
     private fun createExpense() : Expense {
@@ -125,7 +191,7 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
     private fun inflateListBank( listBank : ArrayList<String> ) {
         val adapter : ArrayAdapter<String> = ArrayAdapter(
             this,
-            android.R.layout.simple_spinner_item,
+            android.R.layout.simple_spinner_dropdown_item,
             listBank
         )
 
@@ -146,6 +212,16 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
         listCards           = list as ArrayList<Card>
         val listBankName    = getListBankName( listCards )
         inflateListBank(listBankName)
+
+//        if ( swipe_refresh_for_list_cards_in_add_expense != null
+//            &&  swipe_refresh_for_list_cards_in_add_expense.isRefreshing
+//        )
+//        {
+//            swipe_refresh_for_list_cards_in_add_expense.isRefreshing = false
+//        }
+
+
+        screen_view.visibility = View.VISIBLE
     }
 
 }
