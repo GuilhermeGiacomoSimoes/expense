@@ -22,8 +22,6 @@ class ExpenseFragment : Fragment(), CallBackReturn {
     private lateinit var listCards          : ArrayList<Card>
     private          var hideBalance        = false
     private          var sumBalance         = .0
-    private          var chargingTerminal   = 0
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,7 +50,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
     private fun findInformations() {
         list_expenses.invalidate ( )
         CRUDController.findAll  ( Card(),     fragmentManager!!, this, context!! )
-        CRUDController.findAll  ( Expense(),  fragmentManager!!, this, context!! )
+        //CRUDController.findAll  ( Expense(),  fragmentManager!!, this, context!! )
     }
 
     private fun hideBalance() {
@@ -110,29 +108,32 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         }
     }
 
+    private fun getAllExpenses( listCards : ArrayList<Card>) : ArrayList<Expense> {
+        val expenses = ArrayList<Expense>()
+
+        for ( card in listCards ) {
+            expenses.addAll( card.expenses )
+        }
+
+        return expenses
+    }
+
     override fun callback(list: ArrayList<Any>) {
         if ( list[0].javaClass.name == "com.simoes.expense.model.models.${NameClasses.Card.name}" ){
             listCards               = list as ArrayList<Card>
+
             val listBankBalance     = getListBankBalance ( listCards )
             val sumOfBalances       = sumOfBalances      ( listBankBalance )
-            changeBalanceView( sumOfBalances )
+            this.listExpense        = getAllExpenses     ( listCards )
 
+            changeBalanceView       ( sumOfBalances )
+            configListViewExpense   ( )
             this.sumBalance = sumOfBalances
-
-            this.chargingTerminal ++
-        }
-        else if ( list[0].javaClass.name == "com.simoes.expense.model.models.${NameClasses.Expense.name}" ) {
-            listExpense = list as ArrayList<Expense>
-            configListViewExpense()
-
-            this.chargingTerminal ++
         }
 
-        if ( this.chargingTerminal == 2 ) {
-            this.chargingTerminal = 0
-            if ( swiperefresh != null && swiperefresh.isRefreshing ){
-                swiperefresh.isRefreshing = false
-            }
+        if ( swiperefresh != null && swiperefresh.isRefreshing ){
+            swiperefresh.isRefreshing = false
         }
+
     }
 }
