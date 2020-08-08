@@ -13,7 +13,6 @@ import com.simoes.expense.helpers.TypeExpense
 import com.simoes.expense.model.models.Card
 import com.simoes.expense.model.models.Expense
 import kotlinx.android.synthetic.main.activity_add_expense.*
-import kotlinx.android.synthetic.main.activity_list_card.*
 import java.util.ArrayList
 
 class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
@@ -43,10 +42,16 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
 
         btn_save_bank.setOnClickListener {
             val expense = createExpense()
-            saveExpense( expense )
-            updateCard ( expense )
-        }
 
+            if ( expense.typeExpense == TypeExpense.MONEY ){
+                expense.card = null
+                saveExpense( expense )
+            }
+            else {
+                saveExpense( expense )
+                updateCard ( expense )
+            }
+        }
     }
 
     private fun configListCardOrMoney(){
@@ -168,12 +173,13 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
     }
 
     private fun createExpense() : Expense {
-        val expense     = Expense()
-        expense.card    = cardSelected
-        expense.dueDate = day.toInt()
-        expense.name    = edt_expense_name  .text.toString()
-        expense.value   = edt_amount_expense.text.toString().toDouble()
-        expense.repeat  = chk_repeat.isChecked
+        val expense         = Expense()
+        expense.card        = cardSelected
+        expense.dueDate     = day.toInt()
+        expense.name        = edt_expense_name  .text.toString()
+        expense.value       = edt_amount_expense.text.toString().toDouble()
+        expense.repeat      = chk_repeat.isChecked
+        expense.typeExpense = typeExpense
 
         return expense
     }
