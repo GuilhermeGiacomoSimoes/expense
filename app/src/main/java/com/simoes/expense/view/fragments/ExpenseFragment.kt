@@ -48,9 +48,10 @@ class ExpenseFragment : Fragment(), CallBackReturn {
     }
 
     private fun findInformations() {
+        swiperefresh.isRefreshing = true
+
         list_expenses.invalidate ( )
         CRUDController.findAll  ( Card(),     fragmentManager!!, this, context!! )
-        //CRUDController.findAll  ( Expense(),  fragmentManager!!, this, context!! )
     }
 
     private fun hideBalance() {
