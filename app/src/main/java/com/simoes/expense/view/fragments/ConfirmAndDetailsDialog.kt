@@ -27,12 +27,9 @@ class ConfirmAndDetailsDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         btn_positive_error.setOnClickListener {
             dismissDialog()
         }
-
-
     }
 
     companion object {

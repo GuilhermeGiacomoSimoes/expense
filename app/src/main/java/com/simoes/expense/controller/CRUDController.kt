@@ -52,12 +52,12 @@ class CRUDController {
             return ArrayList()
         }
 
-        fun delete (`object`: com.simoes.expense.model.models.Object, uuid: String, fragmentManager: FragmentManager, context: Context) {
+        fun delete (`object`: com.simoes.expense.model.models.Object, fragmentManager: FragmentManager, context: Context) {
 
             if ( verifyConnection( context, fragmentManager ) ) {
 
                 try {
-                    if(CRUDModel.delete(`object`, uuid)){
+                    if(CRUDModel.delete(`object`, `object`.uuid)){
                         FeedbackDialog.showDialog( fragmentManager, "Deletado com sucesso", "OK" )
                     }
                     else {

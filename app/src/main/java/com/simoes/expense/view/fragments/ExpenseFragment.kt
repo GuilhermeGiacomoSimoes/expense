@@ -1,8 +1,6 @@
 package com.simoes.expense.view.fragments
 
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,8 +15,6 @@ import com.simoes.expense.model.models.Expense
 import com.simoes.expense.view.adapters.ExpenseAdapter
 import kotlinx.android.synthetic.main.fragment_expense.*
 import java.util.*
-import kotlin.concurrent.schedule
-import kotlin.math.log
 
 class ExpenseFragment : Fragment(), CallBackReturn {
 
@@ -111,6 +107,10 @@ class ExpenseFragment : Fragment(), CallBackReturn {
     private fun configListViewExpense() {
         if ( context != null ) {
             list_expenses.adapter = ExpenseAdapter( listExpense , context!!)
+
+            list_expenses.setOnItemClickListener { parent, view, position, id ->
+
+            }
         }
     }
 
