@@ -1,5 +1,7 @@
 package com.simoes.expense.view.fragments
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +33,8 @@ class FeedbackDialog: DialogFragment() {
         btn_positive_error.setOnClickListener {
             super.dismiss()
         }
+
+        dialog?.window?.setBackgroundDrawable( ColorDrawable(Color.TRANSPARENT) )
     }
 
     companion object {

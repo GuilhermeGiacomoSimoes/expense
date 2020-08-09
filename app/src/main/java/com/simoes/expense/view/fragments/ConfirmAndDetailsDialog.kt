@@ -1,5 +1,7 @@
 package com.simoes.expense.view.fragments
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +28,8 @@ class ConfirmAndDetailsDialog : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        dialog?.window?.setBackgroundDrawable( ColorDrawable(Color.TRANSPARENT) )
 
         btn_positive_error.setOnClickListener {
             dismissDialog()
