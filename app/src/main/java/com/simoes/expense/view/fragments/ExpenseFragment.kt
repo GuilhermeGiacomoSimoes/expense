@@ -108,8 +108,10 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         if ( context != null ) {
             list_expenses.adapter = ExpenseAdapter( listExpense , context!!)
 
-            list_expenses.setOnItemClickListener { parent, view, position, id ->
-
+            list_expenses.setOnItemClickListener { _, _, position, _ ->
+                if ( fragmentManager != null ) {
+                    ExpenseDetailDialog.showDialog( fragmentManager!!, listExpense[position] )
+                }
             }
         }
     }

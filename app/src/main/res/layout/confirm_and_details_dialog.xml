@@ -9,77 +9,95 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
-    <TextView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="titulo"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        android:id="@+id/title_dialog"
-        />
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/description_dialog"
-        android:text="essa e uma descricao para servir de exemplos"
-        />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="10dp"
         >
 
-        <androidx.cardview.widget.CardView
-            android:layout_margin="10dp"
-            android:backgroundTint="@color/colorPrimary"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="10dp"
-            android:id="@+id/btn_positive"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp"
             >
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ok"
-                android:textSize="20dp"
-                android:textColor="@color/background_color"
+                android:text="titulo"
                 android:textAlignment="center"
-                android:layout_margin="10dp"
+                android:textSize="30sp"
+                android:id="@+id/title_dialog"
                 />
 
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_margin="10dp"
-            android:backgroundTint="@color/danger"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="10dp"
-            android:id="@+id/btn_negative"
-            android:layout_weight="1"
-            >
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="cancelar"
-                android:textSize="20dp"
-                android:textColor="@color/background_color"
-                android:textAlignment="center"
-                android:layout_margin="10dp"
+                android:id="@+id/description_dialog"
+                android:text="essa e uma descricao para servir de exemplos"
                 />
 
-        </androidx.cardview.widget.CardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                >
+
+                <androidx.cardview.widget.CardView
+                    android:layout_margin="10dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="10dp"
+                    android:id="@+id/btn_positive"
+                    android:layout_weight="1"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ok"
+                        android:textSize="20dp"
+                        android:textColor="@color/background_color"
+                        android:textAlignment="center"
+                        android:layout_margin="10dp"
+                        />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_margin="10dp"
+                    android:backgroundTint="@color/danger"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="10dp"
+                    android:id="@+id/btn_negative"
+                    android:layout_weight="1"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="cancelar"
+                        android:textSize="20dp"
+                        android:textColor="@color/background_color"
+                        android:textAlignment="center"
+                        android:layout_margin="10dp"
+                        />
+
+                </androidx.cardview.widget.CardView>
 
 
 
-    </LinearLayout>
+            </LinearLayout>
 
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

@@ -24,11 +24,11 @@ class CRUDController {
                         return obj
                     }
                     else {
-                        FeedbackDialog.showDialog( fragmentManager , "Erro ao deletar", "Erro")
+                        //FeedbackDialog.showDialog( fragmentManager , "Erro ao deletar", "Erro")
                     }
 
                 }catch (e:Exception) {
-                    FeedbackDialog.showDialog( fragmentManager, e.toString(), "Erro" )
+                    //FeedbackDialog.showDialog( fragmentManager, e.toString(), "Erro" )
                 }
             }
 
@@ -41,11 +41,11 @@ class CRUDController {
                 try {
 
                     if ( ! CRUDModel.findAll(`object`, callBack) ) {
-                        FeedbackDialog.showDialog( fragmentManager, "Erro ao buscar dados", "Erro" )
+                        //FeedbackDialog.showDialog( fragmentManager, "Erro ao buscar dados", "Erro" )
                     }
 
                 }catch (e:Exception) {
-                    FeedbackDialog.showDialog( fragmentManager, e.toString(), "Erro" )
+                    //FeedbackDialog.showDialog( fragmentManager, e.toString(), "Erro" )
                 }
             }
 
@@ -58,14 +58,14 @@ class CRUDController {
 
                 try {
                     if(CRUDModel.delete(`object`, `object`.uuid)){
-                        FeedbackDialog.showDialog( fragmentManager, "Deletado com sucesso", "OK" )
+                        //FeedbackDialog.showDialog( fragmentManager, "Deletado com sucesso", "OK" )
                     }
                     else {
-                        FeedbackDialog.showDialog( fragmentManager, "Erro ao deletar", "Erro" )
+                        //FeedbackDialog.showDialog( fragmentManager, "Erro ao deletar", "Erro" )
                     }
 
                 }catch (e: Exception){
-                    FeedbackDialog.showDialog( fragmentManager, e.toString(), "Erro" )
+                    //FeedbackDialog.showDialog( fragmentManager, e.toString(), "Erro" )
                 }
 
             }
@@ -77,14 +77,14 @@ class CRUDController {
             if ( verifyConnection( context, fragmentManager ) ) {
                 try {
                     if(CRUDModel.create(`object`)) {
-                        FeedbackDialog.showDialog( fragmentManager, "Cadastrado com sucesso", "OK" )
+                       // FeedbackDialog.showDialog( fragmentManager, "Cadastrado com sucesso", "OK" )
                     }
                     else {
-                        FeedbackDialog.showDialog( fragmentManager, "Erro ao cadastrar", "Erro" )
+                       // FeedbackDialog.showDialog( fragmentManager, "Erro ao cadastrar", "Erro" )
                     }
 
                 }catch (e: Exception){
-                    FeedbackDialog.showDialog( fragmentManager, e.toString(), "Erro" )
+                  //  FeedbackDialog.showDialog( fragmentManager, e.toString(), "Erro" )
                 }
             }
         }
@@ -93,14 +93,14 @@ class CRUDController {
             if ( verifyConnection( context, fragmentManager ) ) {
                 try {
                     if(CRUDModel.update(`object`)) {
-                        FeedbackDialog.showDialog( fragmentManager, "Editado com sucesso", "OK" )
+                        //FeedbackDialog.showDialog( fragmentManager, "Editado com sucesso", "OK" )
                     }
                     else {
-                        FeedbackDialog.showDialog( fragmentManager, "Erro ao editar", "Erro" )
+                       // FeedbackDialog.showDialog( fragmentManager, "Erro ao editar", "Erro" )
                     }
 
                 }catch (e: Exception){
-                    FeedbackDialog.showDialog( fragmentManager, e.toString(), "Erro" )
+                   // FeedbackDialog.showDialog( fragmentManager, e.toString(), "Erro" )
                 }
             }
 
@@ -108,7 +108,6 @@ class CRUDController {
         }
 
         private fun verifyConnection( context: Context, fragmentManager: FragmentManager ) : Boolean {
-
             if ( !ConnectionHelper.isConnected( context ) ) {
                 FeedbackDialog.showDialog( fragmentManager, "conecte-se a uma rede", "Sem conexão com a internet" )
                 return false

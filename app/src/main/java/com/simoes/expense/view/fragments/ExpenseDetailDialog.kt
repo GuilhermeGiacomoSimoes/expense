@@ -1,6 +1,7 @@
 package com.simoes.expense.view.fragments
 
-import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +28,8 @@ class ExpenseDetailDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        dialog?.window?.setBackgroundDrawable( ColorDrawable(Color.TRANSPARENT) )
+
         configureTexts()
         configureButtons()
     }
@@ -40,11 +43,13 @@ class ExpenseDetailDialog : DialogFragment() {
     private fun configureButtons() {
         btn_payment_expense_dialog.setOnClickListener {
             CRUDController.update( expense, fragmentManager!!, context!! )
+            dismiss()
         }
 
         btn_delete_expense_dialog.setOnClickListener {
             if ( fragmentManager != null && context != null ) {
                 CRUDController.delete( expense,  fragmentManager!!, context!! )
+                dismiss()
             }
         }
     }
@@ -52,10 +57,9 @@ class ExpenseDetailDialog : DialogFragment() {
     companion object {
         var instance = ExpenseDetailDialog()
 
-        fun showDialog( fragmentManager: FragmentManager, context: Context, expense: Expense ) {
+        fun showDialog( fragmentManager: FragmentManager, expense: Expense ) {
             with(instance) {
                 if (!isAdded) {
-                    isCancelable = false
                     this.expense = expense
                     show(fragmentManager, "")
                 }
