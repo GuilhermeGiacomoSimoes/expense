@@ -1,5 +1,6 @@
 package com.simoes.expense.view.fragments
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -10,6 +11,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
+import com.simoes.expense.helpers.Helper
 import com.simoes.expense.model.models.Expense
 import kotlinx.android.synthetic.main.expense_detail_dialog.*
 
@@ -42,8 +44,13 @@ class ExpenseDetailDialog : DialogFragment() {
 
     private fun configureButtons() {
         btn_payment_expense_dialog.setOnClickListener {
-            CRUDController.update( expense, fragmentManager!!, context!! )
-            dismiss()
+            if ( fragmentManager != null && context != null ) {
+                CRUDController.update( expense, fragmentManager!!, context!! )
+
+                val intent = Intent().putExtra( Helper.EXPENSE_NAME, expense )
+                targetFragment?.onActivityResult(targetRequestCode, Helper.EXPENSE_CODE, intent)
+                dismiss()
+            }
         }
 
         btn_delete_expense_dialog.setOnClickListener {

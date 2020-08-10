@@ -1,5 +1,6 @@
 package com.simoes.expense.view.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
+import com.simoes.expense.helpers.Helper
 import com.simoes.expense.helpers.NameClasses
 import com.simoes.expense.model.models.Card
 import com.simoes.expense.model.models.Expense
@@ -139,6 +141,21 @@ class ExpenseFragment : Fragment(), CallBackReturn {
             if ( swiperefresh != null && swiperefresh.isRefreshing ){
                 swiperefresh.isRefreshing = false
             }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if ( resultCode == Helper.EXPENSE_CODE ) {
+            val expense = data?.extras as Expense
+
+            for (index in 0..listExpense.size ) {
+                if ( expense.equals( listExpense[ index ] ) ) {
+                    listExpense[ index ] = expense
+                    break
+                }
+            }
+
+            list_expenses.invalidate()
         }
     }
 }
