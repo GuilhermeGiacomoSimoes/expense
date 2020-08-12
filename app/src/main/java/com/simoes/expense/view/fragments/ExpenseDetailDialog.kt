@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.simoes.expense.R
@@ -14,10 +15,13 @@ import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.Helper
 import com.simoes.expense.model.models.Expense
 import kotlinx.android.synthetic.main.expense_detail_dialog.*
+import kotlinx.android.synthetic.main.fragment_expense.*
+import java.util.ArrayList
 
 class ExpenseDetailDialog : DialogFragment() {
 
-    private lateinit var expense       : Expense
+    private lateinit var expense        : Expense
+    private lateinit var listView       : ListView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,6 +54,7 @@ class ExpenseDetailDialog : DialogFragment() {
                 val intent = Intent().putExtra( Helper.EXPENSE_NAME, expense )
                 targetFragment?.onActivityResult(targetRequestCode, Helper.EXPENSE_CODE, intent)
                 dismiss()
+                this.listView.deferNotifyDataSetChanged()
             }
         }
 
@@ -57,6 +62,7 @@ class ExpenseDetailDialog : DialogFragment() {
             if ( fragmentManager != null && context != null ) {
                 CRUDController.delete( expense,  fragmentManager!!, context!! )
                 dismiss()
+                this.listView.deferNotifyDataSetChanged()
             }
         }
     }
@@ -64,10 +70,11 @@ class ExpenseDetailDialog : DialogFragment() {
     companion object {
         var instance = ExpenseDetailDialog()
 
-        fun showDialog( fragmentManager: FragmentManager, expense: Expense ) {
+        fun showDialog( fragmentManager: FragmentManager, expense: Expense, listView: ListView, listExpense : ArrayList ) {
             with(instance) {
                 if (!isAdded) {
-                    this.expense = expense
+                    this.expense    = expense
+                    this.listView   = listView
                     show(fragmentManager, "")
                 }
             }
