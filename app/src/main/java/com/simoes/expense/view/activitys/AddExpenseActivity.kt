@@ -67,7 +67,6 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
             choise_card_or_money.adapter = adapter
         }
 
-
         choise_card_or_money.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
