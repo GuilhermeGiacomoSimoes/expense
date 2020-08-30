@@ -173,8 +173,14 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
     }
 
     private fun createExpense() : Expense {
-        val expense         = Expense()
-        expense.card        = cardSelected
+        val expense  = Expense()
+
+        expense.card = if ( typeExpense == TypeExpense.CARD ) {
+            cardSelected
+        } else {
+            null
+        }
+
         expense.dueDate     = day.toInt()
         expense.name        = edt_expense_name  .text.toString()
         expense.value       = edt_amount_expense.text.toString().toDouble()

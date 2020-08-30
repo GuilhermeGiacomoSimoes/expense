@@ -48,7 +48,7 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
 
         return layout
     }
-    
+
     private fun expenseOwn(expense: Expense) : Boolean {
         return Date( "${expense.dueDate}/${DateHelper.nowMonth()}/${DateHelper.nowYear()} 00:00:00" ).time < DateHelper.nowMilliseconds()
     }
