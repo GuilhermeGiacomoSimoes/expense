@@ -35,8 +35,8 @@ class AddCardActivity : AppCompatActivity() {
     }
 
     private fun configListDays () {
-        if ( list_day != null ) {
-            list_day.onItemSelectedListener = object :
+        if ( due_day != null ) {
+            due_day.onItemSelectedListener = object :
                 AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parentView          : AdapterView<*>?,

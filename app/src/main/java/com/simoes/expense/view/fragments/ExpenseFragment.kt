@@ -1,6 +1,5 @@
 package com.simoes.expense.view.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import androidx.fragment.app.Fragment
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
-import com.simoes.expense.helpers.Helper
 import com.simoes.expense.helpers.NameClasses
 import com.simoes.expense.model.models.Card
 import com.simoes.expense.model.models.Expense

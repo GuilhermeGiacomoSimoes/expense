@@ -133,7 +133,6 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
 
     private fun configListCards(){
 
-        //swipe_refresh_for_list_cards_in_add_expense.isRefreshing = true
         CRUDController.findAll( Card(), supportFragmentManager , this, this)
 
         list_bank_for_add_expense.onItemSelectedListener = object :
@@ -219,14 +218,6 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
         listCards           = list as ArrayList<Card>
         val listBankName    = getListBankName( listCards )
         inflateListBank(listBankName)
-
-//        if ( swipe_refresh_for_list_cards_in_add_expense != null
-//            &&  swipe_refresh_for_list_cards_in_add_expense.isRefreshing
-//        )
-//        {
-//            swipe_refresh_for_list_cards_in_add_expense.isRefreshing = false
-//        }
-
 
         screen_view.visibility = View.VISIBLE
     }
