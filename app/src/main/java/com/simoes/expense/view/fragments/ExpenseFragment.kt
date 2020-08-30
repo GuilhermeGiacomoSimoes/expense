@@ -108,11 +108,11 @@ class ExpenseFragment : Fragment(), CallBackReturn {
 
     private fun configListViewExpense() {
         if ( context != null ) {
-            list_expenses.adapter = ExpenseAdapter( listExpense , context!!)
+            list_expenses.adapter = ExpenseAdapter( listExpense , context!! )
 
             list_expenses.setOnItemClickListener { _, _, position, _ ->
                 if ( fragmentManager != null ) {
-                    ExpenseDetailDialog.showDialog( fragmentManager!!, listExpense[position] , list_expenses, listExpense)
+                    ExpenseDetailDialog.showDialog( fragmentManager!!, listExpense[position] , list_expenses )
                 }
             }
         }
@@ -145,11 +145,13 @@ class ExpenseFragment : Fragment(), CallBackReturn {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
         if ( resultCode == Helper.EXPENSE_CODE ) {
             val expense = data?.extras as Expense
 
             for (index in 0..listExpense.size ) {
-                if ( expense.equals( listExpense[ index ] ) ) {
+                if (expense == listExpense[ index ]) {
                     listExpense[ index ] = expense
                     break
                 }

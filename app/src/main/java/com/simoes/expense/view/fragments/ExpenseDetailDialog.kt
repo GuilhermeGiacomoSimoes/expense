@@ -15,7 +15,6 @@ import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.Helper
 import com.simoes.expense.model.models.Expense
 import kotlinx.android.synthetic.main.expense_detail_dialog.*
-import java.util.ArrayList
 
 class ExpenseDetailDialog : DialogFragment() {
 
@@ -51,6 +50,7 @@ class ExpenseDetailDialog : DialogFragment() {
 
                 val intent = Intent().putExtra( Helper.EXPENSE_NAME, expense )
                 targetFragment?.onActivityResult(targetRequestCode, Helper.EXPENSE_CODE, intent)
+
                 dismiss()
             }
         }
