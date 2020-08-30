@@ -10,7 +10,6 @@ import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.FlagCards
 import com.simoes.expense.model.models.Card
 import kotlinx.android.synthetic.main.activity_add_card.*
-import kotlinx.android.synthetic.main.activity_add_expense.*
 
 class AddCardActivity : AppCompatActivity() {
 
