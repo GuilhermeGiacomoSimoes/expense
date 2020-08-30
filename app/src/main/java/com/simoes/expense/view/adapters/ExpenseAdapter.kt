@@ -36,10 +36,23 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
         txtValueExpense.text    = expense.value.toString()
 
         val imgExpense          = layout.findViewById<ImageView>(R.id.img_expense)
-        val imageCardOrMoney    = getImageCardOrMoney( expense )
-        imgExpense.setImageResource( imageCardOrMoney )
+
+        configDesignLayout(imgExpense, txtNameExpense)
 
         return layout
+    }
+
+    private fun configDesignLayout(imageView : ImageView, textView : TextView, expense: Expense) {
+        val imageCardOrMoney    = getImageCardOrMoney( expense )
+        imageView.setImageResource( imageCardOrMoney )
+
+        if ( expenseOwn( expense ) ) {
+
+        }
+    }
+
+    private fun expenseOwn(expense: Expense) : Boolean {
+        return
     }
 
     override fun getItem(position: Int): Any {
