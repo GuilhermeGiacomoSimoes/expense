@@ -52,9 +52,8 @@ class CRUDModel {
                            }
                        }
 
-                        if ( list.isNotEmpty() ) {
-                            callBack.callback( list )
-                        }
+                       callBack.callback( list )
+
                     }
 
                     override fun onCancelled(p0: DatabaseError) {

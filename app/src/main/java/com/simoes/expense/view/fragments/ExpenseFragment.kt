@@ -119,21 +119,21 @@ class ExpenseFragment : Fragment(), CallBackReturn {
     }
 
     override fun callback(list: ArrayList<Any>) {
-        if ( list[0].javaClass.name == "com.simoes.expense.model.models.${NameClasses.Card.name}" ){
-            listCards               = list as ArrayList<Card>
+        breakCount ++;
 
-            val listBankBalance     = getListBankBalance ( listCards )
-            val sumOfBalances       = sumOfBalances      ( listBankBalance )
+        if (!list.isNullOrEmpty()){
+            if ( list[0].javaClass.name == "com.simoes.expense.model.models.${NameClasses.Card.name}" ){
+                listCards               = list as ArrayList<Card>
 
-            changeBalanceView       ( sumOfBalances )
+                val listBankBalance     = getListBankBalance ( listCards )
+                val sumOfBalances       = sumOfBalances      ( listBankBalance )
 
-            breakCount ++;
-        }
-        else if ( list[0].javaClass.name == "com.simoes.expense.model.models.${NameClasses.Expense.name}" ) {
-            this.listExpense        = list as ArrayList<Expense>
-            configListViewExpense   ( )
-
-            breakCount ++;
+                changeBalanceView       ( sumOfBalances )
+            }
+            else if ( list[0].javaClass.name == "com.simoes.expense.model.models.${NameClasses.Expense.name}" ) {
+                this.listExpense        = list as ArrayList<Expense>
+                configListViewExpense   ( )
+            }
         }
 
         if (breakCount == 2) {
@@ -141,23 +141,6 @@ class ExpenseFragment : Fragment(), CallBackReturn {
             if ( swiperefresh != null && swiperefresh.isRefreshing ){
                 swiperefresh.isRefreshing = false
             }
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if ( resultCode == Helper.EXPENSE_CODE ) {
-            val expense = data?.extras as Expense
-
-            for (index in 0..listExpense.size ) {
-                if (expense == listExpense[ index ]) {
-                    listExpense[ index ] = expense
-                    break
-                }
-            }
-
-            list_expenses.invalidate()
         }
     }
 }

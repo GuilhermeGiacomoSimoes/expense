@@ -1,6 +1,7 @@
 package com.simoes.expense.view.adapters
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.simoes.expense.R
+import com.simoes.expense.helpers.DateHelper
 import com.simoes.expense.helpers.TypeExpense
 import com.simoes.expense.model.models.Expense
 import java.text.SimpleDateFormat
@@ -37,22 +39,19 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
 
         val imgExpense          = layout.findViewById<ImageView>(R.id.img_expense)
 
-        configDesignLayout(imgExpense, txtNameExpense)
+        val imageCardOrMoney    = getImageCardOrMoney( expense )
+        imgExpense.setImageResource( imageCardOrMoney )
+
+        if ( expenseOwn( expense ) ) {
+            txtNameExpense.setTextColor(Color.parseColor("#FF0000"))
+        }
 
         return layout
     }
 
-    private fun configDesignLayout(imageView : ImageView, textView : TextView, expense: Expense) {
-        val imageCardOrMoney    = getImageCardOrMoney( expense )
-        imageView.setImageResource( imageCardOrMoney )
-
-        if ( expenseOwn( expense ) ) {
-
-        }
-    }
 
     private fun expenseOwn(expense: Expense) : Boolean {
-        return
+        return Date( "${expense.dueDate}/${DateHelper.nowMonth()}/${DateHelper.nowYear()} 00:00:00" ).time > DateHelper.nowMilliseconds()
     }
 
     override fun getItem(position: Int): Any {

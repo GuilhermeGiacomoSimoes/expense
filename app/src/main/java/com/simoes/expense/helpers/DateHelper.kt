@@ -22,8 +22,18 @@ class DateHelper {
             return getDateNow().split(" ")[1]
         }
 
-        fun nowMilliseconds() : String  {
-            return Date( getDateNow() ).time.toString()
+        fun nowMilliseconds() : Long  {
+            return Date( getDateNow() ).time
+        }
+
+        fun nowMonth() : String {
+            val month = Date( getDateNow() ).month + 1
+            return month.toString()
+        }
+
+        fun nowYear() : String {
+            val year = Date(getDateNow()).year
+            return year.toString()
         }
 
         @SuppressLint("SimpleDateFormat")
