@@ -1,5 +1,6 @@
 package com.simoes.expense.view.activitys
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -229,6 +230,13 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
 
 
         screen_view.visibility = View.VISIBLE
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        val intent = Intent( this, MainActivity ::class.java )
+        startActivity(intent)
     }
 
 }
