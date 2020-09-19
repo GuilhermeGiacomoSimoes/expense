@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         val ft = supportFragmentManager.beginTransaction()
         ft.replace(R.id.container, MoreFragment())
         ft.commit()
-
         super.onResume()
     }
 }

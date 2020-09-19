@@ -53,7 +53,6 @@ class CRUDModel {
                        }
 
                        callBack.callback( list )
-
                     }
 
                     override fun onCancelled(p0: DatabaseError) {

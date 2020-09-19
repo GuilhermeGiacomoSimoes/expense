@@ -31,6 +31,14 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         return inflater.inflate(R.layout.fragment_expense , container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        if ( fragmentManager != null && context != null ) {
+            findInformations()
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -110,10 +118,14 @@ class ExpenseFragment : Fragment(), CallBackReturn {
 
             list_expenses.setOnItemClickListener { _, _, position, _ ->
                 if ( fragmentManager != null ) {
-                    ExpenseDetailDialog.showDialog( fragmentManager!!, listExpense[position] , list_expenses )
+                    ExpenseDetailDialog.showDialog( fragmentManager!!, listExpense[position] )
                 }
             }
         }
+    }
+
+    fun foo() {
+
     }
 
     override fun callback(list: ArrayList<Any>) {
@@ -129,6 +141,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
                 changeBalanceView       ( sumOfBalances )
             }
             else if ( list[0].javaClass.name == "com.simoes.expense.model.models.${NameClasses.Expense.name}" ) {
+                this.listExpense = arrayListOf()
                 this.listExpense        = list as ArrayList<Expense>
                 configListViewExpense   ( )
             }
