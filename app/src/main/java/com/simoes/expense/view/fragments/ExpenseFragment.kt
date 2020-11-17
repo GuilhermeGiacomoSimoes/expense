@@ -114,18 +114,19 @@ class ExpenseFragment : Fragment(), CallBackReturn {
 
     private fun configListViewExpense() {
         if ( context != null ) {
+            list_expenses.invalidate()
             list_expenses.adapter = ExpenseAdapter( listExpense , context!! )
 
             list_expenses.setOnItemClickListener { _, _, position, _ ->
                 if ( fragmentManager != null ) {
-                    ExpenseDetailDialog.showDialog( fragmentManager!!, listExpense[position] )
+                    ExpenseDetailDialog.showDialog( fragmentManager!!, listExpense[position], position)
                 }
             }
         }
     }
 
-    fun foo() {
-
+    fun removeElement ( index : Int ) {
+        (list_expenses.adapter as ExpenseAdapter).remove(index)
     }
 
     override fun callback(list: ArrayList<Any>) {
@@ -141,7 +142,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
                 changeBalanceView       ( sumOfBalances )
             }
             else if ( list[0].javaClass.name == "com.simoes.expense.model.models.${NameClasses.Expense.name}" ) {
-                this.listExpense = arrayListOf()
+                this.listCards.clear()
                 this.listExpense        = list as ArrayList<Expense>
                 configListViewExpense   ( )
             }

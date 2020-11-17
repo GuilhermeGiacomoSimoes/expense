@@ -221,11 +221,13 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
     }
 
     override fun callback(list: ArrayList<Any>){
-        listCards           = list as ArrayList<Card>
-        val listBankName    = getListBankName( listCards )
-        inflateListBank(listBankName)
+        if (!list.isNullOrEmpty()){
+            listCards           = list as ArrayList<Card>
+            val listBankName    = getListBankName( listCards )
+            inflateListBank(listBankName)
 
-        screen_view.visibility = View.VISIBLE
+            screen_view.visibility = View.VISIBLE
+        }
     }
 
     override fun onBackPressed() {
@@ -234,5 +236,4 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
         val intent = Intent( this, MainActivity ::class.java )
         startActivity(intent)
     }
-
 }

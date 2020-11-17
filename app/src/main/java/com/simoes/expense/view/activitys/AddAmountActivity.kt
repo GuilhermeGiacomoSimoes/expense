@@ -73,8 +73,10 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
     }
 
     override fun callback(list: ArrayList<Any>){
-        listCards           = list as ArrayList<Card>
-        val listBankName    = getListBankName( listCards )
-        inflateListBank(listBankName)
+        if ( !list.isNullOrEmpty() ) {
+            listCards           = list as ArrayList<Card>
+            val listBankName    = getListBankName( listCards )
+            inflateListBank(listBankName)
+        }
     }
 }

@@ -92,4 +92,8 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
         }
     }
 
+    fun remove (position: Int){
+        listExpense.remove(getItem(position))
+        notifyDataSetChanged()
+    }
 }

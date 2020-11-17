@@ -42,10 +42,11 @@ class ListCardActivity : AppCompatActivity(), CallBackReturn {
     }
 
     override fun callback(list: ArrayList<Any>) {
-        this.listCard = list as ArrayList<Card>
-        configListViewCards()
+        if(list.isNullOrEmpty()){
+            this.listCard = list as ArrayList<Card>
+            configListViewCards()
 
-        showOrHideSpinner( !swiperefreshCards.isRefreshing )
-
+            showOrHideSpinner( !swiperefreshCards.isRefreshing )
+        }
     }
 }

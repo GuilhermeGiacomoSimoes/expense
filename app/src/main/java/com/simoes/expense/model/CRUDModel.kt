@@ -42,7 +42,6 @@ class CRUDModel {
                 val nameObject      = getObjectName(`object`)
 
                  firebase.child(nameObject).addValueEventListener(object : ValueEventListener {
-
                      override fun onDataChange(p0: DataSnapshot) {
                        for (data in p0.children){
                            if ( data.getValue(`object` ::class.java) != null && data.key != null) {
@@ -58,7 +57,7 @@ class CRUDModel {
                     override fun onCancelled(p0: DatabaseError) {
                         Log.e("erro", "deu ruim")
                     }
-                })
+                 })
 
                 return true
 
@@ -74,6 +73,7 @@ class CRUDModel {
                 val nameObject = getObjectName(`object`)
 
                 firebase.child(  nameObject ).child(uuid).removeValue()
+
                 true
 
             }catch (e: Exception){

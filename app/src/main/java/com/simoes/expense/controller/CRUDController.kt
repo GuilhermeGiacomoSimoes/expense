@@ -36,75 +36,28 @@ class CRUDController {
         }
 
         fun findAll(`object`: com.simoes.expense.model.models.Object, fragmentManager: FragmentManager, callBack: CallBackReturn, context: Context) : ArrayList<Any>  {
-
             if ( verifyConnection( context, fragmentManager ) ) {
-                try {
-
-                    if ( ! CRUDModel.findAll(`object`, callBack) ) {
-                        //FeedbackDialog.showDialog( fragmentManager, "Erro ao buscar dados", "Erro" )
-                    }
-
-                }catch (e:Exception) {
-                    //FeedbackDialog.showDialog( fragmentManager, e.toString(), "Erro" )
-                }
+                CRUDModel.findAll(`object`, callBack)
             }
-
             return ArrayList()
         }
 
         fun delete (`object`: com.simoes.expense.model.models.Object, fragmentManager: FragmentManager, context: Context) {
-
             if ( verifyConnection( context, fragmentManager ) ) {
-
-                try {
-                    if(CRUDModel.delete(`object`, `object`.uuid)){
-                        //FeedbackDialog.showDialog( fragmentManager, "Deletado com sucesso", "OK" )
-                    }
-                    else {
-                        //FeedbackDialog.showDialog( fragmentManager, "Erro ao deletar", "Erro" )
-                    }
-
-                }catch (e: Exception){
-                    //FeedbackDialog.showDialog( fragmentManager, e.toString(), "Erro" )
-                }
-
+                CRUDModel.delete(`object`, `object`.uuid)
             }
-
-
         }
 
         fun create(`object`: com.simoes.expense.model.models.Object, fragmentManager: FragmentManager, context: Context)  {
             if ( verifyConnection( context, fragmentManager ) ) {
-                try {
-                    if(CRUDModel.create(`object`)) {
-                       // FeedbackDialog.showDialog( fragmentManager, "Cadastrado com sucesso", "OK" )
-                    }
-                    else {
-                       // FeedbackDialog.showDialog( fragmentManager, "Erro ao cadastrar", "Erro" )
-                    }
-
-                }catch (e: Exception){
-                  //  FeedbackDialog.showDialog( fragmentManager, e.toString(), "Erro" )
-                }
+                CRUDModel.create(`object`)
             }
         }
 
         fun update(`object`: com.simoes.expense.model.models.Object, fragmentManager: FragmentManager, context: Context) {
             if ( verifyConnection( context, fragmentManager ) ) {
-                try {
-                    if(CRUDModel.update(`object`)) {
-                        //FeedbackDialog.showDialog( fragmentManager, "Editado com sucesso", "OK" )
-                    }
-                    else {
-                       // FeedbackDialog.showDialog( fragmentManager, "Erro ao editar", "Erro" )
-                    }
-
-                }catch (e: Exception){
-                   // FeedbackDialog.showDialog( fragmentManager, e.toString(), "Erro" )
-                }
+                CRUDModel.update(`object`)
             }
-
-
         }
 
         private fun verifyConnection( context: Context, fragmentManager: FragmentManager ) : Boolean {
@@ -112,7 +65,6 @@ class CRUDController {
                 FeedbackDialog.showDialog( fragmentManager, "conecte-se a uma rede", "Sem conexão com a internet" )
                 return false
             }
-
             return true
         }
 
