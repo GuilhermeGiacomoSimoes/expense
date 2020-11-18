@@ -50,7 +50,8 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
     }
 
     private fun expenseOwn(expense: Expense) : Boolean {
-        val dueDate = Date("${expense.dueDate}/${DateHelper.nowMonth()}/${DateHelper.nowYear()} 00:00:00" ).time
+        val stringDueDate = "${expense.dueDate}/${DateHelper.nowMonth()}/${DateHelper.nowYear()}"
+        val dueDate = SimpleDateFormat("dd/MM/yyyy").parse(stringDueDate).time
         val now = DateHelper.nowMilliseconds()
         return dueDate < now
     }

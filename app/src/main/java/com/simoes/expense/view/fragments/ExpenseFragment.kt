@@ -1,5 +1,7 @@
 package com.simoes.expense.view.fragments
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
+import com.simoes.expense.helpers.Helper
 import com.simoes.expense.helpers.NameClasses
 import com.simoes.expense.model.models.Card
 import com.simoes.expense.model.models.Expense
@@ -119,14 +122,21 @@ class ExpenseFragment : Fragment(), CallBackReturn {
 
             list_expenses.setOnItemClickListener { _, _, position, _ ->
                 if ( fragmentManager != null ) {
-                    ExpenseDetailDialog.showDialog( fragmentManager!!, listExpense[position], position)
+                    ExpenseDetailDialog.showDialog( fragmentManager!!, listExpense[position], position, this)
                 }
             }
         }
     }
 
-    fun removeElement ( index : Int ) {
-        (list_expenses.adapter as ExpenseAdapter).remove(index)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == Helper.EXPENSE_CODE && resultCode == Activity.RESULT_OK){
+            val extras = data?.extras?.get(Helper.EXPENSE_NAME)
+            removeExpenseFromList(extras as Int)
+        }
+    }
+
+    private fun removeExpenseFromList(position : Int){
+        (list_expenses.adapter as ExpenseAdapter).remove(position)
     }
 
     override fun callback(list: ArrayList<Any>) {
@@ -142,7 +152,6 @@ class ExpenseFragment : Fragment(), CallBackReturn {
                 changeBalanceView       ( sumOfBalances )
             }
             else if ( list[0].javaClass.name == "com.simoes.expense.model.models.${NameClasses.Expense.name}" ) {
-                this.listCards.clear()
                 this.listExpense        = list as ArrayList<Expense>
                 configListViewExpense   ( )
             }

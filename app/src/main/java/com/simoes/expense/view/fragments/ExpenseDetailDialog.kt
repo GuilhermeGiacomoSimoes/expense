@@ -1,5 +1,7 @@
 package com.simoes.expense.view.fragments
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -11,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
+import com.simoes.expense.helpers.Helper
 import com.simoes.expense.model.models.Expense
 import kotlinx.android.synthetic.main.expense_detail_dialog.*
 
@@ -54,7 +57,11 @@ class ExpenseDetailDialog : DialogFragment() {
         btn_delete_expense_dialog.setOnClickListener {
             if ( fragmentManager != null && context != null ) {
                 CRUDController.delete( expense,  fragmentManager!!, context!!)
-                ( fragmentManager as ExpenseFragment ).removeElement(position)
+
+                val intent = Intent()
+                intent.putExtra(Helper.EXPENSE_NAME, this.position)
+
+                targetFragment?.onActivityResult(Helper.EXPENSE_CODE, Activity.RESULT_OK, intent)
                 dismiss()
             }
         }
@@ -63,11 +70,12 @@ class ExpenseDetailDialog : DialogFragment() {
     companion object {
         var instance = ExpenseDetailDialog()
 
-        fun showDialog( fragmentManager: FragmentManager, expense: Expense , position : Int) {
+        fun showDialog( fragmentManager: FragmentManager, expense: Expense , position : Int, fragment : Fragment) {
             with(instance) {
                 if (!isAdded) {
                     this.expense    = expense
                     this.position   = position
+                    setTargetFragment(fragment, Helper.EXPENSE_CODE)
                     show(fragmentManager, "")
                 }
             }
