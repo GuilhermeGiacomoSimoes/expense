@@ -43,7 +43,15 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
         imgExpense.setImageResource( imageCardOrMoney )
 
         if ( expenseOwn( expense ) ) {
-            txtNameExpense.setTextColor(Color.parseColor("#FF0000"))
+            if ( ! expense.paidOut ){
+                txtNameExpense.setTextColor(Color.parseColor("#FF0000"))
+            }
+            else{
+                txtNameExpense.setTextColor(Color.parseColor("#008000"))
+            }
+        }
+        else if(expense.paidOut) {
+            txtNameExpense.setTextColor(Color.parseColor("#008000"))
         }
 
         return layout
@@ -53,7 +61,7 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
         val stringDueDate = "${expense.dueDate}/${DateHelper.nowMonth()}/${DateHelper.nowYear()}"
         val dueDate = SimpleDateFormat("dd/MM/yyyy").parse(stringDueDate).time
         val now = DateHelper.nowMilliseconds()
-        return dueDate < now
+        return dueDate > now
     }
 
     override fun getItem(position: Int): Any {
