@@ -50,6 +50,10 @@ class ExpenseDetailDialog : DialogFragment() {
             if ( fragmentManager != null && context != null ) {
                 expense.paidOut = true
                 CRUDController.update( expense, fragmentManager!!, context!! )
+                val intent = Intent()
+                intent.putExtra(Helper.EXPENSE_NAME, this.position)
+
+                targetFragment?.onActivityResult(Helper.EXPENSE_CODE, Activity.RESULT_OK, intent)
                 dismiss()
             }
         }

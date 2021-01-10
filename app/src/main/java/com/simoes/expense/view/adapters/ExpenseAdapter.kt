@@ -46,7 +46,7 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
             if ( ! expense.paidOut ){
                 txtNameExpense.setTextColor(Color.parseColor("#FF0000"))
             }
-            else{
+            else {
                 txtNameExpense.setTextColor(Color.parseColor("#008000"))
             }
         }
