@@ -18,6 +18,7 @@ import com.simoes.expense.model.models.Expense
 import com.simoes.expense.view.adapters.ExpenseAdapter
 import kotlinx.android.synthetic.main.fragment_expense.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ExpenseFragment : Fragment(), CallBackReturn {
 
@@ -115,8 +116,30 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         return summation
     }
 
+    private fun sortExpense( listExpense : ArrayList<Expense>) : ArrayList<Expense>{
+        for (expense in listExpense){
+            if ( expense.paidOut ){
+                listExpense.remove(expense)
+                listExpense.add(expense)
+            }
+            if (Helper.expenseOwn(expense)) {
+                listExpense.remove(expense)
+                val auxiliarArray = listExpense
+                listExpense.removeAll( listExpense )
+
+                listExpense.add(expense)
+                listExpense.addAll(auxiliarArray)
+            }
+        }
+
+        return listExpense
+    }
+
     private fun configListViewExpense() {
         if ( context != null ) {
+
+            listExpense = sortExpense( listExpense )
+
             list_expenses.invalidate()
             list_expenses.adapter = ExpenseAdapter( listExpense , context!! )
 

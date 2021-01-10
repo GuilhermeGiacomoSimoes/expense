@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.simoes.expense.R
 import com.simoes.expense.helpers.DateHelper
+import com.simoes.expense.helpers.Helper
 import com.simoes.expense.helpers.TypeExpense
 import com.simoes.expense.model.models.Expense
 import java.text.SimpleDateFormat
@@ -42,7 +43,7 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
         val imageCardOrMoney    = getImageCardOrMoney( expense )
         imgExpense.setImageResource( imageCardOrMoney )
 
-        if ( expenseOwn( expense ) ) {
+        if ( Helper.expenseOwn( expense ) ) {
             if ( ! expense.paidOut ){
                 txtNameExpense.setTextColor(Color.parseColor("#FF0000"))
             }
@@ -55,13 +56,6 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
         }
 
         return layout
-    }
-
-    private fun expenseOwn(expense: Expense) : Boolean {
-        val stringDueDate = "${expense.dueDate}/${DateHelper.nowMonth()}/${DateHelper.nowYear()}"
-        val dueDate = SimpleDateFormat("dd/MM/yyyy").parse(stringDueDate).time
-        val now = DateHelper.nowMilliseconds()
-        return dueDate > now
     }
 
     override fun getItem(position: Int): Any {
