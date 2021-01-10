@@ -136,7 +136,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
     }
 
     private fun removeExpenseFromList(position : Int){
-        (list_expenses.adapter as ExpenseAdapter).remove(position)
+        (list_expenses.adapter as ExpenseAdapter).remove()
     }
 
     override fun callback(list: ArrayList<Any>) {
