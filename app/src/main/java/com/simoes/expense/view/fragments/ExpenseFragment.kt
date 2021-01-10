@@ -130,12 +130,11 @@ class ExpenseFragment : Fragment(), CallBackReturn {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == Helper.EXPENSE_CODE && resultCode == Activity.RESULT_OK){
-            val extras = data?.extras?.get(Helper.EXPENSE_NAME)
-            removeExpenseFromList(extras as Int)
+            removeExpenseFromList()
         }
     }
 
-    private fun removeExpenseFromList(position : Int){
+    private fun removeExpenseFromList(){
         (list_expenses.adapter as ExpenseAdapter).remove()
     }
 
