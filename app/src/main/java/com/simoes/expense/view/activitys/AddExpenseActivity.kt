@@ -50,6 +50,7 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
                 saveExpense( expense )
             }
             else {
+                expense.dueDate = expense.card!!.dueDate
                 saveExpense( expense )
                 updateCard ( expense )
             }
@@ -75,7 +76,7 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
                 position            : Int,
                 id                  : Long
             ) {
-                typeExpense = if ( choiseCardOrMoney[position].equals("cartão") ) {
+                typeExpense = if (choiseCardOrMoney[position] == "cartão") {
                     mountCardSelectionScreen()
                     TypeExpense.CARD
                 } else {
