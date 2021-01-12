@@ -1,6 +1,8 @@
 package com.simoes.expense.view.adapters
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +14,10 @@ import android.widget.TextView
 import com.simoes.expense.R
 import com.simoes.expense.helpers.FlagCards
 import com.simoes.expense.helpers.Helper
+import com.simoes.expense.model.CRUDModel
 import com.simoes.expense.model.models.Card
 import com.simoes.expense.view.activitys.AddExpenseActivity
+import com.simoes.expense.view.activitys.ListCardActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -37,6 +41,9 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
         val txtVencDard         = layout.findViewById<TextView>(R.id.txt_venc_card)
         val simbleFlag          = layout.findViewById<ImageView>(R.id.simble_flag)
         val addExpenseCard      = layout.findViewById<TextView>(R.id.txt_add_expense_card)
+        val txtDeleteCard       = layout.findViewById<TextView>(R.id.txt_delete_card)
+
+        configButtons( card, txtDeleteCard )
 
         buildCard(              progresBarCard,
                                 txtDescription,
@@ -50,6 +57,20 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
         return layout
     }
 
+    private fun configButtons( card : Card, txtDeleteCard : TextView ) {
+        txtDeleteCard.setOnClickListener {            val builder = AlertDialog.Builder( context )
+            builder.setTitle("Confirmaçao")
+            builder.setMessage("Tem certeza que deseja excluir o cartão?")
+            builder.setPositiveButton("Excluir") { _, _ ->
+                CRUDModel.delete(card, card.uuid)
+                (context as ListCardActivity).reload()
+            }
+            builder.setNegativeButton("Cancelar") { dialog, _ ->
+                dialog.dismiss()
+            }
+            builder.show()
+        }
+    }
 
     private fun buildCard(  progresBarCard   : ProgressBar,
                             txtDescription   : TextView,
@@ -139,6 +160,4 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
     override fun getCount(): Int {
         return listCard.size
     }
-
-
 }

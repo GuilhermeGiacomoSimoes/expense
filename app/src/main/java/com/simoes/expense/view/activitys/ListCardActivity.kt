@@ -41,6 +41,11 @@ class ListCardActivity : AppCompatActivity(), CallBackReturn {
         }
     }
 
+    fun reload() {
+        finish()
+        startActivity( intent )
+    }
+
     override fun callback(list: ArrayList<Any>) {
         if( ! list.isNullOrEmpty()){
             this.listCard = list as ArrayList<Card>
