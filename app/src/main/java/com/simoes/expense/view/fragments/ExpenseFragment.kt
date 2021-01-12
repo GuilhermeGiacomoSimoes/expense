@@ -142,11 +142,9 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         if ( context != null ) {
 
             listExpense = sortExpense( listExpense )
-
-            list_expenses.invalidate()
             list_expenses.adapter = ExpenseAdapter( listExpense , context!! )
 
-            list_expenses.setOnItemClickListener { _, _, position, _ ->
+            list_expenses.setOnItemClickListener {  _, _, position, _ ->
                 if ( fragmentManager != null ) {
                     ExpenseDetailDialog.showDialog( fragmentManager!!, listExpense[position], position, this)
                 }
@@ -155,9 +153,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == Helper.EXPENSE_CODE && resultCode == Activity.RESULT_OK){
-            removeExpenseFromList()
-        }
+        fragmentManager?.beginTransaction()?.detach(this)?.attach(this)?.commit();
     }
 
     private fun removeExpenseFromList(){
