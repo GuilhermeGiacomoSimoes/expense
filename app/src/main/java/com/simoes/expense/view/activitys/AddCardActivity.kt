@@ -112,6 +112,7 @@ class AddCardActivity : AppCompatActivity() {
         card.limit      = edt_limit_card.text.toString().toDouble()
         card.dueDate    = day
         card.limit      = edt_limit_card.text.toString().toDouble()
+        card.balance    = edt_balance_card.text.toString().toDouble()
 
         saveBank( card )
     }
