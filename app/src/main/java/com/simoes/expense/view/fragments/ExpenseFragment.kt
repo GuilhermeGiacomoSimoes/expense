@@ -1,6 +1,5 @@
 package com.simoes.expense.view.fragments
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,7 +16,6 @@ import com.simoes.expense.model.models.Card
 import com.simoes.expense.model.models.Expense
 import com.simoes.expense.view.adapters.ExpenseAdapter
 import kotlinx.android.synthetic.main.fragment_expense.*
-import java.util.*
 import kotlin.collections.ArrayList
 
 class ExpenseFragment : Fragment(), CallBackReturn {
@@ -127,11 +125,10 @@ class ExpenseFragment : Fragment(), CallBackReturn {
             }
             else if (Helper.expenseOwn(expense)) {
                 arrayReturn.remove(expense)
-                val auxiliarArray = arrayReturn
                 arrayReturn.removeAll( listExpense )
 
                 arrayReturn.add(expense)
-                arrayReturn.addAll(auxiliarArray)
+                arrayReturn.addAll(arrayReturn)
             }
         }
 
@@ -167,8 +164,8 @@ class ExpenseFragment : Fragment(), CallBackReturn {
             if ( list[0].javaClass.name == "com.simoes.expense.model.models.${NameClasses.Card.name}" ){
                 listCards               = list as ArrayList<Card>
 
-                val listBankBalance     = getListBankBalance ( listCards )
-                val sumOfBalances       = sumOfBalances      ( listBankBalance )
+                val listCardBalance     = getListBankBalance ( listCards )
+                val sumOfBalances       = sumOfBalances      ( listCardBalance )
 
                 changeBalanceView       ( sumOfBalances )
             }
