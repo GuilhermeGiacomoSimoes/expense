@@ -7,6 +7,7 @@ class Expense : Object(), Serializable {
 
              lateinit var typeExpense   : TypeExpense
              lateinit   var name        : String
+             lateinit   var date        : String
     override lateinit   var uuid        : String
 
     var paidOut : Boolean = false

@@ -1,11 +1,13 @@
 package com.simoes.expense.view.activitys
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.annotation.RequiresApi
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
@@ -173,6 +175,7 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
         configListCardOrMoney()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun createExpense() : Expense {
         val expense  = Expense()
 
@@ -187,6 +190,7 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
         expense.value       = edt_amount_expense.text.toString().toDouble()
         expense.repeat      = chk_repeat.isChecked
         expense.typeExpense = typeExpense
+        expense.date        = Helper.dateNow()
 
         return expense
     }

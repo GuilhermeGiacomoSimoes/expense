@@ -1,7 +1,11 @@
 package com.simoes.expense.helpers
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.simoes.expense.model.models.Expense
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class Helper {
 
@@ -17,6 +21,11 @@ class Helper {
             return dueDate > now
         }
 
+        @RequiresApi(Build.VERSION_CODES.O)
+        fun dateNow () :  String {
+            val dtf = DateTimeFormatter.ofPattern("YYYY/MM/dd HH:mm:ss")
+            val now = LocalDateTime.now()
+            return dtf.format(now)
+        }
     }
-
 }
