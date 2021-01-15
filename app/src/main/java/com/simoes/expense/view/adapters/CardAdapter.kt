@@ -3,6 +3,7 @@ package com.simoes.expense.view.adapters
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +11,13 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import com.simoes.expense.R
 import com.simoes.expense.helpers.FlagCards
 import com.simoes.expense.helpers.Helper
 import com.simoes.expense.model.CRUDModel
 import com.simoes.expense.model.models.Card
+import com.simoes.expense.model.models.Expense
 import com.simoes.expense.view.activitys.AddExpenseActivity
 import com.simoes.expense.view.activitys.ListCardActivity
 import java.text.SimpleDateFormat
@@ -22,6 +25,7 @@ import java.util.*
 
 class CardAdapter( private var listCard: ArrayList<Card>, private var context: Context ) : BaseAdapter() {
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
         val card = listCard[position]
@@ -71,13 +75,14 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
         }
     }
 
-    private fun buildCard(  progresBarCard   : ProgressBar,
-                            txtDescription   : TextView,
-                            txtNameCard      : TextView,
-                            txtVencDard      : TextView,
-                            simbleFlag       : ImageView,
-                            card             : Card,
-                            addExpenseCard   : TextView
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun buildCard(progresBarCard   : ProgressBar,
+                          txtDescription   : TextView,
+                          txtNameCard      : TextView,
+                          txtVencDard      : TextView,
+                          simbleFlag       : ImageView,
+                          card             : Card,
+                          addExpenseCard   : TextView
     ){
 
         addExpenseCard.setOnClickListener {
@@ -94,14 +99,37 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
         changeImage     ( simbleFlag,     card )
     }
 
-    private fun getTotalExpenses( card: Card ) : Double {
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getTotalExpenses(card: Card ) : Double {
         var progress = .0
 
         for ( expense in card.expenses ) {
-            progress += expense.value
+            if ( checkExpiration( expense ) ) {
+                progress += expense.value
+            }
         }
 
         return progress
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun checkExpiration(expense: Expense ) : Boolean {
+        val now = Helper.dateNow()
+        val monthNow    = now.split(" ")[0].split("/")[1]
+        val dayNow      = now.split(" ")[0].split("/")[2]
+        val yearNow     = now.split(" ")[0].split("/")[0]
+
+        var monthVenc     = monthNow.toInt()
+
+        if ( expense.dueDate > dayNow.toInt()) {
+            monthVenc ++
+        }
+
+        val dateVenc = yearNow + "/" + monthVenc  + "/" + expense.dueDate.toString()
+
+        if (  ) {
+
+        }
     }
 
     private fun openAddExpense( card: Card ) {
