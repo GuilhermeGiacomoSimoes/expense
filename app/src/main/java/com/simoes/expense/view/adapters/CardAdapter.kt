@@ -116,7 +116,7 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun checkExpiration(expense: Expense, position: Int ) : Boolean {
-        if ( ! expense.paidOut) {
+        return if ( ! expense.paidOut) {
             val now         = Helper.dateNow()
             val monthNow    = now.split(" ")[0].split("/")[1]
             val yearNow     = now.split(" ")[0].split("/")[0]
@@ -126,10 +126,9 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
 
             val dateExpExpense = SimpleDateFormat("YYYY/MM/dd").parse(expense.dueDate).time
 
-            return dateExpCard < dateExpExpense
-        }
-        else {
-            return false
+            dateExpCard < dateExpExpense
+        } else {
+            false
         }
     }
 
