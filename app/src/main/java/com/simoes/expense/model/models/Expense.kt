@@ -13,6 +13,6 @@ class Expense : Object(), Serializable {
     var paidOut : Boolean = false
     var value   : Double  = .0
     var repeat  : Boolean = false
-    var dueDate : Int     = 0
+    var dueDate : String  = ""
     var card    : Card?   = null
 }
