@@ -122,22 +122,12 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
             val dayNow      = now.split(" ")[0].split("/")[2]
             val yearNow     = now.split(" ")[0].split("/")[0]
 
-            var monthVenc     = monthNow.toInt()
+            val dateExpCardStr = "$yearNow/$monthNow/${(getItem(position) as Card).dueDate}"
+            val dateExpCard = SimpleDateFormat("YYYY/MM/dd").parse(dateExpCardStr).time
 
-            if ( expense.dueDate > dayNow.toInt()) {
-                monthVenc ++
-            }
+            val dateExpExpense = SimpleDateFormat("YYYY/MM/dd").parse(expense.dueDate).time
 
-            val dateFinalExpStr = yearNow + "/" + monthVenc  + "/" + (getItem(position) as Card).dueDate.toString()
-            val dateStartExpStr = yearNow + "/" + (monthVenc - 1)  + "/" + (getItem(position) as Card).dueDate.toString()
-
-            val dateFinalExp = SimpleDateFormat("yyyy/MM/dd").parse(dateFinalExpStr)
-            val dateStartExp = SimpleDateFormat("yyyy/MM/dd").parse(dateStartExpStr)
-
-            val dateExpExpenseStr = yearNow + "/" + monthVenc  + "/" + expense.dueDate
-            val dateExpExpense = SimpleDateFormat("yyyy/MM/dd").parse(dateExpExpenseStr)
-
-            return dateExpExpense > dateStartExp && dateExpExpense < dateFinalExp
+            return dateExpCard < dateExpExpense
         }
         else {
             return false
