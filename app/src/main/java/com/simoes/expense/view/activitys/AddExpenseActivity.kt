@@ -16,6 +16,7 @@ import com.simoes.expense.helpers.TypeExpense
 import com.simoes.expense.model.models.Card
 import com.simoes.expense.model.models.Expense
 import kotlinx.android.synthetic.main.activity_add_expense.*
+import java.text.SimpleDateFormat
 import java.util.ArrayList
 
 class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
@@ -28,6 +29,7 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
     private lateinit var cardSelected   : Card
     private lateinit var typeExpense    : TypeExpense
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_expense)
@@ -52,7 +54,14 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
                 saveExpense( expense )
             }
             else {
-                expense.dueDate = expense.card!!.dueDate
+                val now         = Helper.dateNow()
+                val monthNow    = now.split(" ")[0].split("/")[1]
+                val yearNow     = now.split(" ")[0].split("/")[0]
+
+                val dateExpCardStr = "$yearNow/$monthNow/${expense.card!!.dueDate}}"
+
+                expense.dueDate = dateExpCardStr
+
                 saveExpense( expense )
                 updateCard ( expense )
             }
@@ -185,7 +194,13 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
             null
         }
 
-        expense.dueDate     = day.toInt()
+        val now         = Helper.dateNow()
+        val monthNow    = now.split(" ")[0].split("/")[1]
+        val yearNow     = now.split(" ")[0].split("/")[0]
+
+        val dateExpCardStr = "$yearNow/$monthNow/$day}"
+
+        expense.dueDate = dateExpCardStr
         expense.name        = edt_expense_name  .text.toString()
         expense.value       = edt_amount_expense.text.toString().toDouble()
         expense.repeat      = chk_repeat.isChecked
