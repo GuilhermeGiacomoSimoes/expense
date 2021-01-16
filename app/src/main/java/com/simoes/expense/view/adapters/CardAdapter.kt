@@ -118,8 +118,19 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
     private fun checkExpiration(expense: Expense, position: Int ) : Boolean {
         return if ( ! expense.paidOut) {
             val now         = Helper.dateNow()
-            val monthNow    = now.split(" ")[0].split("/")[1]
-            val yearNow     = now.split(" ")[0].split("/")[0]
+            var monthNow    = now.split(" ")[0].split("/")[1]
+            var yearNow     = now.split(" ")[0].split("/")[0]
+            val dayNow      = now.split(" ")[0].split("/")[2]
+
+            if (dayNow.toInt() > (getItem(position) as Card).dueDate){
+                if (monthNow.toInt() > 11) {
+                    monthNow = "01"
+                    yearNow = ( yearNow.toInt() + 1).toString()
+                }
+                else {
+                    monthNow = "" + monthNow.toInt() + 1
+                }
+            }
 
             val dateExpCardStr = "$yearNow/$monthNow/${(getItem(position) as Card).dueDate}"
             val dateExpCard = SimpleDateFormat("YYYY/MM/dd").parse(dateExpCardStr).time
