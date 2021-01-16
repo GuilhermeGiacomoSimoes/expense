@@ -54,7 +54,8 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
                                 txtVencDard,
                                 simbleFlag,
                                 card,
-                                addExpenseCard
+                                addExpenseCard,
+                                position
                  )
 
         return layout
@@ -82,14 +83,15 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
                           txtVencDard      : TextView,
                           simbleFlag       : ImageView,
                           card             : Card,
-                          addExpenseCard   : TextView
+                          addExpenseCard   : TextView,
+                          position          : Int
     ){
 
         addExpenseCard.setOnClickListener {
             openAddExpense( card )
         }
 
-        val totalExpenses = getTotalExpenses( card )
+        val totalExpenses = getTotalExpenses( card, position )
 
         txtDescription.text = buildDescription( totalExpenses, card.limit )
         txtNameCard   .text = card.name
@@ -100,11 +102,11 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun getTotalExpenses(card: Card ) : Double {
+    private fun getTotalExpenses(card: Card, position: Int) : Double {
         var progress = .0
 
         for ( expense in card.expenses ) {
-            if ( checkExpiration( expense ) ) {
+            if ( checkExpiration( expense, position ) ) {
                 progress += expense.value
             }
         }
@@ -113,22 +115,32 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun checkExpiration(expense: Expense ) : Boolean {
-        val now = Helper.dateNow()
-        val monthNow    = now.split(" ")[0].split("/")[1]
-        val dayNow      = now.split(" ")[0].split("/")[2]
-        val yearNow     = now.split(" ")[0].split("/")[0]
+    private fun checkExpiration(expense: Expense, position: Int ) : Boolean {
+        if ( ! expense.paidOut) {
+            val now         = Helper.dateNow()
+            val monthNow    = now.split(" ")[0].split("/")[1]
+            val dayNow      = now.split(" ")[0].split("/")[2]
+            val yearNow     = now.split(" ")[0].split("/")[0]
 
-        var monthVenc     = monthNow.toInt()
+            var monthVenc     = monthNow.toInt()
 
-        if ( expense.dueDate > dayNow.toInt()) {
-            monthVenc ++
+            if ( expense.dueDate > dayNow.toInt()) {
+                monthVenc ++
+            }
+
+            val dateFinalExpStr = yearNow + "/" + monthVenc  + "/" + (getItem(position) as Card).dueDate.toString()
+            val dateStartExpStr = yearNow + "/" + (monthVenc - 1)  + "/" + (getItem(position) as Card).dueDate.toString()
+
+            val dateFinalExp = SimpleDateFormat("yyyy/MM/dd").parse(dateFinalExpStr)
+            val dateStartExp = SimpleDateFormat("yyyy/MM/dd").parse(dateStartExpStr)
+
+            val dateExpExpenseStr = yearNow + "/" + monthVenc  + "/" + expense.dueDate
+            val dateExpExpense = SimpleDateFormat("yyyy/MM/dd").parse(dateExpExpenseStr)
+
+            return dateExpExpense > dateStartExp && dateExpExpense < dateFinalExp
         }
-
-        val dateVenc = yearNow + "/" + monthVenc  + "/" + expense.dueDate.toString()
-
-        if (  ) {
-
+        else {
+            return false
         }
     }
 
