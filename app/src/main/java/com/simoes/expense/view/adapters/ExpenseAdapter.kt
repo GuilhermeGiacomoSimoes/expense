@@ -33,7 +33,7 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
         txtNameExpense.text     = expense.name
 
         val txtDueDate          = layout.findViewById<TextView>(R.id.txt_due_date)
-        txtDueDate.text         = getDueData( expense.dueDate )
+        txtDueDate.text         = expense.dueDate
 
         val txtValueExpense     = layout.findViewById<TextView>(R.id.txt_value_expense)
         txtValueExpense.text    = expense.value.toString()
@@ -68,23 +68,6 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
 
     override fun getCount(): Int {
         return listExpense.size
-    }
-
-    private fun getDueData( dueDay : Int ) : String {
-        val dateFormat  = SimpleDateFormat("dd/MM/yyyy")
-        val date        = Date()
-        val now = dateFormat.format(date).toString()
-
-        val nowArray = now.split("/")
-
-        var month   = Integer.parseInt( nowArray[1] )
-        val day     = Integer.parseInt( nowArray[0] )
-
-        if ( day >= dueDay ) {
-            month ++;
-        }
-
-        return "$dueDay/$month"
     }
 
     private fun getImageCardOrMoney( expense : Expense ) : Int {
