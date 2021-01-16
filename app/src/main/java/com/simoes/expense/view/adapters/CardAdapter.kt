@@ -119,7 +119,6 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
         if ( ! expense.paidOut) {
             val now         = Helper.dateNow()
             val monthNow    = now.split(" ")[0].split("/")[1]
-            val dayNow      = now.split(" ")[0].split("/")[2]
             val yearNow     = now.split(" ")[0].split("/")[0]
 
             val dateExpCardStr = "$yearNow/$monthNow/${(getItem(position) as Card).dueDate}"
