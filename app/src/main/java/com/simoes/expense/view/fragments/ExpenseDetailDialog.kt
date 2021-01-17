@@ -67,7 +67,7 @@ class ExpenseDetailDialog : DialogFragment() {
                 val intent = Intent()
                 intent.putExtra(Helper.EXPENSE_NAME, this.position)
 
-                targetFragment?.onActivityResult(Helper.EXPENSE_CODE, Activity.RESULT_OK, intent)
+                targetFragment?.onActivityResult(Helper.DELETE_EXPENSE, Activity.RESULT_OK, intent)
                 dismiss()
             }
         }
@@ -86,7 +86,5 @@ class ExpenseDetailDialog : DialogFragment() {
                 }
             }
         }
-
     }
-
 }
