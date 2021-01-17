@@ -1,7 +1,6 @@
 package com.simoes.expense.helpers
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.simoes.expense.model.models.Expense
@@ -15,6 +14,7 @@ class Helper {
         const val UUIDCARD = "uuidcard"
         const val EXPENSE_NAME = "expense_name"
         const val EXPENSE_CODE = 1
+        const val PERSIST_VIEW_BALANCE = "PERSIST_VIEW_BALANCE"
 
         fun expenseOwn(expense: Expense) : Boolean {
             val stringDueDate = "${expense.dueDate}/${DateHelper.nowMonth()}/${DateHelper.nowYear()}"
@@ -38,7 +38,7 @@ class Helper {
 
         fun getPersistData (REF_NAME : String, context: Context) : String? {
             val editor = configSharedPreference(REF_NAME, context)
-            return editor.getString(REF_NAME, "")
+            return editor.getString(REF_NAME, false.toString())
         }
 
         private fun configSharedPreference(REF_NAME : String, context: Context) = context.getSharedPreferences(REF_NAME, Context.MODE_PRIVATE)
