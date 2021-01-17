@@ -1,5 +1,7 @@
 package com.simoes.expense.helpers
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.simoes.expense.model.models.Expense
@@ -27,5 +29,10 @@ class Helper {
             val now = LocalDateTime.now()
             return dtf.format(now)
         }
+
+
+        private fun configSharedPreference(REF_NAME : String, context: Context) = context.getSharedPreferences(REF_NAME, Context.MODE_PRIVATE)
+
     }
+
 }
