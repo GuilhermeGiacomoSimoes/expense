@@ -160,10 +160,6 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         fragmentManager?.beginTransaction()?.detach(this)?.attach(this)?.commit();
     }
 
-    private fun removeExpenseFromList(){
-        (list_expenses.adapter as ExpenseAdapter).remove()
-    }
-
     override fun callback(list: ArrayList<Any>) {
         breakCount ++;
 
