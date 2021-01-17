@@ -1,5 +1,6 @@
 package com.simoes.expense.view.fragments
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -156,7 +157,29 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         }
     }
 
+    private fun getCardIndexByExpense( expense: Expense ) : Card ? {
+        for (card in listCards) {
+            for (e in card.expenses) {
+                if ( e.uuid == expense.uuid) {
+                    e.paidOut = true
+
+                    return card
+                }
+            }
+        }
+
+        return null
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK) {
+            if  (requestCode == Helper.PAYMENT_EXPENSE) {
+                val card = getCardIndexByExpense( data?.getSerializableExtra(Helper.EXPENSE_RETURN) as Expense )
+                if (card != null && fragmentManager != null && context != null){
+                    CRUDController.update(card, fragmentManager!!, context!!)
+                }
+            }
+        }
         fragmentManager?.beginTransaction()?.detach(this)?.attach(this)?.commit();
     }
 
