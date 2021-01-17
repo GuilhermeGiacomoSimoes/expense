@@ -53,7 +53,7 @@ class ExpenseDetailDialog : DialogFragment() {
                 CRUDController.update( expense, fragmentManager!!, context!! )
 
                 val intent = Intent()
-                intent.putExtra(Helper.EXPENSE_NAME, expense)
+                intent.putExtra(Helper.EXPENSE_RETURN, expense)
 
                 targetFragment?.onActivityResult(Helper.PAYMENT_EXPENSE, Activity.RESULT_OK, intent)
                 dismiss()
@@ -65,7 +65,7 @@ class ExpenseDetailDialog : DialogFragment() {
                 CRUDController.delete( expense,  fragmentManager!!, context!!)
 
                 val intent = Intent()
-                intent.putExtra(Helper.EXPENSE_NAME, expense)
+                intent.putExtra(Helper.EXPENSE_RETURN, expense)
 
                 targetFragment?.onActivityResult(Helper.DELETE_EXPENSE, Activity.RESULT_OK, intent)
                 dismiss()
