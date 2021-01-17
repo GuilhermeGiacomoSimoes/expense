@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentManager
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.Helper
+import com.simoes.expense.model.models.Card
 import com.simoes.expense.model.models.Expense
 import kotlinx.android.synthetic.main.expense_detail_dialog.*
 
@@ -50,10 +51,11 @@ class ExpenseDetailDialog : DialogFragment() {
             if ( fragmentManager != null && context != null ) {
                 expense.paidOut = true
                 CRUDController.update( expense, fragmentManager!!, context!! )
+
                 val intent = Intent()
                 intent.putExtra(Helper.EXPENSE_NAME, this.position)
 
-                targetFragment?.onActivityResult(Helper.EXPENSE_CODE, Activity.RESULT_OK, intent)
+                targetFragment?.onActivityResult(Helper.PAYMENT_EXPENSE, Activity.RESULT_OK, intent)
                 dismiss()
             }
         }
