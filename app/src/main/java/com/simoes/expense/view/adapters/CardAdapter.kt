@@ -125,10 +125,10 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
             if (dayNow.toInt() > (getItem(position) as Card).dueDate){
                 if (monthNow.toInt() > 11) {
                     monthNow = "01"
-                    yearNow = ( Integer.parseInt(yearNow) + 1).toString()//( yearNow.toInt() + 1).toString()
+                    yearNow = ( Integer.parseInt(yearNow) + 1).toString()
                 }
                 else {
-                    monthNow = ( Integer.parseInt(monthNow) + 1).toString() //( monthNow.toInt() + 1 ).toString()
+                    monthNow = ( Integer.parseInt(monthNow) + 1).toString()
                 }
             }
 
