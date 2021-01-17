@@ -9,11 +9,9 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.simoes.expense.R
-import com.simoes.expense.helpers.DateHelper
 import com.simoes.expense.helpers.Helper
 import com.simoes.expense.helpers.TypeExpense
 import com.simoes.expense.model.models.Expense
-import java.text.SimpleDateFormat
 import java.util.*
 
 class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var context: Context) : BaseAdapter() {
