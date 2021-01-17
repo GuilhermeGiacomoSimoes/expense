@@ -58,7 +58,7 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
                 val monthNow    = now.split(" ")[0].split("/")[1]
                 val yearNow     = now.split(" ")[0].split("/")[0]
 
-                val dateExpCardStr = "$yearNow/$monthNow/${expense.card!!.dueDate}}"
+                val dateExpCardStr = "$yearNow/$monthNow/${expense.card!!.dueDate}"
 
                 expense.dueDate = dateExpCardStr
 
