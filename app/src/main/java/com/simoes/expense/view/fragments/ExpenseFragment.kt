@@ -44,11 +44,16 @@ class ExpenseFragment : Fragment(), CallBackReturn {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if(context != null) {
+            hideBalance = Helper.getPersistData(Helper.PERSIST_VIEW_BALANCE, context!!).equals(true.toString())
+        }
+
         if ( fragmentManager != null && context != null ) {
             findInformations()
         }
 
         hide_balance.setOnClickListener {
+            hideBalance  = ! hideBalance
             hideBalance()
         }
 
@@ -74,8 +79,6 @@ class ExpenseFragment : Fragment(), CallBackReturn {
             view_hide_balance.visibility = View.GONE
             edt_balance      .visibility = View.VISIBLE
 
-            hideBalance = !hideBalance
-
         } else {
             if ( context != null ){
                 hide_balance.setImageDrawable( ContextCompat.getDrawable( context!!, R.drawable.ic_eyes_cancel ) )
@@ -83,9 +86,9 @@ class ExpenseFragment : Fragment(), CallBackReturn {
 
             view_hide_balance.visibility = View.VISIBLE
             edt_balance      .visibility = View.GONE
-
-            hideBalance = !hideBalance
         }
+
+        Helper.persistData( Helper.PERSIST_VIEW_BALANCE, context!!, hideBalance.toString() )
     }
 
     private fun getListBankBalance(listCard : ArrayList<Card> ) : ArrayList<Double> {
@@ -99,8 +102,12 @@ class ExpenseFragment : Fragment(), CallBackReturn {
     }
 
     private fun changeBalanceView( balances: Double ) {
-        if ( edt_balance != null){
-            edt_balance.text = balances.toString()
+        if (context != null) {
+            if ( edt_balance != null){
+                edt_balance.text = balances.toString()
+
+                hideBalance()
+            }
         }
     }
 
