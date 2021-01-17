@@ -145,7 +145,6 @@ class ExpenseFragment : Fragment(), CallBackReturn {
 
     private fun configListViewExpense() {
         if ( context != null ) {
-
             listExpense = sortExpense( listExpense )
             list_expenses.adapter = ExpenseAdapter( listExpense , context!! )
 
@@ -174,8 +173,10 @@ class ExpenseFragment : Fragment(), CallBackReturn {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK) {
             if  (requestCode == Helper.PAYMENT_EXPENSE) {
-                val card = getCardIndexByExpense( data?.getSerializableExtra(Helper.EXPENSE_RETURN) as Expense )
+                val expense = data?.getSerializableExtra(Helper.EXPENSE_RETURN) as Expense
+                val card = getCardIndexByExpense( expense )
                 if (card != null && fragmentManager != null && context != null){
+                    card.balance -= expense.value
                     CRUDController.update(card, fragmentManager!!, context!!)
                 }
             }
