@@ -15,6 +15,9 @@ class Helper {
         const val EXPENSE_NAME = "expense_name"
         const val EXPENSE_CODE = 1
         const val PERSIST_VIEW_BALANCE = "PERSIST_VIEW_BALANCE"
+        const val DELETE_EXPENSE = 2
+        const val PAYMENT_EXPENSE = 3
+        const val EXPENSE_RETURN = "EXPENSE_RETURN"
 
         fun expenseOwn(expense: Expense) : Boolean {
             val stringDueDate = "${expense.dueDate}/${DateHelper.nowMonth()}/${DateHelper.nowYear()}"
