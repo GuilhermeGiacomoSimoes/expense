@@ -137,7 +137,7 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
 
             val dateExpExpense = SimpleDateFormat("YYYY/MM/dd").parse(expense.dueDate).time
 
-            dateExpCard < dateExpExpense
+            dateExpCard <= dateExpExpense
         } else {
             false
         }
