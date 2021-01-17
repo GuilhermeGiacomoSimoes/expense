@@ -30,6 +30,12 @@ class Helper {
             return dtf.format(now)
         }
 
+        fun persistData (REF_NAME : String, context: Context, args : String) {
+            val editor = configSharedPreference(REF_NAME, context).edit()
+            editor.putString(REF_NAME, args)
+            editor.apply()
+        }
+
 
         private fun configSharedPreference(REF_NAME : String, context: Context) = context.getSharedPreferences(REF_NAME, Context.MODE_PRIVATE)
 
