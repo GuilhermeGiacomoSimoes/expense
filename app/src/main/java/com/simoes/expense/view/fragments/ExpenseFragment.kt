@@ -182,7 +182,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
 
             if (requestCode == Helper.DELETE_EXPENSE) {
                 val card = getCardIndexByExpense( data?.getSerializableExtra(Helper.EXPENSE_RETURN) as Expense )
-                card?.expenses?.remove( data?.getSerializableExtra(Helper.EXPENSE_RETURN) as Expense )
+                card?.expenses?.remove( data.getSerializableExtra(Helper.EXPENSE_RETURN) as Expense )
 
                 if (card != null && fragmentManager != null && context != null){
                     CRUDController.update(card, fragmentManager!!, context!!)
