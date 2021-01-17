@@ -36,6 +36,10 @@ class Helper {
             editor.apply()
         }
 
+        fun getPersistData (REF_NAME : String, context: Context) : String? {
+            val editor = configSharedPreference(REF_NAME, context)
+            return editor.getString(REF_NAME, "")
+        }
 
         private fun configSharedPreference(REF_NAME : String, context: Context) = context.getSharedPreferences(REF_NAME, Context.MODE_PRIVATE)
 
