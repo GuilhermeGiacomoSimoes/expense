@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#00a7e8"
+        android:background="@drawable/button_positive"
         android:gravity="center"
         android:padding="30dp"
         >
