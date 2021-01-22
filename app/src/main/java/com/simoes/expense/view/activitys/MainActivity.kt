@@ -3,6 +3,7 @@ package com.simoes.expense.view.activitys
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.simoes.expense.R
+import com.simoes.expense.view.fragments.ChartsFragment
 import com.simoes.expense.view.fragments.ExpenseFragment
 import com.simoes.expense.view.fragments.MoreFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -20,7 +21,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_history.setOnClickListener {
-
+            val ft = supportFragmentManager.beginTransaction()
+            ft.replace(R.id.container, ChartsFragment())
+            ft.commit()
         }
 
         btn_more.setOnClickListener {
