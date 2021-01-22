@@ -10,7 +10,16 @@
 
     <com.jjoe64.graphview.GraphView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/graph" />
+        android:layout_height="200dp"
+        android:id="@+id/graph_bank"
+        android:layout_margin="10dp"
+        />
+
+    <com.jjoe64.graphview.GraphView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/graph_type"
+        android:layout_margin="10dp"
+        />
 
 </LinearLayout>
