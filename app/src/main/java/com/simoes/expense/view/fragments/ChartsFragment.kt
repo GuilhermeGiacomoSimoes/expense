@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.jjoe64.graphview.DefaultLabelFormatter
-import com.jjoe64.graphview.ValueDependentColor
 import com.jjoe64.graphview.helper.StaticLabelsFormatter
 import com.jjoe64.graphview.series.BarGraphSeries
 import com.jjoe64.graphview.series.DataPoint
@@ -70,7 +68,6 @@ class ChartsFragment : Fragment(), CallBackReturn {
         staticLabelsFormatter.setHorizontalLabels(cardsAndValue.toArray( arrayOf() ))
 
         graph_bank.gridLabelRenderer.labelFormatter = staticLabelsFormatter
-
     }
 
     private fun searchAllCard() {
