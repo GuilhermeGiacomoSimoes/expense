@@ -17,7 +17,7 @@ import com.simoes.expense.helpers.CallBackReturn
 import com.simoes.expense.model.models.Card
 import kotlinx.android.synthetic.main.fragment_charts.*
 
-class ChartsFragment : Fragment() {
+class ChartsFragment : Fragment(), CallBackReturn {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
