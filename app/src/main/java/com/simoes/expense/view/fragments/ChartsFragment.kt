@@ -23,6 +23,7 @@ class ChartsFragment : Fragment(), CallBackReturn {
         super.onViewCreated(view, savedInstanceState)
         searchAllCard()
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -76,4 +77,8 @@ class ChartsFragment : Fragment(), CallBackReturn {
         CRUDController.findAll(Card(), fragmentManager!!, this, context!!)
     }
 
+    override fun callback(list: ArrayList<Any>) {
+        val listCard = list as List<Card>
+        configGraphs(listCard)
+    }
 }
