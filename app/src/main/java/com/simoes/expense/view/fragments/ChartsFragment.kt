@@ -30,8 +30,9 @@ class ChartsFragment : Fragment(), CallBackReturn {
         return inflater.inflate(R.layout.fragment_charts, container, false)
     }
 
-    private fun configGraphs( list: java.util.ArrayList<Card> )  {
+    private fun configGraphs( list: java.util.ArrayList<Card> ) {
         val banks = ArrayList<BarEntry>()
+        val colors = ArrayList<Int>()
 
         for ((index, card) in list.withIndex()){
             var value = 0f
@@ -40,12 +41,14 @@ class ChartsFragment : Fragment(), CallBackReturn {
                 value += expense.value.toFloat()
             }
 
+            colors.add(card.color)
             banks.add( BarEntry( index + .0f, value ) )
         }
         
         val barDataSet = BarDataSet(banks, "banks")
         barDataSet.valueTextColor = Color.BLACK
         barDataSet.valueTextSize = 16f
+        barDataSet.colors = colors
 
         val barData = BarData(barDataSet)
 
