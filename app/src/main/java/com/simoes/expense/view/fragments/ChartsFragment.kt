@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.jjoe64.graphview.ValueDependentColor
 import com.jjoe64.graphview.helper.StaticLabelsFormatter
 import com.jjoe64.graphview.series.BarGraphSeries
 import com.jjoe64.graphview.series.DataPoint
@@ -33,6 +34,7 @@ class ChartsFragment : Fragment(), CallBackReturn {
     private fun configGraphs(list: List<Card>) {
         val cardsAndValue   = java.util.ArrayList<String>()
         val arr = BarGraphSeries<DataPoint>()
+        val colorCards = HashMap<String, Int>()
 
         for ((index, card) in list.withIndex()) {
             val name = card.name
@@ -44,13 +46,22 @@ class ChartsFragment : Fragment(), CallBackReturn {
 
             val x = .0 + index
             arr.appendData(DataPoint(x, value), true, Integer.MAX_VALUE)
+            colorCards[value.toString()] = card.color
             cardsAndValue.add(name)
         }
 
         graph_bank.addSeries(arr)
 
-        arr.isDrawValuesOnTop   = true
-        arr.valuesOnTopColor    = Color.BLUE
+        arr.valueDependentColor = ValueDependentColor { data ->
+            val rgb = hexToRGB( colorCards[( data.x).toString()]!! )
+            val col =  Color.rgb( rgb[0], rgb[1], rgb[2] )
+
+            col
+        }
+
+        arr.isDrawValuesOnTop = true
+        arr.dataWidth = 1.0
+        arr.spacing = 10
 
         graph_bank.viewport.isScrollable        = true
         graph_bank.viewport.isYAxisBoundsManual = true
@@ -62,10 +73,8 @@ class ChartsFragment : Fragment(), CallBackReturn {
         graph_bank.gridLabelRenderer.reloadStyles()
         graph_bank.title = "Gastos por banco no mes"
 
-        arr.spacing    = 1
-
         val staticLabelsFormatter = StaticLabelsFormatter(graph_bank)
-        staticLabelsFormatter.setHorizontalLabels(cardsAndValue.toArray( arrayOf() ))
+        staticLabelsFormatter.setHorizontalLabels(cardsAndValue.toArray(arrayOf()))
 
         graph_bank.gridLabelRenderer.labelFormatter = staticLabelsFormatter
     }
