@@ -6,10 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.jjoe64.graphview.ValueDependentColor
-import com.jjoe64.graphview.helper.StaticLabelsFormatter
-import com.jjoe64.graphview.series.BarGraphSeries
-import com.jjoe64.graphview.series.DataPoint
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
@@ -31,51 +30,28 @@ class ChartsFragment : Fragment(), CallBackReturn {
         return inflater.inflate(R.layout.fragment_charts, container, false)
     }
 
-    private fun configGraphs(list: List<Card>) {
-        val cardsAndValue   = java.util.ArrayList<String>()
-        val arr = BarGraphSeries<DataPoint>()
-        val colorCards = HashMap<String, Int>()
+    private fun configGraphs( list: java.util.ArrayList<Card> )  {
+        val banks = ArrayList<BarEntry>()
 
-        for ((index, card) in list.withIndex()) {
-            val name = card.name
-            var value = .0
+        for ((index, card) in list.withIndex()){
+            var value = 0f
 
-            for (expense in card.expenses) {
-                value += expense.value
+            for (expense in card.expenses){
+                value += expense.value.toFloat()
             }
 
-            val x = .0 + index
-            arr.appendData(DataPoint(x, value), true, Integer.MAX_VALUE)
-            colorCards[value.toString()] = card.color
-            cardsAndValue.add(name)
+            banks.add( BarEntry( index + .0f, value ) )
         }
+        
+        val barDataSet = BarDataSet(banks, "banks")
+        barDataSet.valueTextColor = Color.BLACK
+        barDataSet.valueTextSize = 16f
 
-        graph_bank.addSeries(arr)
+        val barData = BarData(barDataSet)
 
-        arr.valueDependentColor = ValueDependentColor { data ->
-            val rgb = hexToRGB( colorCards[( data.y).toString()]!! )
-            val col =  Color.rgb( rgb[0], rgb[1], rgb[2] )
-            col
-        }
-
-        arr.isDrawValuesOnTop = true
-        arr.dataWidth = 1.0
-        arr.spacing = 10
-
-        graph_bank.viewport.isScrollable        = true
-        graph_bank.viewport.isYAxisBoundsManual = true
-        graph_bank.viewport.isXAxisBoundsManual = true
-
-        graph_bank.gridLabelRenderer.isHorizontalLabelsVisible = true
-        graph_bank.viewport.setMinY(0.0)
-        graph_bank.gridLabelRenderer.textSize = 40f
-        graph_bank.gridLabelRenderer.reloadStyles()
-        graph_bank.title = "Gastos por banco no mes"
-
-        val staticLabelsFormatter = StaticLabelsFormatter(graph_bank)
-        staticLabelsFormatter.setHorizontalLabels(cardsAndValue.toArray(arrayOf()))
-
-        graph_bank.gridLabelRenderer.labelFormatter = staticLabelsFormatter
+        barChart.setFitBars(true)
+        barChart.data = barData
+        barChart.animateY(2000)
     }
 
     private fun searchAllCard() {
@@ -83,7 +59,7 @@ class ChartsFragment : Fragment(), CallBackReturn {
     }
 
     override fun callback(list: ArrayList<Any>) {
-        val listCard = list as List<Card>
+        val listCard = list as ArrayList<Card>
         configGraphs(listCard)
     }
 
