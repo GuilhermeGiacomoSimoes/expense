@@ -53,9 +53,8 @@ class ChartsFragment : Fragment(), CallBackReturn {
         graph_bank.addSeries(arr)
 
         arr.valueDependentColor = ValueDependentColor { data ->
-            val rgb = hexToRGB( colorCards[( data.x).toString()]!! )
+            val rgb = hexToRGB( colorCards[( data.y).toString()]!! )
             val col =  Color.rgb( rgb[0], rgb[1], rgb[2] )
-
             col
         }
 
