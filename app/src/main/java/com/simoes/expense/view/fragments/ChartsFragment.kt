@@ -87,4 +87,14 @@ class ChartsFragment : Fragment(), CallBackReturn {
         val listCard = list as List<Card>
         configGraphs(listCard)
     }
+
+    private fun hexToRGB(hex : Int): Array<Int> {
+        return arrayOf( getRed(hex), getGreen(hex), getBlue(hex) )
+    }
+    private fun getRed(hex : Int) = hex shr 16 and 0xFF
+
+    private fun getGreen(hex : Int) = hex shr 8 and 0xFF
+
+    private fun getBlue(hex : Int) = hex and 0xFF
+
 }
