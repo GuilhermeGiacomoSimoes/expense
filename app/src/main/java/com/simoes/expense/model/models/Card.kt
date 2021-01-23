@@ -13,5 +13,5 @@ class Card  : Serializable, Object() {
                         var limit    = .0
                         var expenses = ArrayList<Expense>()
     override lateinit   var uuid      : String
-
+                        var color     = 0xFFF
 }
