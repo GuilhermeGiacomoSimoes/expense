@@ -82,9 +82,12 @@ class ChartsFragment : Fragment(), CallBackReturn {
         val visitors = ArrayList<PieEntry>()
 
         for (card in list){
+            var value = 0.0
             for (expense in card.expenses){
-                visitors.add(PieEntry(expense.value.toFloat(), card.name))
+                value += expense.value
             }
+            
+            visitors.add(PieEntry(value.toFloat(), card.name))
         }
 
         val pieDataSet = PieDataSet(visitors, "")
