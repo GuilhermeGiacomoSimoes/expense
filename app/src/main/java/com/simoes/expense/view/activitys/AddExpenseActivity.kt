@@ -12,9 +12,11 @@ import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
 import com.simoes.expense.helpers.Helper
+import com.simoes.expense.helpers.TypeCategory
 import com.simoes.expense.helpers.TypeExpense
 import com.simoes.expense.model.models.Card
 import com.simoes.expense.model.models.Expense
+import com.simoes.expense.view.adapters.CategoryAdapter
 import kotlinx.android.synthetic.main.activity_add_expense.*
 import java.text.SimpleDateFormat
 import java.util.ArrayList
@@ -45,6 +47,8 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
             day          = cardToAddExpense.dueDate.toString()
             typeExpense  = TypeExpense.CARD
         }
+
+        configListCategory()
 
         btn_save_bank.setOnClickListener {
             val expense = createExpense()
@@ -101,6 +105,24 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
                 //TODO implements
             }
         }
+    }
+
+    private fun configListCategory () {
+        val arrayCaegory = arrayListOf(
+            TypeCategory.PUB,
+            TypeCategory.SUPERMARKET,
+            TypeCategory.ALCOHOLIC_BEVERAGES,
+            TypeCategory.TICKETS,
+            TypeCategory.FOOD,
+            TypeCategory.INTERNET,
+            TypeCategory.WATER,
+            TypeCategory.ENERGY,
+            TypeCategory.FURNITURE,
+            TypeCategory.OTHER
+        )
+
+        category_spinner.adapter = CategoryAdapter(this, arrayCaegory)
+        
     }
 
     private fun mountCardSelectionScreen() {
