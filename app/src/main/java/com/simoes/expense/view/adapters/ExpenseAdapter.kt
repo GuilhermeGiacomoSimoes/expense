@@ -75,9 +75,4 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
             R.drawable.ic_card_expense
         }
     }
-
-    fun remove (){
-        listExpense.removeAll(listExpense)
-        notifyDataSetChanged()
-    }
 }
