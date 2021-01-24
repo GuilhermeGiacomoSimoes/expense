@@ -30,6 +30,10 @@ class ChartsFragment : Fragment(), CallBackReturn {
     }
 
     private fun configGraphs(list: ArrayList<Card>) {
+        configGraphCardSpend(list)
+    }
+
+    private fun configGraphCardSpend(list: ArrayList<Card>) {
         val visitors = ArrayList<PieEntry>()
 
         for (card in list){
