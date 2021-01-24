@@ -8,7 +8,7 @@
     android:orientation="vertical"
     >
 
-    <com.github.mikephil.charting.charts.PieChart
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/cardSpend"
