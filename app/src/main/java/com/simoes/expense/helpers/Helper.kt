@@ -46,6 +46,24 @@ class Helper {
 
         private fun configSharedPreference(REF_NAME : String, context: Context) = context.getSharedPreferences(REF_NAME, Context.MODE_PRIVATE)
 
+        fun getTranslateExpenseTypePortuguese ( key : String ) : String? {
+            val hash = hashMapOf(
+                "PUB"                   to "Bar",
+                "RESTAURANT"            to "Restaurante",
+                "SUPERMARKET"           to "Supermercado",
+                "ALCOHOLIC_BEVERAGES"   to "Bebidas Alcóolicas",
+                "TICKETS"               to "Passagens",
+                "FOOD"                  to "Comida",
+                "INTERNET"              to "Internet",
+                "WATER"                 to "Água",
+                "ENERGY"                to "Energia",
+                "FURNITURE"             to "Mobília",
+                "OTHER"                 to "Outros"
+            )
+
+            return hash[key]
+        }
+
     }
 
 }
