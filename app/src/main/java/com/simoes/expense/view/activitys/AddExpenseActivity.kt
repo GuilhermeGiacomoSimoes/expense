@@ -18,7 +18,6 @@ import com.simoes.expense.model.models.Card
 import com.simoes.expense.model.models.Expense
 import com.simoes.expense.view.adapters.CategoryAdapter
 import kotlinx.android.synthetic.main.activity_add_expense.*
-import java.text.SimpleDateFormat
 import java.util.ArrayList
 
 class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
@@ -30,6 +29,7 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
     private lateinit var listCards      : ArrayList<Card>
     private lateinit var cardSelected   : Card
     private lateinit var typeExpense    : TypeExpense
+    private lateinit var typeCategory   : TypeCategory
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -122,7 +122,23 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
         )
 
         category_spinner.adapter = CategoryAdapter(this, arrayCaegory)
-        
+
+        category_spinner.onItemSelectedListener = object  :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                typeCategory = arrayCaegory[position]
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+        }
     }
 
     private fun mountCardSelectionScreen() {
@@ -228,6 +244,7 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
         expense.repeat      = chk_repeat.isChecked
         expense.typeExpense = typeExpense
         expense.date        = Helper.dateNow()
+        expense.category    = this.typeCategory
 
         return expense
     }
