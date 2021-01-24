@@ -124,6 +124,13 @@
             android:layout_margin="10dp"
             />
 
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:id="@+id/category_spinner"
+            />
+
         <CheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
