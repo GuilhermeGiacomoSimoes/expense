@@ -96,7 +96,6 @@ class ChartsFragment : Fragment(), CallBackReturn {
 
         cardSpend.data = pieData
         cardSpend.description.isEnabled = true
-        cardSpend.centerText = "Visitors"
         cardSpend.animate()
         cardSpend.invalidate()
     }
