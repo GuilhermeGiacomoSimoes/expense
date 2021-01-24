@@ -3,10 +3,12 @@ package com.simoes.expense.helpers
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.simoes.expense.R
 import com.simoes.expense.model.models.Expense
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 class Helper {
 
@@ -33,32 +35,51 @@ class Helper {
             return dtf.format(now)
         }
 
-        fun persistData (REF_NAME : String, context: Context, args : String) {
+        fun persistData(REF_NAME: String, context: Context, args: String) {
             val editor = configSharedPreference(REF_NAME, context).edit()
             editor.putString(REF_NAME, args)
             editor.apply()
         }
 
-        fun getPersistData (REF_NAME : String, context: Context) : String? {
+        fun getPersistData(REF_NAME: String, context: Context) : String? {
             val editor = configSharedPreference(REF_NAME, context)
             return editor.getString(REF_NAME, false.toString())
         }
 
-        private fun configSharedPreference(REF_NAME : String, context: Context) = context.getSharedPreferences(REF_NAME, Context.MODE_PRIVATE)
+        private fun configSharedPreference(REF_NAME: String, context: Context) = context.getSharedPreferences(
+            REF_NAME,
+            Context.MODE_PRIVATE
+        )
 
-        fun getTranslateExpenseTypePortuguese ( key : String ) : String? {
+        fun getTranslateExpenseTypePortuguese(key: String) : String? {
             val hash = hashMapOf(
-                "PUB"                   to "Bar",
-                "RESTAURANT"            to "Restaurante",
-                "SUPERMARKET"           to "Supermercado",
-                "ALCOHOLIC_BEVERAGES"   to "Bebidas Alcóolicas",
-                "TICKETS"               to "Passagens",
-                "FOOD"                  to "Comida",
-                "INTERNET"              to "Internet",
-                "WATER"                 to "Água",
-                "ENERGY"                to "Energia",
-                "FURNITURE"             to "Mobília",
-                "OTHER"                 to "Outros"
+                "PUB" to "Bar",
+                "SUPERMARKET" to "Supermercado",
+                "ALCOHOLIC_BEVERAGES" to "Bebidas Alcóolicas",
+                "TICKETS" to "Passagens",
+                "FOOD" to "Comida",
+                "INTERNET" to "Internet",
+                "WATER" to "Água",
+                "ENERGY" to "Energia",
+                "FURNITURE" to "Mobília",
+                "OTHER" to "Outros"
+            )
+
+            return hash[key]
+        }
+
+        fun getIconTypeCategory(key: String) : Int? {
+            val hash = hashMapOf(
+                "PUB" to R.drawable.ic_pub,
+                "SUPERMARKET" to R.drawable.ic_supermarket,
+                "ALCOHOLIC_BEVERAGES" to R.drawable.ic_alcoholic_beverages,
+                "TICKETS" to R.drawable.ic_tickets,
+                "FOOD" to R.drawable.ic_food,
+                "INTERNET" to R.drawable.ic_internet,
+                "WATER" to R.drawable.ic_water,
+                "ENERGY" to R.drawable.ic_energy,
+                "FURNITURE" to R.drawable.ic_furniture,
+                "OTHER" to R.drawable.ic_other
             )
 
             return hash[key]
