@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.github.mikephil.charting.components.LegendEntry
 import com.github.mikephil.charting.data.*
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
@@ -19,8 +17,12 @@ import kotlinx.android.synthetic.main.fragment_charts.*
 
 class ChartsFragment : Fragment(), CallBackReturn {
 
+    private var iRequested = false
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        iRequested= true
         searchAllCard()
     }
 
@@ -108,7 +110,10 @@ class ChartsFragment : Fragment(), CallBackReturn {
     }
 
     override fun callback(list: ArrayList<Any>) {
-        val listCard = list as ArrayList<Card>
-        configGraphs(listCard)
+        if (iRequested) {
+            iRequested = false
+            val listCard = list as ArrayList<Card>
+            configGraphs(listCard)
+        }
     }
 }
