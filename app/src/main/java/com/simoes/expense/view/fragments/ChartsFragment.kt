@@ -46,7 +46,6 @@ class ChartsFragment : Fragment(), CallBackReturn {
         val categorys = HashMap<String, Float>()
 
         for (card in list) {
-
             for (expense in card.expenses){
                 val value = categorys[expense.category.name]
                 if (value != null) {
@@ -64,6 +63,10 @@ class ChartsFragment : Fragment(), CallBackReturn {
 
             val barDataSet = BarDataSet(banks, Helper.getTranslateExpenseTypePortuguese(key))
 
+            if (Helper.getColorByTypeCategory(key) != null){
+                barDataSet.color = Helper.getColorByTypeCategory(key) !!
+            }
+
             barDataSet.valueTextColor = Color.BLACK
             barDataSet.valueTextSize = 16f
 
@@ -71,7 +74,6 @@ class ChartsFragment : Fragment(), CallBackReturn {
 
             index ++
         }
-
 
         val barData = BarData(cards.toList())
 
@@ -88,7 +90,7 @@ class ChartsFragment : Fragment(), CallBackReturn {
             for (expense in card.expenses){
                 value += expense.value
             }
-            
+
             visitors.add(PieEntry(value.toFloat(), card.name))
         }
 
