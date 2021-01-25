@@ -1,6 +1,7 @@
 package com.simoes.expense.helpers
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.simoes.expense.R
@@ -80,6 +81,23 @@ class Helper {
                 "ENERGY" to R.drawable.ic_energy,
                 "FURNITURE" to R.drawable.ic_furniture,
                 "OTHER" to R.drawable.ic_other
+            )
+
+            return hash[key]
+        }
+
+        fun getColorByTypeCategory( key : String ) : Int? {
+            val hash = hashMapOf(
+                "PUB" to Color.rgb(210,105,30),
+                "SUPERMARKET" to Color.rgb(70,130,180),
+                "ALCOHOLIC_BEVERAGES" to Color.rgb(255,215,0),
+                "TICKETS" to Color.rgb(50,205,50),
+                "FOOD" to Color.rgb(188,143,143),
+                "INTERNET" to Color.rgb(238,130,238),
+                "WATER" to Color.rgb(123,104,238),
+                "ENERGY" to Color.rgb(199,21,133),
+                "FURNITURE" to Color.rgb(250,128,114),
+                "OTHER" to Color.rgb(255,0,0)
             )
 
             return hash[key]
