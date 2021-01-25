@@ -104,6 +104,7 @@ class ChartsFragment : Fragment(), CallBackReturn {
         cardSpend.data = pieData
         cardSpend.description.isEnabled = true
         cardSpend.animate()
+        cardSpend.animateXY(2000, 2000)
         cardSpend.invalidate()
     }
 
