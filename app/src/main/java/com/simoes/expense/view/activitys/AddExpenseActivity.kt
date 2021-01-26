@@ -59,8 +59,26 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
             }
             else {
                 val now         = Helper.dateNow()
-                val monthNow    = now.split(" ")[0].split("/")[1]
-                val yearNow     = now.split(" ")[0].split("/")[0]
+                var monthNow    = now.split(" ")[0].split("/")[1]
+                var yearNow     = now.split(" ")[0].split("/")[0]
+                val dayNow      = now.split(" ")[0].split("/")[2]
+
+                if ( expense.card?.dueDate!! < Integer.parseInt(dayNow)) {
+
+                    var monthInteger = Integer.parseInt(monthNow)
+                    var yearInteger  = Integer.parseInt(yearNow)
+
+                    if ( monthInteger < 11 ) {
+                        monthInteger ++
+                    }
+                    else {
+                        monthInteger = 1
+                        yearInteger ++
+                    }
+
+                    monthNow = if (monthInteger < 10) "0${monthInteger}" else monthInteger.toString()
+                    yearNow = yearInteger.toString()
+                }
 
                 val dateExpCardStr = "$yearNow/$monthNow/${expense.card!!.dueDate}"
 
