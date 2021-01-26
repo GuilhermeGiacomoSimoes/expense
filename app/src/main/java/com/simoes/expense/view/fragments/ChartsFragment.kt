@@ -68,6 +68,8 @@ class ChartsFragment : Fragment(), CallBackReturn {
 
             card.expenses.removeAll(card.expenses)
             card.expenses = expenses
+
+            listReturn.add(card)
         }
 
         return listReturn
