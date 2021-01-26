@@ -1,10 +1,12 @@
 package com.simoes.expense.view.fragments
 
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.utils.ColorTemplate
@@ -13,6 +15,7 @@ import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
 import com.simoes.expense.helpers.Helper
 import com.simoes.expense.model.models.Card
+import com.simoes.expense.model.models.Expense
 import kotlinx.android.synthetic.main.fragment_charts.*
 
 class ChartsFragment : Fragment(), CallBackReturn {
@@ -34,9 +37,40 @@ class ChartsFragment : Fragment(), CallBackReturn {
         return inflater.inflate(R.layout.fragment_charts, container, false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun configGraphs(list: ArrayList<Card>) {
-        configGraphCardSpend(list)
-        configGraphSpenderByCategory(list)
+        val listMonth  = getCardsMonth( list )
+
+        configGraphCardSpend(listMonth)
+        configGraphSpenderByCategory(listMonth)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getCardsMonth(list : ArrayList<Card> ) : ArrayList<Card> {
+        val listReturn = ArrayList<Card>()
+
+        for (card in list) {
+            val expenses = ArrayList<Expense>()
+
+            for (expense in card.expenses) {
+                val dateSplit = expense.date.split(" ")[0].split("/")
+                val year = dateSplit[0]
+                val month = dateSplit[1]
+
+                val dateNowSplit = Helper.dateNow().split(" ")[0].split("/")
+                val yearNow = dateNowSplit[0]
+                val monthNow = dateNowSplit[1]
+
+                if (year == yearNow && month == monthNow) {
+                    expenses.add(expense)
+                }
+            }
+
+            card.expenses.removeAll(card.expenses)
+            card.expenses = expenses
+        }
+
+        return listReturn
     }
 
     private fun configGraphSpenderByCategory(list: ArrayList<Card>) {
@@ -112,6 +146,7 @@ class ChartsFragment : Fragment(), CallBackReturn {
         CRUDController.findAll(Card(), fragmentManager!!, this, context!!)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun callback(list: ArrayList<Any>) {
         if (iRequested) {
             iRequested = false
