@@ -62,11 +62,17 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
     }
 
     private fun configButtons( card : Card, txtDeleteCard : TextView ) {
-        txtDeleteCard.setOnClickListener {            val builder = AlertDialog.Builder( context )
+        txtDeleteCard.setOnClickListener {
+            val builder = AlertDialog.Builder( context )
             builder.setTitle("Confirmaçao")
             builder.setMessage("Tem certeza que deseja excluir o cartão?")
             builder.setPositiveButton("Excluir") { _, _ ->
                 CRUDModel.delete(card, card.uuid)
+
+                for ( expense in card.expenses ){
+                    CRUDModel.delete(expense, expense.uuid)
+                }
+
                 (context as ListCardActivity).reload()
             }
             builder.setNegativeButton("Cancelar") { dialog, _ ->
