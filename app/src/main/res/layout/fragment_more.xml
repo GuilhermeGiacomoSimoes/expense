@@ -6,7 +6,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.fragments.MoreFragment"
     android:columnCount="2"
-    android:background="@color/background_color_card_and_container">
+    android:background="@color/background_color_card_and_container"
+    >
 
     <androidx.cardview.widget.CardView
         android:layout_width="140dp"
