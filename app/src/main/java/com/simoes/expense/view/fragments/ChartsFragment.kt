@@ -14,7 +14,6 @@ import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
 import com.simoes.expense.helpers.Helper
-import com.simoes.expense.model.models.Card
 import com.simoes.expense.model.models.Expense
 import kotlinx.android.synthetic.main.fragment_charts.*
 
@@ -61,8 +60,6 @@ class ChartsFragment : Fragment(), CallBackReturn {
             if (year == yearNow && month == monthNow) {
                 expenses.add(expense)
             }
-
-            expenses.add(expense)
         }
 
         return expenses
