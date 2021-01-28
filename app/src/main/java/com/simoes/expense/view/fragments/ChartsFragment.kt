@@ -26,7 +26,7 @@ class ChartsFragment : Fragment(), CallBackReturn {
         super.onViewCreated(view, savedInstanceState)
 
         iRequested= true
-        searchAllCard()
+        searchAllExpense()
     }
 
     override fun onCreateView(
@@ -38,58 +38,48 @@ class ChartsFragment : Fragment(), CallBackReturn {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun configGraphs(list: ArrayList<Card>) {
-        val listMonth  = getCardsMonth( list )
+    private fun configGraphs(list: ArrayList<Expense>) {
+        val listMonth  = getExpenseMonth( list )
 
         configGraphCardSpend(listMonth)
         configGraphSpenderByCategory(listMonth)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun getCardsMonth(list : ArrayList<Card> ) : ArrayList<Card> {
-        val listReturn = ArrayList<Card>()
+    private fun getExpenseMonth(list : ArrayList<Expense> ) : ArrayList<Expense> {
+        val expenses = ArrayList<Expense>()
 
-        for (card in list) {
-            val expenses = ArrayList<Expense>()
+        for (expense in list) {
+            val dateSplit = expense.date.split(" ")[0].split("/")
+            val year = dateSplit[0]
+            val month = dateSplit[1]
 
-            for (expense in card.expenses) {
-                val dateSplit = expense.date.split(" ")[0].split("/")
-                val year = dateSplit[0]
-                val month = dateSplit[1]
+            val dateNowSplit = Helper.dateNow().split(" ")[0].split("/")
+            val yearNow = dateNowSplit[0]
+            val monthNow = dateNowSplit[1]
 
-                val dateNowSplit = Helper.dateNow().split(" ")[0].split("/")
-                val yearNow = dateNowSplit[0]
-                val monthNow = dateNowSplit[1]
-
-                if (year == yearNow && month == monthNow) {
-                    expenses.add(expense)
-                }
+            if (year == yearNow && month == monthNow) {
+                expenses.add(expense)
             }
 
-            card.expenses.removeAll(card.expenses)
-            card.expenses = expenses
-
-            listReturn.add(card)
+            expenses.add(expense)
         }
 
-        return listReturn
+        return expenses
     }
 
-    private fun configGraphSpenderByCategory(list: ArrayList<Card>) {
-        val banks   = ArrayList<BarEntry>()
-        val cards   = ArrayList<BarDataSet>()
+    private fun configGraphSpenderByCategory(list: ArrayList<Expense>) {
+        val banks       = ArrayList<BarEntry>()
+        val cards       = ArrayList<BarDataSet>()
+        val categorys   = HashMap<String, Float>()
 
-        val categorys = HashMap<String, Float>()
-
-        for (card in list) {
-            for (expense in card.expenses){
-                val value = categorys[expense.category.name]
-                if (value != null) {
-                    categorys[expense.category.name] = value + expense.value.toFloat()
-                }
-                else {
-                    categorys[expense.category.name] = expense.value.toFloat()
-                }
+        for (expense in list) {
+            val value = categorys[expense.category.name]
+            if (value != null) {
+                categorys[expense.category.name] = value + expense.value.toFloat()
+            }
+            else {
+                categorys[expense.category.name] = expense.value.toFloat()
             }
         }
 
@@ -118,19 +108,48 @@ class ChartsFragment : Fragment(), CallBackReturn {
         spenderByCategory.animateY(2000)
     }
 
-    private fun configGraphCardSpend(list: ArrayList<Card>) {
-        val visitors = ArrayList<PieEntry>()
-
-        for (card in list){
-            var value = 0.0
-            for (expense in card.expenses){
-                value += expense.value
-            }
-
-            visitors.add(PieEntry(value.toFloat(), card.name))
+    private fun indexOfString( list : ArrayList<String>, value : String ) : Int {
+        for ( (i, v) in list.withIndex() ) {
+            if( v == value )  return i
         }
 
-        val pieDataSet = PieDataSet(visitors, "")
+        return -1
+    }
+
+    private fun configGraphCardSpend(list: ArrayList<Expense>) {
+        val data        = ArrayList<PieEntry>()
+        val cardsAdd    = ArrayList<String>()
+        val cardsValue  = ArrayList<Float>()
+        val cardsName   = ArrayList<String>()
+
+        for (expense in list){
+            val value = expense.value
+            if (expense.card != null) {
+                val index = indexOfString(cardsAdd, expense.card!!.uuid)
+                if (index != -1) {
+                    cardsValue[index] += value.toFloat()
+                } else {
+                    cardsValue.add(value.toFloat())
+                    cardsName.add(expense.card!!.name)
+                    cardsAdd.add(expense.card!!.uuid)
+                }
+            } else {
+                val index = indexOfString(cardsAdd, "especie")
+                if (index != -1) {
+                    cardsValue[index] += value.toFloat()
+                } else {
+                    cardsValue.add(value.toFloat())
+                    cardsName.add("Espécie")
+                    cardsAdd.add("especie")
+                }
+            }
+        }
+
+        for ((i,v) in cardsValue.withIndex()) {
+            data.add(PieEntry(v, cardsName[i]))
+        }
+
+        val pieDataSet = PieDataSet(data, "")
         pieDataSet.colors = ColorTemplate.COLORFUL_COLORS.toMutableList()
         pieDataSet.valueTextColor = Color.BLACK
         pieDataSet.valueTextSize = 16f
@@ -144,16 +163,16 @@ class ChartsFragment : Fragment(), CallBackReturn {
         cardSpend.invalidate()
     }
 
-    private fun searchAllCard() {
-        CRUDController.findAll(Card(), fragmentManager!!, this, context!!)
+    private fun searchAllExpense() {
+        CRUDController.findAll(Expense(), fragmentManager!!, this, context!!)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun callback(list: ArrayList<Any>) {
         if (iRequested) {
             iRequested = false
-            val listCard = list as ArrayList<Card>
-            configGraphs(listCard)
+            val listExpense = list as ArrayList<Expense>
+            configGraphs(listExpense)
         }
     }
 }
