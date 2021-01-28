@@ -35,14 +35,8 @@ class MoreFragment : Fragment() {
             startActivity(Intent( context, AddExpenseActivity ::class.java ))
         }
 
-        openScreenChangePass.setOnClickListener {
-            startActivity(Intent( context, ChangePassActivity::class.java ))
-        }
-
         openListCards.setOnClickListener {
             startActivity(Intent( context, ListCardActivity::class.java ))
         }
-
     }
-
 }
