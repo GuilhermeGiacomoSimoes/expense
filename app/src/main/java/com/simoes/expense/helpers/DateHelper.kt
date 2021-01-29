@@ -23,7 +23,7 @@ class DateHelper {
         }
 
         fun nowMilliseconds() : Long  {
-            return Date( getDateNow() ).time
+            return System.currentTimeMillis()
         }
 
         fun nowMonth() : String {
