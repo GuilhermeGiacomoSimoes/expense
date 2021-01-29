@@ -53,40 +53,12 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
         btn_save_bank.setOnClickListener {
             val expense = createExpense()
 
-            if ( expense.typeExpense == TypeExpense.MONEY ){
+            if ( expense.typeExpense == TypeExpense.CARD ){
                 expense.card = null
-                saveExpense( expense )
-            }
-            else {
-                val now         = Helper.dateNow()
-                var monthNow    = now.split(" ")[0].split("/")[1]
-                var yearNow     = now.split(" ")[0].split("/")[0]
-                val dayNow      = now.split(" ")[0].split("/")[2]
-
-                if ( expense.card?.dueDate!! < Integer.parseInt(dayNow)) {
-
-                    var monthInteger = Integer.parseInt(monthNow)
-                    var yearInteger  = Integer.parseInt(yearNow)
-
-                    if ( monthInteger < 11 ) {
-                        monthInteger ++
-                    }
-                    else {
-                        monthInteger = 1
-                        yearInteger ++
-                    }
-
-                    monthNow = if (monthInteger < 10) "0${monthInteger}" else monthInteger.toString()
-                    yearNow = yearInteger.toString()
-                }
-
-                val dateExpCardStr = "$yearNow/$monthNow/${expense.card!!.dueDate}"
-
-                expense.dueDate = dateExpCardStr
-
-                saveExpense( expense )
                 updateCard ( expense )
             }
+
+            saveExpense( expense )
         }
     }
 
@@ -242,7 +214,7 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createExpense() : Expense {
-        val expense  = Expense()
+        val expense = Expense()
 
         expense.card = if ( typeExpense == TypeExpense.CARD ) {
             cardSelected
@@ -251,12 +223,34 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
         }
 
         val now         = Helper.dateNow()
-        val monthNow    = now.split(" ")[0].split("/")[1]
-        val yearNow     = now.split(" ")[0].split("/")[0]
+        var monthNow    = now.split(" ")[0].split("/")[1]
+        var yearNow     = now.split(" ")[0].split("/")[0]
+        val dayNow      = now.split(" ")[0].split("/")[2]
 
-        val dateExpCardStr = "$day/$monthNow/$yearNow"
+        val dayExp = if ( typeExpense == TypeExpense.CARD ) expense.card?.dueDate!!.toInt() else day.toInt()
+
+        if ( dayExp < Integer.parseInt(dayNow)) {
+
+            var monthInteger = Integer.parseInt(monthNow)
+            var yearInteger  = Integer.parseInt(yearNow)
+
+            if ( monthInteger < 11 ) {
+                monthInteger ++
+            }
+            else {
+                monthInteger = 1
+                yearInteger ++
+            }
+
+            monthNow = if (monthInteger < 10) "0${monthInteger}" else monthInteger.toString()
+            yearNow = yearInteger.toString()
+        }
+
+        val dateExpCardStr = "$yearNow/$monthNow/${dayExp}"
 
         expense.dueDate = dateExpCardStr
+
+        expense.dueDate     = dateExpCardStr
         expense.name        = edt_expense_name  .text.toString()
         expense.value       = edt_amount_expense.text.toString().toDouble()
         expense.repeat      = chk_repeat.isChecked
