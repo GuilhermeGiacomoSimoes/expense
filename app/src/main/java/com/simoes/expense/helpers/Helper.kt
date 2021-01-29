@@ -9,23 +9,23 @@ import com.simoes.expense.model.models.Expense
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 class Helper {
 
     companion object {
-        const val UUIDCARD = "uuidcard"
-        const val EXPENSE_NAME = "expense_name"
-        const val EXPENSE_CODE = 1
-        const val PERSIST_VIEW_BALANCE = "PERSIST_VIEW_BALANCE"
-        const val DELETE_EXPENSE = 2
-        const val PAYMENT_EXPENSE = 3
-        const val EXPENSE_RETURN = "EXPENSE_RETURN"
+        const val UUIDCARD              = "uuidcard"
+        const val EXPENSE_NAME          = "expense_name"
+        const val EXPENSE_CODE          = 1
+        const val PERSIST_VIEW_BALANCE  = "PERSIST_VIEW_BALANCE"
+        const val DELETE_EXPENSE        = 2
+        const val PAYMENT_EXPENSE       = 3
+        const val EXPENSE_RETURN        = "EXPENSE_RETURN"
 
         fun expenseOwn(expense: Expense) : Boolean {
             val stringDueDate = "${expense.dueDate}/${DateHelper.nowMonth()}/${DateHelper.nowYear()}"
             val dueDate = SimpleDateFormat("dd/MM/yyyy").parse(stringDueDate).time
             val now = DateHelper.nowMilliseconds()
+
             return dueDate > now
         }
 
