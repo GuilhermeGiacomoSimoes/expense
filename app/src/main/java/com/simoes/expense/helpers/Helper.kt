@@ -22,11 +22,11 @@ class Helper {
         const val EXPENSE_RETURN        = "EXPENSE_RETURN"
 
         fun expenseOwn(expense: Expense) : Boolean {
-            val stringDueDate = "${expense.dueDate}/${DateHelper.nowMonth()}/${DateHelper.nowYear()}"
+            val stringDueDate = expense.dueDate
             val dueDate = SimpleDateFormat("dd/MM/yyyy").parse(stringDueDate).time
             val now = DateHelper.nowMilliseconds()
 
-            return dueDate > now
+            return dueDate < now
         }
 
         @RequiresApi(Build.VERSION_CODES.O)
