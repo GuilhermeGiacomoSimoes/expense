@@ -122,21 +122,18 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         return summation
     }
 
-    private fun sortExpense( listExpense : ArrayList<Expense>) : ArrayList<Expense>{
+    private fun sortExpense( listExpense : ArrayList<Expense>) : ArrayList<Expense> {
         val arrayReturn = arrayListOf<Expense>()
         arrayReturn.addAll(listExpense)
 
-        for (expense in listExpense){
-            if ( expense.paidOut ){
+        for (expense in listExpense) {
+            if ( expense.paidOut ) {
                 arrayReturn.remove(expense)
                 arrayReturn.add(expense)
             }
             else if (Helper.expenseOwn(expense)) {
                 arrayReturn.remove(expense)
-                arrayReturn.removeAll( listExpense )
-
-                arrayReturn.add(expense)
-                arrayReturn.addAll(arrayReturn)
+                arrayReturn.add(0,expense)
             }
         }
 
