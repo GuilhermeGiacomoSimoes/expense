@@ -58,7 +58,7 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
 
             val expense = createExpense()
             saveExpense( expense )
-            
+
             if ( expense.typeExpense == TypeExpense.CARD ){
                 expense.card = null
                 updateCard ( expense )
