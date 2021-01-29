@@ -149,6 +149,18 @@
             android:id="@+id/btn_save_bank"
             >
 
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/progressBarStyleInverse"
+                android:indeterminate="true"
+                android:indeterminateTint="#FFF"
+                android:indeterminateTintMode="src_in"
+                android:padding="5dp"
+                android:visibility="gone"
+                android:id="@+id/loading_add_expense"
+                />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -157,6 +169,7 @@
                 android:textColor="@color/background_color"
                 android:textAlignment="center"
                 android:layout_margin="10dp"
+                android:id="@+id/txt_btn_save_expense"
                 />
 
         </androidx.cardview.widget.CardView>

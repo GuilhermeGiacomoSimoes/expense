@@ -99,6 +99,18 @@
                         android:background="@drawable/button_positive"
                         >
 
+                        <ProgressBar
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="?android:attr/progressBarStyleInverse"
+                            android:indeterminate="true"
+                            android:indeterminateTint="#FFF"
+                            android:indeterminateTintMode="src_in"
+                            android:padding="5dp"
+                            android:visibility="gone"
+                            android:id="@+id/loading_paidout"
+                            />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -107,6 +119,7 @@
                             android:textColor="@color/background_color"
                             android:textAlignment="center"
                             android:layout_margin="10dp"
+                            android:id="@+id/txt_paid_out"
                             />
                     </LinearLayout>
 
@@ -127,6 +140,18 @@
                         android:background="@drawable/button_allert"
                         >
 
+                        <ProgressBar
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="?android:attr/progressBarStyleInverse"
+                            android:indeterminate="true"
+                            android:indeterminateTint="#FFF"
+                            android:indeterminateTintMode="src_in"
+                            android:padding="5dp"
+                            android:visibility="gone"
+                            android:id="@+id/loading_delete"
+                            />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -135,6 +160,7 @@
                             android:textColor="@color/background_color"
                             android:textAlignment="center"
                             android:layout_margin="10dp"
+                            android:id="@+id/txt_delete_expense"
                             />
                     </LinearLayout>
 

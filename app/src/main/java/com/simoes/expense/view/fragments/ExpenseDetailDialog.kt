@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -17,6 +18,7 @@ import com.simoes.expense.helpers.CallBackReturn
 import com.simoes.expense.helpers.Helper
 import com.simoes.expense.model.models.Card
 import com.simoes.expense.model.models.Expense
+import kotlinx.android.synthetic.main.activity_add_amount.*
 import kotlinx.android.synthetic.main.expense_detail_dialog.*
 import java.util.ArrayList
 
@@ -24,6 +26,7 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
 
     private lateinit var expense  : Expense
     private var position = 0
+    private var statusRequest = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,6 +54,11 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
     private fun configureButtons() {
         btn_payment_expense_dialog.setOnClickListener {
             if ( fragmentManager != null && context != null ) {
+                txt_paid_out.visibility                 = View.GONE
+                loading_paidout.visibility              = View.VISIBLE
+                btn_payment_expense_dialog.isEnabled    = false
+                statusRequest = "Pago com sucesso"
+
                 expense.paidOut = true
                 CRUDController.update( expense, fragmentManager!!, context!! , this)
 
@@ -58,19 +66,22 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
                 intent.putExtra(Helper.EXPENSE_RETURN, expense)
 
                 targetFragment?.onActivityResult(Helper.PAYMENT_EXPENSE, Activity.RESULT_OK, intent)
-                dismiss()
             }
         }
 
         btn_delete_expense_dialog.setOnClickListener {
             if ( fragmentManager != null && context != null ) {
+                txt_delete_expense.visibility          = View.GONE
+                loading_delete.visibility              = View.VISIBLE
+                btn_delete_expense_dialog.isEnabled    = false
+                statusRequest = "Deletado com sucesso"
+
                 CRUDController.delete( expense,  fragmentManager!!, context!!, this)
 
                 val intent = Intent()
                 intent.putExtra(Helper.EXPENSE_RETURN, expense)
 
                 targetFragment?.onActivityResult(Helper.DELETE_EXPENSE, Activity.RESULT_OK, intent)
-                dismiss()
             }
         }
     }
@@ -95,6 +106,18 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
     }
 
     override fun callback(isSuccess: Boolean) {
-        TODO("Not yet implemented")
+        if ( isSuccess ) {
+            txt_paid_out.visibility                 = View.VISIBLE
+            loading_paidout.visibility              = View.GONE
+            btn_payment_expense_dialog.isEnabled    = true
+
+            txt_delete_expense.visibility          = View.VISIBLE
+            loading_delete.visibility              = View.GONE
+            btn_delete_expense_dialog.isEnabled    = true
+
+            Toast.makeText(context, statusRequest, Toast.LENGTH_LONG).show()
+        }
+
+        dismiss()
     }
 }

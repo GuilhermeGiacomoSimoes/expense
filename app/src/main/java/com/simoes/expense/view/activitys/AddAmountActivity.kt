@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
@@ -24,6 +25,10 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
         CRUDController.findAll( Card(), supportFragmentManager , this, this)
 
         btn_add_amount_bank.setOnClickListener {
+            txt_add_amount.visibility       = View.GONE
+            loading_add_amount.visibility   = View.VISIBLE
+            btn_add_amount_bank.isEnabled   = true
+
             addAmountBank()
         }
 
@@ -72,7 +77,12 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
     }
 
     override fun callback(isSuccess: Boolean) {
-        TODO("Not yet implemented")
+        if ( isSuccess ) {
+            txt_add_amount.visibility       = View.VISIBLE
+            loading_add_amount.visibility   = View.GONE
+            btn_add_amount_bank.isEnabled   = true
+            Toast.makeText(this, "Salvo com sucesso", Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun callback(list: ArrayList<Any>){

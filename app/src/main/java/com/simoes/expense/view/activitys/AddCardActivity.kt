@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
@@ -31,6 +32,9 @@ class AddCardActivity : AppCompatActivity(), CallBackReturn {
         configListFlags()
 
         btn_save_card.setOnClickListener {
+            txt_btn_save_card.visibility    = View.GONE
+            loading_add_card.visibility     = View.VISIBLE
+            btn_save_card.isEnabled         = false
             createCard()
         }
     }
@@ -73,7 +77,6 @@ class AddCardActivity : AppCompatActivity(), CallBackReturn {
                 }
             }
         }
-
     }
 
     private fun inflateListFlags( ) {
@@ -124,7 +127,12 @@ class AddCardActivity : AppCompatActivity(), CallBackReturn {
     }
 
     override fun callback(isSuccess: Boolean) {
-        TODO("Not yet implemented")
+        if ( isSuccess ) {
+            txt_btn_save_card.visibility    = View.VISIBLE
+            loading_add_card.visibility     = View.GONE
+            btn_save_card.isEnabled         = true
+            Toast.makeText(this, "Salvo com sucesso", Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun saveBank(card: Card) {

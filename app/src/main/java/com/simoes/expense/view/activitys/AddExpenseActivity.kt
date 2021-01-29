@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
@@ -51,6 +52,10 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
         configListCategory()
 
         btn_save_bank.setOnClickListener {
+            txt_btn_save_expense.visibility     = View.GONE
+            loading_add_expense.visibility      = View.VISIBLE
+            btn_save_bank.isEnabled             = false
+
             val expense = createExpense()
 
             if ( expense.typeExpense == TypeExpense.CARD ){
@@ -303,7 +308,12 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
     }
 
     override fun callback(isSuccess: Boolean) {
-        TODO("Not yet implemented")
+        if (isSuccess) {
+            txt_btn_save_expense.visibility     = View.VISIBLE
+            loading_add_expense.visibility      = View.GONE
+            btn_save_bank.isEnabled             = true
+            Toast.makeText(this, "Salvo com sucesso", Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onBackPressed() {
