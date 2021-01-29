@@ -246,7 +246,8 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
             yearNow = yearInteger.toString()
         }
 
-        val dateExpCardStr = "$yearNow/$monthNow/${dayExp}"
+        val dayExpStr       = if ( dayExp < 10 ) "0${dayExp}" else dayExp.toString()
+        val dateExpCardStr  = "${dayExpStr}/$monthNow/$yearNow"
 
         expense.dueDate = dateExpCardStr
 
