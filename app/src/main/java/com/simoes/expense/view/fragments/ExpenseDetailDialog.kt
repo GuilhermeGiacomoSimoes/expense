@@ -13,12 +13,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
+import com.simoes.expense.helpers.CallBackReturn
 import com.simoes.expense.helpers.Helper
 import com.simoes.expense.model.models.Card
 import com.simoes.expense.model.models.Expense
 import kotlinx.android.synthetic.main.expense_detail_dialog.*
+import java.util.ArrayList
 
-class ExpenseDetailDialog : DialogFragment() {
+class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
 
     private lateinit var expense  : Expense
     private var position = 0
@@ -50,7 +52,7 @@ class ExpenseDetailDialog : DialogFragment() {
         btn_payment_expense_dialog.setOnClickListener {
             if ( fragmentManager != null && context != null ) {
                 expense.paidOut = true
-                CRUDController.update( expense, fragmentManager!!, context!! )
+                CRUDController.update( expense, fragmentManager!!, context!! , this)
 
                 val intent = Intent()
                 intent.putExtra(Helper.EXPENSE_RETURN, expense)
@@ -62,7 +64,7 @@ class ExpenseDetailDialog : DialogFragment() {
 
         btn_delete_expense_dialog.setOnClickListener {
             if ( fragmentManager != null && context != null ) {
-                CRUDController.delete( expense,  fragmentManager!!, context!!)
+                CRUDController.delete( expense,  fragmentManager!!, context!!, this)
 
                 val intent = Intent()
                 intent.putExtra(Helper.EXPENSE_RETURN, expense)
@@ -86,5 +88,13 @@ class ExpenseDetailDialog : DialogFragment() {
                 }
             }
         }
+    }
+
+    override fun callback(list: ArrayList<Any>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun callback(isSuccess: Boolean) {
+        TODO("Not yet implemented")
     }
 }

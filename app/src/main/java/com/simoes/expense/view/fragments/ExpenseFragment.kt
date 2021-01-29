@@ -177,7 +177,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
                 val card = getCardIndexByExpense( expense )
                 if (card != null && fragmentManager != null && context != null){
                     card.balance -= expense.value
-                    CRUDController.update(card, fragmentManager!!, context!!)
+                    CRUDController.update(card, fragmentManager!!, context!!, this)
                 }
             }
 
@@ -186,7 +186,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
                 card?.expenses?.remove( data.getSerializableExtra(Helper.EXPENSE_RETURN) as Expense )
 
                 if (card != null && fragmentManager != null && context != null){
-                    CRUDController.update(card, fragmentManager!!, context!!)
+                    CRUDController.update(card, fragmentManager!!, context!!, this)
                 }
             }
         }
@@ -217,5 +217,9 @@ class ExpenseFragment : Fragment(), CallBackReturn {
                 swiperefresh.isRefreshing = false
             }
         }
+    }
+
+    override fun callback(isSuccess: Boolean) {
+        TODO("Not yet implemented")
     }
 }

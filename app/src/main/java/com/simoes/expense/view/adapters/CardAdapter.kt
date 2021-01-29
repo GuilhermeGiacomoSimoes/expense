@@ -13,6 +13,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import com.simoes.expense.R
+import com.simoes.expense.helpers.CallBackReturn
 import com.simoes.expense.helpers.FlagCards
 import com.simoes.expense.helpers.Helper
 import com.simoes.expense.model.CRUDModel
@@ -23,7 +24,7 @@ import com.simoes.expense.view.activitys.ListCardActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CardAdapter( private var listCard: ArrayList<Card>, private var context: Context ) : BaseAdapter() {
+class CardAdapter( private var listCard: ArrayList<Card>, private var context: Context ) : BaseAdapter(), CallBackReturn {
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
@@ -67,10 +68,10 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
             builder.setTitle("Confirmaçao")
             builder.setMessage("Tem certeza que deseja excluir o cartão?")
             builder.setPositiveButton("Excluir") { _, _ ->
-                CRUDModel.delete(card, card.uuid)
+                CRUDModel.delete(card, card.uuid, this)
 
                 for ( expense in card.expenses ){
-                    CRUDModel.delete(expense, expense.uuid)
+                    CRUDModel.delete(expense, expense.uuid, this)
                 }
 
                 (context as ListCardActivity).reload()
@@ -203,5 +204,13 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
 
     override fun getCount(): Int {
         return listCard.size
+    }
+
+    override fun callback(list: ArrayList<Any>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun callback(isSuccess: Boolean) {
+        TODO("Not yet implemented")
     }
 }

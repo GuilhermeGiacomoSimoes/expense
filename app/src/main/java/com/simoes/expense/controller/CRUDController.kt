@@ -42,21 +42,21 @@ class CRUDController {
             return ArrayList()
         }
 
-        fun delete (`object`: com.simoes.expense.model.models.Object, fragmentManager: FragmentManager, context: Context) {
+        fun delete (`object`: com.simoes.expense.model.models.Object, fragmentManager: FragmentManager, context: Context, callBack: CallBackReturn) {
             if ( verifyConnection( context, fragmentManager ) ) {
-                CRUDModel.delete(`object`, `object`.uuid)
+                CRUDModel.delete(`object`, `object`.uuid, callBack)
             }
         }
 
-        fun create(`object`: com.simoes.expense.model.models.Object, fragmentManager: FragmentManager, context: Context)  {
+        fun create(`object`: com.simoes.expense.model.models.Object, fragmentManager: FragmentManager, context: Context, callBack: CallBackReturn)  {
             if ( verifyConnection( context, fragmentManager ) ) {
-                CRUDModel.create(`object`)
+                CRUDModel.create(`object`, callBack)
             }
         }
 
-        fun update(`object`: com.simoes.expense.model.models.Object, fragmentManager: FragmentManager, context: Context) {
+        fun update(`object`: com.simoes.expense.model.models.Object, fragmentManager: FragmentManager, context: Context, callBack: CallBackReturn) {
             if ( verifyConnection( context, fragmentManager ) ) {
-                CRUDModel.update(`object`)
+                CRUDModel.update(`object`, callBack)
             }
         }
 

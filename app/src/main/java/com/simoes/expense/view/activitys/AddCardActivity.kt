@@ -7,11 +7,13 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
+import com.simoes.expense.helpers.CallBackReturn
 import com.simoes.expense.helpers.FlagCards
 import com.simoes.expense.model.models.Card
 import kotlinx.android.synthetic.main.activity_add_card.*
+import java.util.ArrayList
 
-class AddCardActivity : AppCompatActivity() {
+class AddCardActivity : AppCompatActivity(), CallBackReturn {
 
     private lateinit var days           : Array<String>
     private          var day            = 0
@@ -117,9 +119,16 @@ class AddCardActivity : AppCompatActivity() {
         saveBank( card )
     }
 
+    override fun callback(list: ArrayList<Any>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun callback(isSuccess: Boolean) {
+        TODO("Not yet implemented")
+    }
 
     private fun saveBank(card: Card) {
-        CRUDController.create( card, this.supportFragmentManager , this)
+        CRUDController.create( card, this.supportFragmentManager , this,  this)
     }
 
 }

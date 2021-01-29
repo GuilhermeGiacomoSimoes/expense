@@ -172,4 +172,8 @@ class ChartsFragment : Fragment(), CallBackReturn {
             configGraphs(listExpense)
         }
     }
+
+    override fun callback(isSuccess: Boolean) {
+        TODO("Not yet implemented")
+    }
 }

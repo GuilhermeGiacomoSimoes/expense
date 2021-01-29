@@ -67,12 +67,14 @@ class CRUDModel {
             }
         }
 
-        fun delete(`object`: com.simoes.expense.model.models.Object, uuid: String) : Boolean {
+        fun delete(`object`: com.simoes.expense.model.models.Object, uuid: String, callBack: CallBackReturn) : Boolean {
             return try {
                 val firebase = FirebaseConfiguration.firebase
                 val nameObject = getObjectName(`object`)
 
-                firebase.child(  nameObject ).child(uuid).removeValue()
+                firebase.child(  nameObject ).child(uuid).removeValue().addOnCompleteListener {
+                    callBack.callback( true )
+                }
 
                 true
 
@@ -81,15 +83,18 @@ class CRUDModel {
             }
         }
 
-        fun create(`object`: com.simoes.expense.model.models.Object)  : Boolean {
+        fun create(`object`: com.simoes.expense.model.models.Object, callBack : CallBackReturn)  : Boolean {
             return try {
                 val firebase   = FirebaseConfiguration.firebase
                 val nameObject = getObjectName(`object`)
 
                 `object`.uuid = UUID.randomUUID().toString()
 
-                firebase.child( nameObject ).child( `object`.uuid ).setValue(`object`)
-                true
+                firebase.child( nameObject ).child( `object`.uuid ).setValue(`object`).addOnCompleteListener {
+                    callBack.callback( true )
+                }
+
+                return true
 
             }catch (e: Exception){
                 false
@@ -97,12 +102,14 @@ class CRUDModel {
         }
 
 
-        fun update(`object`: com.simoes.expense.model.models.Object) : Boolean {
+        fun update(`object`: com.simoes.expense.model.models.Object, callBack: CallBackReturn) : Boolean {
             return try {
                 val firebase = FirebaseConfiguration.firebase
                 val nameObject = getObjectName(`object`)
 
-                firebase.child( nameObject ).child( `object`.uuid ).setValue(`object`)
+                firebase.child( nameObject ).child( `object`.uuid ).setValue(`object`).addOnCompleteListener {
+                    callBack.callback( true )
+                }
                 true
 
             }catch (e: Exception){

@@ -265,11 +265,11 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
     private fun updateCard( expense: Expense ) {
         expense.card = null
         cardSelected.expenses.add( expense )
-        CRUDController.update( cardSelected, supportFragmentManager, this     )
+        CRUDController.update( cardSelected, supportFragmentManager, this , this)
     }
 
     private fun saveExpense( expense: Expense ){
-        CRUDController.create(expense, supportFragmentManager, this)
+        CRUDController.create(expense, supportFragmentManager, this, this)
     }
 
     private fun inflateListBank( listBank : ArrayList<String> ) {
@@ -300,6 +300,10 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
 
             screen_view.visibility = View.VISIBLE
         }
+    }
+
+    override fun callback(isSuccess: Boolean) {
+        TODO("Not yet implemented")
     }
 
     override fun onBackPressed() {

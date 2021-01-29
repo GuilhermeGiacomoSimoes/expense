@@ -63,13 +63,16 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
         return names
     }
 
-
     private fun addAmountBank() {
         val edtAmount   =  edt_amount_add.text.toString().toDouble()
         val bank        = cardSelected
         bank.balance    += edtAmount
 
-        CRUDController.update( bank, supportFragmentManager, this )
+        CRUDController.update( bank, supportFragmentManager, this , this)
+    }
+
+    override fun callback(isSuccess: Boolean) {
+        TODO("Not yet implemented")
     }
 
     override fun callback(list: ArrayList<Any>){

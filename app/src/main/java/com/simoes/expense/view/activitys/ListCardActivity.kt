@@ -46,6 +46,10 @@ class ListCardActivity : AppCompatActivity(), CallBackReturn {
         startActivity( intent )
     }
 
+    override fun callback(isSuccess: Boolean) {
+        TODO("Not yet implemented")
+    }
+
     override fun callback(list: ArrayList<Any>) {
         if( ! list.isNullOrEmpty()){
             this.listCard = list as ArrayList<Card>
