@@ -57,13 +57,12 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
             btn_save_bank.isEnabled             = false
 
             val expense = createExpense()
-
+            saveExpense( expense )
+            
             if ( expense.typeExpense == TypeExpense.CARD ){
                 expense.card = null
                 updateCard ( expense )
             }
-
-            saveExpense( expense )
         }
     }
 
