@@ -72,7 +72,7 @@ class CardAdapter(private var listCard: ArrayList<Card>, private var context: Co
             builder.setTitle("Confirmaçao")
             builder.setMessage("Tem certeza que deseja excluir o cartão?")
             builder.setPositiveButton("Excluir") { _, _ ->
-                
+
                 for ( expense in card.expenses ){
                     CRUDModel.delete(expense, expense.uuid, this)
                 }
