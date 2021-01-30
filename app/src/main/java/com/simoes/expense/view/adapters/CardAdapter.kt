@@ -24,7 +24,7 @@ import com.simoes.expense.view.activitys.ListCardActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CardAdapter( private var listCard: ArrayList<Card>, private var context: Context ) : BaseAdapter(), CallBackReturn {
+class CardAdapter(private var listCard: ArrayList<Card>, private var context: Context ) : BaseAdapter(), CallBackReturn {
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
@@ -113,7 +113,7 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
         var progress = .0
 
         for ( expense in card.expenses ) {
-            if ( checkExpiration( expense, position ) ) {
+            if ( checkExpiration( expense, card ) ) {
                 progress += expense.value
             }
         }
@@ -122,32 +122,42 @@ class CardAdapter( private var listCard: ArrayList<Card>, private var context: C
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun checkExpiration(expense: Expense, position: Int ) : Boolean {
-        return if ( ! expense.paidOut ) {
-            val now         = Helper.dateNow()
-            var monthNow    = now.split(" ")[0].split("/")[1]
-            var yearNow     = now.split(" ")[0].split("/")[0]
-            val dayNow      = now.split(" ")[0].split("/")[2]
+    private fun checkExpiration(expense: Expense, card: Card ) : Boolean {
+        val now = Helper.dateNow()
+        val dayNow = Integer.parseInt(now.split(" ")[0].split("/")[2])
+        val monthNow = Integer.parseInt(now.split(" ")[0].split("/")[1])
+        val yearNow = Integer.parseInt(now.split(" ")[0].split("/")[0])
 
-            if (dayNow.toInt() > (getItem(position) as Card).dueDate){
-                if (monthNow.toInt() > 11) {
-                    monthNow = "01"
-                    yearNow = ( Integer.parseInt(yearNow) + 1).toString()
-                }
-                else {
-                    monthNow = ( Integer.parseInt(monthNow) + 1).toString()
-                }
+        var monthInitial   = monthNow
+        var yearInitial    = yearNow
+
+        var monthEnd   = monthNow
+        var yearEnd    = yearNow
+
+        if ( card.dueDate < dayNow) {
+            if (monthEnd < 11) {
+                monthEnd ++
+            }else {
+                monthEnd = 1
+                yearEnd ++
             }
-
-            val dateExpCardStr = "$yearNow/$monthNow/${(getItem(position) as Card).dueDate}"
-            val dateExpCard = SimpleDateFormat("YYYY/MM/dd").parse(dateExpCardStr).time
-
-            val dateExpExpense = SimpleDateFormat("YYYY/MM/dd").parse(expense.dueDate).time
-
-            dateExpCard <= dateExpExpense
         } else {
-            false
+            if ( monthInitial > 1 ) {
+                monthInitial --
+            }else {
+                monthInitial = 12
+                yearInitial --
+            }
         }
+
+        val stringInitialDate   = "${card.dueDate}/$monthInitial/$yearInitial"
+        val stringEndDate       = "${card.dueDate}/$monthEnd/$yearEnd"
+
+        val initialMilli        = SimpleDateFormat("dd/MM/yyyy").parse(stringInitialDate).time
+        val endMilli            = SimpleDateFormat("dd/MM/yyyy").parse(stringEndDate).time
+        val expenseDueDateMilli = SimpleDateFormat("dd/MM/yyyy").parse(expense.dueDate).time
+
+        return expenseDueDateMilli in initialMilli..endMilli
     }
 
     private fun openAddExpense( card: Card ) {
