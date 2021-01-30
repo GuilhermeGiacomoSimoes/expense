@@ -52,6 +52,7 @@ class ListCardActivity : AppCompatActivity(), CallBackReturn {
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if ( resultCode == Activity.RESULT_OK ) {
             if ( requestCode == Helper.EXPENSE_PAY_INVOICE ) {
+                finish()
                 startActivity(Intent(this, ListCardActivity ::class.java))
             }
         }
