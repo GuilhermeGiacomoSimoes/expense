@@ -92,16 +92,18 @@ class CardAdapter(private var listCard: ArrayList<Card>, private var context: Co
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun payInvoice(card: Card ) {
+        var valuePaid = 0.0
 
         for ( expense in card.expenses ) {
-            if ( checkExpiration(expense, card) ) {
+            if ( ( ! expense.paidOut) && checkExpiration(expense, card) ) {
+                 valuePaid += expense.value
                 expense.paidOut = true
                 CRUDController.update( expense, (context as ListCardActivity).supportFragmentManager, context, this )
             }
         }
 
+        card.balance -= valuePaid
         CRUDController.update( card, (context as ListCardActivity).supportFragmentManager, context, this )
-
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -134,7 +136,7 @@ class CardAdapter(private var listCard: ArrayList<Card>, private var context: Co
         var progress = .0
 
         for ( expense in card.expenses ) {
-            if ( checkExpiration( expense, card ) ) {
+            if ( ( ! expense.paidOut)  && checkExpiration( expense, card ) ) {
                 progress += expense.value
             }
         }
