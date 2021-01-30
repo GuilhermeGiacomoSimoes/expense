@@ -192,15 +192,12 @@ class CardAdapter(private var listCard: ArrayList<Card>, private var context: Co
     }
 
     private fun changeImage( simbleFlag: ImageView, card: Card ) {
-
         if ( card.flagCards.name == FlagCards.MASTERCARD.name ){
             simbleFlag.setImageResource( R.drawable.ic_simble_mastercard )
         }
-
         else if ( card.flagCards.name == FlagCards.VISA.name ){
             simbleFlag.setImageResource( R.drawable.ic_simble_visa )
         }
-
     }
 
     private fun buildProgressBar( progresBarCard: ProgressBar, limit : Int, progress : Int ){
