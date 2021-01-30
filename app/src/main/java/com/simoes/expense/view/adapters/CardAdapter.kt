@@ -13,6 +13,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import com.simoes.expense.R
+import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
 import com.simoes.expense.helpers.FlagCards
 import com.simoes.expense.helpers.Helper
@@ -46,8 +47,9 @@ class CardAdapter(private var listCard: ArrayList<Card>, private var context: Co
         val simbleFlag          = layout.findViewById<ImageView>(R.id.simble_flag)
         val addExpenseCard      = layout.findViewById<TextView>(R.id.txt_add_expense_card)
         val txtDeleteCard       = layout.findViewById<TextView>(R.id.txt_delete_card)
+        val txtPayInvoice       = layout.findViewById<TextView>(R.id.txt_pay_invoice)
 
-        configButtons( card, txtDeleteCard )
+        configButtons( card, txtDeleteCard, txtPayInvoice )
 
         buildCard(              progresBarCard,
                                 txtDescription,
@@ -62,7 +64,8 @@ class CardAdapter(private var listCard: ArrayList<Card>, private var context: Co
         return layout
     }
 
-    private fun configButtons( card : Card, txtDeleteCard : TextView ) {
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun configButtons(card : Card, txtDeleteCard : TextView, txtPayInvoice : TextView) {
         txtDeleteCard.setOnClickListener {
             val builder = AlertDialog.Builder( context )
             builder.setTitle("Confirmaçao")
@@ -81,6 +84,24 @@ class CardAdapter(private var listCard: ArrayList<Card>, private var context: Co
             }
             builder.show()
         }
+
+        txtPayInvoice.setOnClickListener {
+            payInvoice( card )
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun payInvoice(card: Card ) {
+
+        for ( expense in card.expenses ) {
+            if ( checkExpiration(expense, card) ) {
+                expense.paidOut = true
+                CRUDController.update( expense, (context as ListCardActivity).supportFragmentManager, context, this )
+            }
+        }
+
+        CRUDController.update( card, (context as ListCardActivity).supportFragmentManager, context, this )
+
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

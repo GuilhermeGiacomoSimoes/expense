@@ -67,8 +67,5 @@ class CRUDController {
             }
             return true
         }
-
     }
-
-
 }

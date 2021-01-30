@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -99,6 +100,19 @@
                 app:layout_constraintTop_toBottomOf="@+id/progres_bar_card"
                 android:layout_marginTop="5dp"
                 android:layout_marginStart="10dp"
+                />
+
+            <TextView
+                android:id="@+id/txt_pay_invoice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pagar fatura"
+                app:layout_constraintBottom_toTopOf="@+id/txt_delete_card"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_add_expense_card"
+                android:layout_margin="10dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
                 />
 
 
