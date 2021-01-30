@@ -1,5 +1,6 @@
 package com.simoes.expense.view.adapters
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
@@ -22,6 +23,7 @@ import com.simoes.expense.model.models.Card
 import com.simoes.expense.model.models.Expense
 import com.simoes.expense.view.activitys.AddExpenseActivity
 import com.simoes.expense.view.activitys.ListCardActivity
+import com.simoes.expense.view.fragments.ExpenseFragment
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -240,10 +242,12 @@ class CardAdapter(private var listCard: ArrayList<Card>, private var context: Co
     }
 
     override fun callback(list: ArrayList<Any>) {
-        TODO("Not yet implemented")
+
     }
 
     override fun callback(isSuccess: Boolean) {
-        TODO("Not yet implemented")
+        if ( isSuccess ) {
+            ( context as ListCardActivity ).onActivityResult( Helper.EXPENSE_PAY_INVOICE, Activity.RESULT_OK, Intent() )
+        }
     }
 }

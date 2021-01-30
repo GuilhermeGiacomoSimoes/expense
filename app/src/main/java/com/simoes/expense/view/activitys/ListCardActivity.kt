@@ -1,9 +1,12 @@
 package com.simoes.expense.view.activitys
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
+import com.simoes.expense.helpers.Helper
 import com.simoes.expense.model.models.Card
 import com.simoes.expense.view.adapters.CardAdapter
 import kotlinx.android.synthetic.main.activity_list_card.*
@@ -44,6 +47,15 @@ class ListCardActivity : AppCompatActivity(), CallBackReturn {
     fun reload() {
         finish()
         startActivity( intent )
+    }
+
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if ( resultCode == Activity.RESULT_OK ) {
+            if ( requestCode == Helper.EXPENSE_PAY_INVOICE ) {
+                startActivity(Intent(this, ListCardActivity ::class.java))
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun callback(isSuccess: Boolean) {

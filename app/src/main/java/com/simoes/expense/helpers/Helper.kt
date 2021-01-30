@@ -20,6 +20,7 @@ class Helper {
         const val DELETE_EXPENSE        = 2
         const val PAYMENT_EXPENSE       = 3
         const val EXPENSE_RETURN        = "EXPENSE_RETURN"
+        const val EXPENSE_PAY_INVOICE   = 4
 
         fun expenseOwn(expense: Expense) : Boolean {
             val stringDueDate = expense.dueDate
