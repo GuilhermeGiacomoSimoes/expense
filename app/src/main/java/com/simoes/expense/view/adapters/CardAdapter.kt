@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
@@ -27,6 +28,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class CardAdapter(private var listCard: ArrayList<Card>, private var context: Context ) : BaseAdapter(), CallBackReturn {
+
+    lateinit var loadingChangeCard   : ProgressBar
+    lateinit var cardView            : ConstraintLayout
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
@@ -49,8 +53,13 @@ class CardAdapter(private var listCard: ArrayList<Card>, private var context: Co
         val addExpenseCard      = layout.findViewById<TextView>(R.id.txt_add_expense_card)
         val txtDeleteCard       = layout.findViewById<TextView>(R.id.txt_delete_card)
         val txtPayInvoice       = layout.findViewById<TextView>(R.id.txt_pay_invoice)
+        val loadingChangeCard   = layout.findViewById<ProgressBar>(R.id.loading_change_card)
+        val cardView            = layout.findViewById<ConstraintLayout>(R.id.cardView)
 
-        configButtons( card, txtDeleteCard, txtPayInvoice )
+        this.loadingChangeCard = loadingChangeCard
+        this.cardView           = cardView
+
+        configButtons( card, txtDeleteCard, txtPayInvoice, loadingChangeCard, cardView)
 
         buildCard(              progresBarCard,
                                 txtDescription,
@@ -66,12 +75,15 @@ class CardAdapter(private var listCard: ArrayList<Card>, private var context: Co
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun configButtons(card : Card, txtDeleteCard : TextView, txtPayInvoice : TextView) {
+    private fun configButtons(card : Card, txtDeleteCard : TextView, txtPayInvoice : TextView, loadingChangeCard : ProgressBar, cardView : ConstraintLayout) {
         txtDeleteCard.setOnClickListener {
             val builder = AlertDialog.Builder( context )
             builder.setTitle("Confirmaçao")
             builder.setMessage("Tem certeza que deseja excluir o cartão?")
             builder.setPositiveButton("Excluir") { _, _ ->
+
+                loadingChangeCard.visibility    = View.VISIBLE
+                cardView.visibility             = View.GONE
 
                 for ( expense in card.expenses ){
                     CRUDModel.delete(expense, expense.uuid, this)
@@ -88,6 +100,9 @@ class CardAdapter(private var listCard: ArrayList<Card>, private var context: Co
         }
 
         txtPayInvoice.setOnClickListener {
+            loadingChangeCard.visibility    = View.VISIBLE
+            cardView.visibility             = View.GONE
+
             payInvoice( card )
         }
     }
@@ -248,6 +263,9 @@ class CardAdapter(private var listCard: ArrayList<Card>, private var context: Co
 
     override fun callback(isSuccess: Boolean) {
         if ( isSuccess ) {
+            this.loadingChangeCard.visibility    = View.GONE
+            this.cardView.visibility             = View.VISIBLE
+
             ( context as ListCardActivity ).onActivityResult( Helper.EXPENSE_PAY_INVOICE, Activity.RESULT_OK, Intent() )
         }
     }
