@@ -23,7 +23,6 @@ import com.simoes.expense.model.models.Card
 import com.simoes.expense.model.models.Expense
 import com.simoes.expense.view.activitys.AddExpenseActivity
 import com.simoes.expense.view.activitys.ListCardActivity
-import com.simoes.expense.view.fragments.ExpenseFragment
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -100,6 +99,10 @@ class CardAdapter(private var listCard: ArrayList<Card>, private var context: Co
             if ( ( ! expense.paidOut) && checkExpiration(expense, card) ) {
                  valuePaid += expense.value
                 expense.paidOut = true
+
+                val cardToExpense: Card = card
+                cardToExpense.expenses = ArrayList<Expense>()
+                expense.card = cardToExpense
                 CRUDController.update( expense, (context as ListCardActivity).supportFragmentManager, context, this )
             }
         }
