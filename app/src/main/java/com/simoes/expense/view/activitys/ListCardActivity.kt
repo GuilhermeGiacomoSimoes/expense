@@ -67,9 +67,9 @@ class ListCardActivity : AppCompatActivity(), CallBackReturn {
         if( ! list.isNullOrEmpty()){
             this.listCard = list as ArrayList<Card>
             configListViewCards()
-
-            showOrHideSpinner( !swiperefreshCards.isRefreshing )
         }
+
+        showOrHideSpinner( !swiperefreshCards.isRefreshing )
     }
 
     override fun onBackPressed() {
