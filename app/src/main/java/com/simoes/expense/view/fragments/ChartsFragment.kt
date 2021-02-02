@@ -24,6 +24,9 @@ class ChartsFragment : Fragment(), CallBackReturn {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        swipe_refresh_loading_charts.visibility = View.VISIBLE
+        swipe_refresh_loading_charts.isRefreshing = true
+
         iRequested= true
         searchAllExpense()
     }
@@ -42,6 +45,9 @@ class ChartsFragment : Fragment(), CallBackReturn {
 
         configGraphCardSpend(listMonth)
         configGraphSpenderByCategory(listMonth)
+
+        view_graphs.visibility = View.VISIBLE
+        swipe_refresh_loading_charts.isRefreshing = false
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -167,9 +173,17 @@ class ChartsFragment : Fragment(), CallBackReturn {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun callback(list: ArrayList<Any>) {
         if (iRequested) {
+            if ( ! list.isNullOrEmpty()) {
+                view_charts.visibility = View.VISIBLE
+                val listExpense = list as ArrayList<Expense>
+                configGraphs(listExpense)
+            }
+            else {
+                swipe_refresh_loading_charts.isRefreshing = false
+                txt_not_expenses_charts.visibility = View.VISIBLE
+            }
+            
             iRequested = false
-            val listExpense = list as ArrayList<Expense>
-            configGraphs(listExpense)
         }
     }
 
