@@ -2,6 +2,7 @@ package com.simoes.expense.view.activitys
 
 import android.app.Activity
 import android.content.Intent
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
@@ -64,12 +65,15 @@ class ListCardActivity : AppCompatActivity(), CallBackReturn {
     }
 
     override fun callback(list: ArrayList<Any>) {
-        if( ! list.isNullOrEmpty()){
+        if( ! list.isNullOrEmpty()) {
             this.listCard = list as ArrayList<Card>
             configListViewCards()
         }
+        else {
+            txt_not_cards.visibility = View.VISIBLE
+        }
 
-        showOrHideSpinner( !swiperefreshCards.isRefreshing )
+        showOrHideSpinner( ! swiperefreshCards.isRefreshing )
     }
 
     override fun onBackPressed() {

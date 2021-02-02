@@ -7,6 +7,15 @@
     android:orientation="vertical"
     >
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:text="Não há dados de cartão"
+        android:gravity="center"
+        android:id="@+id/txt_not_cards"
+        />
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swiperefreshCards"
         android:layout_width="match_parent"
