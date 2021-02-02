@@ -131,14 +131,31 @@
             android:id="@+id/category_spinner"
             />
 
-        <CheckBox
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="repetir"
-            android:id="@+id/chk_repeat"
-            />
+            android:orientation="horizontal"
+            >
 
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Repetir"
+                android:id="@+id/chk_repeat"
+                android:layout_weight="0"
+                />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Pago"
+                android:id="@+id/chk_paidout"
+                android:layout_weight="1"
+                />
+
+        </LinearLayout>
 
         <androidx.cardview.widget.CardView
             android:layout_margin="10dp"

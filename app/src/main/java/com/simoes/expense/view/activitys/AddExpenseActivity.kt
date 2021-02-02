@@ -269,6 +269,7 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
         expense.typeExpense = typeExpense
         expense.date        = Helper.dateNow()
         expense.category    = this.typeCategory
+        expense.paidOut     = chk_paidout.isChecked
 
         return expense
     }
