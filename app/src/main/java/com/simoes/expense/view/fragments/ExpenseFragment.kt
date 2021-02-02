@@ -206,6 +206,8 @@ class ExpenseFragment : Fragment(), CallBackReturn {
                 this.listExpense        = list as ArrayList<Expense>
                 configListViewExpense   ( )
             }
+        } else {
+            txt_not_expenses.visibility = View.VISIBLE
         }
 
         if (breakCount == 2) {
