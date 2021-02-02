@@ -30,6 +30,7 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
             btn_add_amount_bank.isEnabled   = true
 
             addAmountBank()
+            clearScreen()
         }
 
         list_bank_for_add_amount.onItemSelectedListener = object : OnItemSelectedListener {
@@ -46,6 +47,10 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
                 //TODO implements
             }
         }
+    }
+
+    private fun clearScreen() {
+        edt_amount_add.text?.clear()
     }
 
     private fun inflateListBank( listBank : ArrayList<String> ) {

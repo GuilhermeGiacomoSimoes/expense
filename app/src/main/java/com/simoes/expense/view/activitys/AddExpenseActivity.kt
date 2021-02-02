@@ -63,7 +63,14 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
                 expense.card = null
                 updateCard ( expense )
             }
+
+            clearScreen()
         }
+    }
+
+    private fun clearScreen() {
+        edt_expense_name.text?.clear()
+        edt_amount_expense .text?.clear()
     }
 
     private fun configListCardOrMoney(){

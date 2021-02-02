@@ -2,6 +2,7 @@ package com.simoes.expense.view.activitys
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -36,7 +37,15 @@ class AddCardActivity : AppCompatActivity(), CallBackReturn {
             loading_add_card.visibility     = View.VISIBLE
             btn_save_card.isEnabled         = false
             createCard()
+
+            clearScreen()
         }
+    }
+
+    private fun clearScreen() {
+        edt_name_card.text?.clear()
+        edt_limit_card.text?.clear()
+        edt_balance_card.text?.clear()
     }
 
     private fun configListDays () {

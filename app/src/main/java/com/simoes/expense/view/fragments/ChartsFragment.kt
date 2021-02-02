@@ -182,7 +182,7 @@ class ChartsFragment : Fragment(), CallBackReturn {
                 swipe_refresh_loading_charts.isRefreshing = false
                 txt_not_expenses_charts.visibility = View.VISIBLE
             }
-            
+
             iRequested = false
         }
     }
