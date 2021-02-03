@@ -70,7 +70,7 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
 
                     clearScreen()
                 } else {
-                    FeedbackDialog.showDialog( supportFragmentManager,"", "Valor da despesa, maior do que o seu saldo" )
+                    FeedbackDialog.showDialog( supportFragmentManager,"Valor da despesa maior do que o seu saldo", "ERRO" )
                 }
 
             } else {
