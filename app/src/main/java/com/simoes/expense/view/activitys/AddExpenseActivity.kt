@@ -79,7 +79,7 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
         }
     }
 
-    private fun checkAmount() = edt_amount_expense.text.toString().toDouble() > amount
+    private fun checkAmount() = edt_amount_expense.text.toString().toDouble() < amount
     private fun checkIfTheMandatoryFieldsAreFilled() = edt_expense_name.text?.isNotEmpty() == true && edt_amount_expense.text?.isNotEmpty() == true
 
     private fun clearScreen() {
