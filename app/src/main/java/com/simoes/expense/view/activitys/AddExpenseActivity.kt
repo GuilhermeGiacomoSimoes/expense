@@ -71,6 +71,9 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
     private fun clearScreen() {
         edt_expense_name.text?.clear()
         edt_amount_expense .text?.clear()
+
+        chk_repeat.isChecked    = false
+        chk_paidout.isChecked   = false
     }
 
     private fun configListCardOrMoney(){
