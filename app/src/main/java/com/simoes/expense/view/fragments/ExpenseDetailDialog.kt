@@ -16,9 +16,7 @@ import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
 import com.simoes.expense.helpers.Helper
-import com.simoes.expense.model.models.Card
 import com.simoes.expense.model.models.Expense
-import kotlinx.android.synthetic.main.activity_add_amount.*
 import kotlinx.android.synthetic.main.expense_detail_dialog.*
 import java.util.ArrayList
 
