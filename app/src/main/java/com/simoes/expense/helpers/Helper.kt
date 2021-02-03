@@ -103,7 +103,5 @@ class Helper {
 
             return hash[key]
         }
-
     }
-
 }
