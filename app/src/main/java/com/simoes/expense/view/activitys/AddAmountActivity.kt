@@ -11,7 +11,9 @@ import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
 import com.simoes.expense.model.models.Card
+import com.simoes.expense.view.fragments.FeedbackDialog
 import kotlinx.android.synthetic.main.activity_add_amount.*
+import kotlinx.android.synthetic.main.activity_add_expense.*
 
 class AddAmountActivity : AppCompatActivity(), CallBackReturn {
 
@@ -25,12 +27,16 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
         CRUDController.findAll( Card(), supportFragmentManager , this, this)
 
         btn_add_amount_bank.setOnClickListener {
-            txt_add_amount.visibility       = View.GONE
-            loading_add_amount.visibility   = View.VISIBLE
-            btn_add_amount_bank.isEnabled   = true
+            if( checkIfTheMandatoryFieldsAreFilled() ) {
+                txt_add_amount.visibility       = View.GONE
+                loading_add_amount.visibility   = View.VISIBLE
+                btn_add_amount_bank.isEnabled   = true
 
-            addAmountBank()
-            clearScreen()
+                addAmountBank()
+                clearScreen()
+            } else {
+                FeedbackDialog.showDialog(supportFragmentManager, "Favor preencher campos obrigatórios", "Campos obrigatórios em branco")
+            }
         }
 
         list_bank_for_add_amount.onItemSelectedListener = object : OnItemSelectedListener {
@@ -47,6 +53,10 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
                 //TODO implements
             }
         }
+    }
+
+    private fun checkIfTheMandatoryFieldsAreFilled() : Boolean {
+        return edt_amount_add.text?.isNotEmpty() == true
     }
 
     private fun clearScreen() {

@@ -2,7 +2,6 @@ package com.simoes.expense.view.activitys
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -12,6 +11,7 @@ import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
 import com.simoes.expense.helpers.FlagCards
 import com.simoes.expense.model.models.Card
+import com.simoes.expense.view.fragments.FeedbackDialog
 import kotlinx.android.synthetic.main.activity_add_card.*
 import java.util.ArrayList
 
@@ -33,13 +33,21 @@ class AddCardActivity : AppCompatActivity(), CallBackReturn {
         configListFlags()
 
         btn_save_card.setOnClickListener {
-            txt_btn_save_card.visibility    = View.GONE
-            loading_add_card.visibility     = View.VISIBLE
-            btn_save_card.isEnabled         = false
-            createCard()
+            if (checkIfTheMandatoryFieldsAreFilled()) {
+                txt_btn_save_card.visibility    = View.GONE
+                loading_add_card.visibility     = View.VISIBLE
+                btn_save_card.isEnabled         = false
+                createCard()
 
-            clearScreen()
+                clearScreen()
+            } else {
+                FeedbackDialog.showDialog(supportFragmentManager, "Favor preencher campos obrigatórios", "Campos obrigatórios em branco")
+            }
         }
+    }
+
+    private fun checkIfTheMandatoryFieldsAreFilled() : Boolean {
+        return edt_name_card.text?.isNotEmpty() == true && edt_limit_card.text?.isNotEmpty() == true && edt_balance_card.text?.isNotEmpty() == true
     }
 
     private fun clearScreen() {

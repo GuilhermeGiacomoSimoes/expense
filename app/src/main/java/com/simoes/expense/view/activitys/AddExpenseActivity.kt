@@ -18,6 +18,7 @@ import com.simoes.expense.helpers.TypeExpense
 import com.simoes.expense.model.models.Card
 import com.simoes.expense.model.models.Expense
 import com.simoes.expense.view.adapters.CategoryAdapter
+import com.simoes.expense.view.fragments.FeedbackDialog
 import kotlinx.android.synthetic.main.activity_add_expense.*
 import java.util.ArrayList
 
@@ -52,19 +53,23 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
         configListCategory()
 
         btn_save_bank.setOnClickListener {
-            txt_btn_save_expense.visibility     = View.GONE
-            loading_add_expense.visibility      = View.VISIBLE
-            btn_save_bank.isEnabled             = false
+            if ( checkIfTheMandatoryFieldsAreFilled() ) {
+                txt_btn_save_expense.visibility     = View.GONE
+                loading_add_expense.visibility      = View.VISIBLE
+                btn_save_bank.isEnabled             = false
 
-            val expense = createExpense()
-            saveExpense( expense )
+                val expense = createExpense()
+                saveExpense( expense )
 
-            if ( expense.typeExpense == TypeExpense.CARD ){
-                expense.card = null
-                updateCard ( expense )
+                if ( expense.typeExpense == TypeExpense.CARD ){
+                    expense.card = null
+                    updateCard ( expense )
+                }
+
+                clearScreen()
+            } else {
+                FeedbackDialog.showDialog( supportFragmentManager,"Favor preencher campos obrigatórios", "Campos obrigatórios em branco" )
             }
-
-            clearScreen()
         }
     }
 
@@ -74,6 +79,10 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
 
         chk_repeat.isChecked    = false
         chk_paidout.isChecked   = false
+    }
+
+    private fun checkIfTheMandatoryFieldsAreFilled() : Boolean {
+        return edt_expense_name.text?.isNotEmpty() == true && edt_amount_expense.text?.isNotEmpty() == true
     }
 
     private fun configListCardOrMoney(){
