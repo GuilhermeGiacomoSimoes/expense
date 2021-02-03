@@ -148,7 +148,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
 
             list_expenses.setOnItemClickListener {  _, _, position, _ ->
                 if ( fragmentManager != null ) {
-                    ExpenseDetailDialog.showDialog( fragmentManager!!, listExpense[position], position, this)
+                    ExpenseDetailDialog.showDialog( fragmentManager!!, listExpense[position], position, this, this.amount)
                 }
             }
         }

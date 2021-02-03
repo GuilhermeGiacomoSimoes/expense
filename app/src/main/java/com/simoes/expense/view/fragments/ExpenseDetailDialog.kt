@@ -25,6 +25,7 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
     private lateinit var expense  : Expense
     private var position = 0
     private var statusRequest = ""
+    private var amount = .0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -87,13 +88,14 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
     companion object {
         var instance = ExpenseDetailDialog()
 
-        fun showDialog( fragmentManager: FragmentManager, expense: Expense , position : Int, fragment : Fragment) {
+        fun showDialog( fragmentManager: FragmentManager, expense: Expense , position : Int, fragment : Fragment, amount : Double ) {
             with(instance) {
                 if (!isAdded) {
                     this.expense    = expense
                     this.position   = position
                     setTargetFragment(fragment, Helper.EXPENSE_CODE)
                     show(fragmentManager, "")
+                    this.amount = amount
                 }
             }
         }
