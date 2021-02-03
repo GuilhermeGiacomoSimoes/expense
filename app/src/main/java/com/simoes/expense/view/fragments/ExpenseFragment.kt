@@ -25,6 +25,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
     private lateinit var listCards          : ArrayList<Card>
     private          var hideBalance        = false
     private          var breakCount         = 0
+    private          var amount             = 0.0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -199,7 +200,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
 
                 val listCardBalance     = getListBankBalance ( listCards )
                 val sumOfBalances       = sumOfBalances      ( listCardBalance )
-
+                this.amount = sumOfBalances
                 changeBalanceView       ( sumOfBalances )
             }
             else if ( list[0].javaClass.name == "com.simoes.expense.model.models.${NameClasses.Expense.name}" ) {
