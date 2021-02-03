@@ -32,6 +32,7 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
     private lateinit var cardSelected   : Card
     private lateinit var typeExpense    : TypeExpense
     private lateinit var typeCategory   : TypeCategory
+    private var amount = 0.0
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,25 +54,33 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
         configListCategory()
 
         btn_save_bank.setOnClickListener {
-            if ( checkIfTheMandatoryFieldsAreFilled() ) {
-                txt_btn_save_expense.visibility     = View.GONE
-                loading_add_expense.visibility      = View.VISIBLE
-                btn_save_bank.isEnabled             = false
+            if ( checkIfTheMandatoryFieldsAreFilled()) {
+                if ( chk_paidout.isChecked && checkAmount()) {
+                    txt_btn_save_expense.visibility     = View.GONE
+                    loading_add_expense.visibility      = View.VISIBLE
+                    btn_save_bank.isEnabled             = false
 
-                val expense = createExpense()
-                saveExpense( expense )
+                    val expense = createExpense()
+                    saveExpense( expense )
 
-                if ( expense.typeExpense == TypeExpense.CARD ){
-                    expense.card = null
-                    updateCard ( expense )
+                    if ( expense.typeExpense == TypeExpense.CARD ){
+                        expense.card = null
+                        updateCard ( expense )
+                    }
+
+                    clearScreen()
+                } else {
+                    FeedbackDialog.showDialog( supportFragmentManager,"", "Valor da despesa, maior do que o seu saldo" )
                 }
 
-                clearScreen()
             } else {
                 FeedbackDialog.showDialog( supportFragmentManager,"Favor preencher campos obrigatórios", "Campos obrigatórios em branco" )
             }
         }
     }
+
+    private fun checkAmount() = edt_amount_expense.text.toString().toDouble() > amount
+    private fun checkIfTheMandatoryFieldsAreFilled() = edt_expense_name.text?.isNotEmpty() == true && edt_amount_expense.text?.isNotEmpty() == true
 
     private fun clearScreen() {
         edt_expense_name.text?.clear()
@@ -79,10 +88,6 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
 
         chk_repeat.isChecked    = false
         chk_paidout.isChecked   = false
-    }
-
-    private fun checkIfTheMandatoryFieldsAreFilled() : Boolean {
-        return edt_expense_name.text?.isNotEmpty() == true && edt_amount_expense.text?.isNotEmpty() == true
     }
 
     private fun configListCardOrMoney(){
@@ -323,6 +328,14 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
             inflateListBank(listBankName)
 
             screen_view.visibility = View.VISIBLE
+
+            calcAmount( listCards )
+        }
+    }
+
+    private fun calcAmount( cards: ArrayList<Card> ) {
+        for ( card in cards ) {
+            amount += card.balance
         }
     }
 
