@@ -24,6 +24,7 @@ import com.simoes.expense.model.models.Card
 import com.simoes.expense.model.models.Expense
 import com.simoes.expense.view.activitys.AddExpenseActivity
 import com.simoes.expense.view.activitys.ListCardActivity
+import com.simoes.expense.view.fragments.FeedbackDialog
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -100,11 +101,25 @@ class CardAdapter(private var listCard: ArrayList<Card>, private var context: Co
         }
 
         txtPayInvoice.setOnClickListener {
-            loadingChangeCard.visibility    = View.VISIBLE
-            cardView.visibility             = View.GONE
 
-            payInvoice( card )
+            if ( expenseAmountIsGreaterThanTheBalance(card) ) {
+                FeedbackDialog.showDialog( ( context as ListCardActivity ).supportFragmentManager, "Você não tem saldo o suficiente para efeturar o pagamento", "Saldo insuficiente" )
+            } else {
+                loadingChangeCard.visibility    = View.VISIBLE
+                cardView.visibility             = View.GONE
+                payInvoice( card )
+            }
         }
+    }
+
+    private fun expenseAmountIsGreaterThanTheBalance( card: Card ) : Boolean {
+        var valueExpenses = .0
+
+        for ( expense in card.expenses ) {
+            valueExpenses += expense.value
+        }
+
+        return valueExpenses > card.balance
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -113,7 +128,7 @@ class CardAdapter(private var listCard: ArrayList<Card>, private var context: Co
 
         for ( expense in card.expenses ) {
             if ( ( ! expense.paidOut) && checkExpiration(expense, card) ) {
-                 valuePaid += expense.value
+                valuePaid += expense.value
                 expense.paidOut = true
 
                 val cardToExpense: Card = card
