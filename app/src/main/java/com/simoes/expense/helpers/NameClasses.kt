@@ -5,6 +5,7 @@ enum class NameClasses {
     Card,
     Expense,
     Object,
-    User
+    User,
+    Wallet
 
 }
