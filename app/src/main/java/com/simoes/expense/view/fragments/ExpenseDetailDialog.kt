@@ -17,6 +17,7 @@ import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
 import com.simoes.expense.helpers.Helper
 import com.simoes.expense.model.models.Expense
+import com.simoes.expense.model.models.Wallet
 import kotlinx.android.synthetic.main.expense_detail_dialog.*
 import java.util.ArrayList
 
@@ -25,6 +26,7 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
     private lateinit var expense  : Expense
     private var position = 0
     private var statusRequest = ""
+    private lateinit var wallet : Wallet
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -74,7 +76,7 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
                 val amount = if (expense.card != null) {
                     expense.card!!.balance
                 } else {
-                    //TODO
+                    wallet.amount
                 }
 
                 pay( amount, expense )
