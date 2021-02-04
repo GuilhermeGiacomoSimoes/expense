@@ -25,7 +25,6 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
     private lateinit var expense  : Expense
     private var position = 0
     private var statusRequest = ""
-    private var amount = .0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,25 +49,35 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
         date_expense_dialog.text  = expense.dueDate.toString()
     }
 
+    private fun pay( amount : Double , expense : Expense ) {
+        if (expense.value < amount) {
+            txt_paid_out.visibility                 = View.GONE
+            loading_paidout.visibility              = View.VISIBLE
+            btn_payment_expense_dialog.isEnabled    = false
+            statusRequest = "Pago com sucesso"
+
+            expense.paidOut = true
+            CRUDController.update( expense, fragmentManager!!, context!! , this)
+
+            val intent = Intent()
+            intent.putExtra(Helper.EXPENSE_RETURN, expense)
+
+            targetFragment?.onActivityResult(Helper.PAYMENT_EXPENSE, Activity.RESULT_OK, intent)
+        } else {
+            FeedbackDialog.showDialog(fragmentManager!!, "Você não tem saldo suficiente para efetuar o pagamento", "Saldo insuficiente")
+        }
+    }
+
     private fun configureButtons() {
         btn_payment_expense_dialog.setOnClickListener {
             if ( fragmentManager != null && context != null) {
-                if (this.expense.value < this.amount) {
-                    txt_paid_out.visibility                 = View.GONE
-                    loading_paidout.visibility              = View.VISIBLE
-                    btn_payment_expense_dialog.isEnabled    = false
-                    statusRequest = "Pago com sucesso"
-
-                    expense.paidOut = true
-                    CRUDController.update( expense, fragmentManager!!, context!! , this)
-
-                    val intent = Intent()
-                    intent.putExtra(Helper.EXPENSE_RETURN, expense)
-
-                    targetFragment?.onActivityResult(Helper.PAYMENT_EXPENSE, Activity.RESULT_OK, intent)
+                val amount = if (expense.card != null) {
+                    expense.card!!.balance
                 } else {
-                    FeedbackDialog.showDialog(fragmentManager!!, "Você não tem saldo suficiente para efetuar o pagamento", "Saldo insuficiente")
+                    //TODO
                 }
+
+                pay( amount, expense )
             }
         }
 
@@ -92,14 +101,13 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
     companion object {
         var instance = ExpenseDetailDialog()
 
-        fun showDialog( fragmentManager: FragmentManager, expense: Expense , position : Int, fragment : Fragment, amount : Double ) {
+        fun showDialog( fragmentManager: FragmentManager, expense: Expense , position : Int, fragment : Fragment) {
             with(instance) {
                 if (!isAdded) {
                     this.expense    = expense
                     this.position   = position
                     setTargetFragment(fragment, Helper.EXPENSE_CODE)
                     show(fragmentManager, "")
-                    this.amount = amount
                 }
             }
         }
