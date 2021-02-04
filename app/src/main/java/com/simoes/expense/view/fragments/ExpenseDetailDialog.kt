@@ -52,19 +52,23 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
 
     private fun configureButtons() {
         btn_payment_expense_dialog.setOnClickListener {
-            if ( fragmentManager != null && context != null ) {
-                txt_paid_out.visibility                 = View.GONE
-                loading_paidout.visibility              = View.VISIBLE
-                btn_payment_expense_dialog.isEnabled    = false
-                statusRequest = "Pago com sucesso"
+            if ( fragmentManager != null && context != null) {
+                if (this.expense.value < this.amount) {
+                    txt_paid_out.visibility                 = View.GONE
+                    loading_paidout.visibility              = View.VISIBLE
+                    btn_payment_expense_dialog.isEnabled    = false
+                    statusRequest = "Pago com sucesso"
 
-                expense.paidOut = true
-                CRUDController.update( expense, fragmentManager!!, context!! , this)
+                    expense.paidOut = true
+                    CRUDController.update( expense, fragmentManager!!, context!! , this)
 
-                val intent = Intent()
-                intent.putExtra(Helper.EXPENSE_RETURN, expense)
+                    val intent = Intent()
+                    intent.putExtra(Helper.EXPENSE_RETURN, expense)
 
-                targetFragment?.onActivityResult(Helper.PAYMENT_EXPENSE, Activity.RESULT_OK, intent)
+                    targetFragment?.onActivityResult(Helper.PAYMENT_EXPENSE, Activity.RESULT_OK, intent)
+                } else {
+                    FeedbackDialog.showDialog(fragmentManager!!, "Você não tem saldo suficiente para efetuar o pagamento", "Saldo insuficiente")
+                }
             }
         }
 
