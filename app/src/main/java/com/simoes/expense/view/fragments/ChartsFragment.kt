@@ -29,6 +29,11 @@ class ChartsFragment : Fragment(), CallBackReturn {
 
         iRequested= true
         searchAllExpense()
+
+        swipe_refresh_loading_charts.setOnRefreshListener {
+            iRequested= true
+            searchAllExpense()
+        }
     }
 
     override fun onCreateView(
