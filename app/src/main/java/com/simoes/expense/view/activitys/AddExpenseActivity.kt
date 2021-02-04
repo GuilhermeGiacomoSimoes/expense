@@ -56,6 +56,8 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
         btn_save_bank.setOnClickListener {
             if ( checkIfTheMandatoryFieldsAreFilled()) {
                 if ( chk_paidout.isChecked && checkAmount()) {
+                    FeedbackDialog.showDialog( supportFragmentManager,"Valor da despesa maior do que o seu saldo", "ERRO" )
+                } else {
                     txt_btn_save_expense.visibility     = View.GONE
                     loading_add_expense.visibility      = View.VISIBLE
                     btn_save_bank.isEnabled             = false
@@ -69,8 +71,6 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
                     }
 
                     clearScreen()
-                } else {
-                    FeedbackDialog.showDialog( supportFragmentManager,"Valor da despesa maior do que o seu saldo", "ERRO" )
                 }
 
             } else {
@@ -79,7 +79,7 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
         }
     }
 
-    private fun checkAmount() = edt_amount_expense.text.toString().toDouble() < amount
+    private fun checkAmount() = edt_amount_expense.text.toString().toDouble() > amount
     private fun checkIfTheMandatoryFieldsAreFilled() = edt_expense_name.text?.isNotEmpty() == true && edt_amount_expense.text?.isNotEmpty() == true
 
     private fun clearScreen() {
