@@ -15,12 +15,14 @@ import com.simoes.expense.helpers.Helper
 import com.simoes.expense.helpers.NameClasses
 import com.simoes.expense.model.models.Card
 import com.simoes.expense.model.models.Expense
+import com.simoes.expense.model.models.Wallet
 import com.simoes.expense.view.adapters.ExpenseAdapter
 import kotlinx.android.synthetic.main.fragment_expense.*
 import kotlin.collections.ArrayList
 
 class ExpenseFragment : Fragment(), CallBackReturn {
 
+    private lateinit var wallet             : Wallet
     private lateinit var listExpense        : ArrayList<Expense>
     private lateinit var listCards          : ArrayList<Card>
     private          var hideBalance        = false
@@ -147,7 +149,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
 
             list_expenses.setOnItemClickListener {  _, _, position, _ ->
                 if ( fragmentManager != null ) {
-                    ExpenseDetailDialog.showDialog( fragmentManager!!, listExpense[position], position, this)
+                    ExpenseDetailDialog.showDialog( fragmentManager!!, listExpense[position], position, this, this.wallet)
                 }
             }
         }
@@ -194,16 +196,21 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         breakCount ++;
 
         if (!list.isNullOrEmpty()){
-            if ( list[0].javaClass.name == "com.simoes.expense.model.models.${NameClasses.Card.name}" ){
-                listCards               = list as ArrayList<Card>
+            when (list[0].javaClass.name) {
+                "com.simoes.expense.model.models.${NameClasses.Card.name}" -> {
+                    listCards               = list as ArrayList<Card>
 
-                val listCardBalance     = getListBankBalance ( listCards )
-                val sumOfBalances       = sumOfBalances      ( listCardBalance )
-                changeBalanceView       ( sumOfBalances )
-            }
-            else if ( list[0].javaClass.name == "com.simoes.expense.model.models.${NameClasses.Expense.name}" ) {
-                this.listExpense        = list as ArrayList<Expense>
-                configListViewExpense   ( )
+                    val listCardBalance     = getListBankBalance ( listCards )
+                    val sumOfBalances       = sumOfBalances      ( listCardBalance )
+                    changeBalanceView       ( sumOfBalances )
+                }
+                "com.simoes.expense.model.models.${NameClasses.Expense.name}" -> {
+                    this.listExpense        = list as ArrayList<Expense>
+                    configListViewExpense   ( )
+                }
+                "com.simoes.expense.model.models.${NameClasses.Wallet.name}" -> {
+                    this.wallet = list[0] as Wallet
+                }
             }
         } else {
             txt_not_expenses.visibility = View.VISIBLE

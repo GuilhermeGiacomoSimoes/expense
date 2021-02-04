@@ -103,9 +103,10 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
     companion object {
         var instance = ExpenseDetailDialog()
 
-        fun showDialog( fragmentManager: FragmentManager, expense: Expense , position : Int, fragment : Fragment) {
+        fun showDialog( fragmentManager: FragmentManager, expense: Expense , position : Int, fragment : Fragment, wallet : Wallet) {
             with(instance) {
                 if (!isAdded) {
+                    this.wallet     = wallet
                     this.expense    = expense
                     this.position   = position
                     setTargetFragment(fragment, Helper.EXPENSE_CODE)
