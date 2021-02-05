@@ -27,6 +27,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
     private lateinit var listCards          : ArrayList<Card>
     private          var hideBalance        = false
     private          var breakCount         = 0
+    private          var expensesExist      = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,8 +70,9 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         swiperefresh.isRefreshing = true
 
         list_expenses.invalidate ( )
-        CRUDController.findAll  ( Card(),     fragmentManager!!, this, context!! )
-        CRUDController.findAll  ( Expense(),     fragmentManager!!, this, context!! )
+        CRUDController.findAll  ( Card(),       fragmentManager!!, this, context!! )
+        CRUDController.findAll  ( Expense(),    fragmentManager!!, this, context!! )
+        CRUDController.findAll  ( Wallet(),     fragmentManager!!, this, context!! )
     }
 
     private fun hideBalance() {
