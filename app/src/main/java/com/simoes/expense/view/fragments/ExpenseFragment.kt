@@ -175,10 +175,17 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         if (resultCode == Activity.RESULT_OK) {
             if  (requestCode == Helper.PAYMENT_EXPENSE) {
                 val expense = data?.getSerializableExtra(Helper.EXPENSE_RETURN) as Expense
-                val card = expense.card
-                if (card != null && fragmentManager != null && context != null){
-                    card.balance -= expense.value
-                    CRUDController.update(card, fragmentManager!!, context!!, this)
+
+                if ( expense.card != null ) {
+                    val card = expense.card
+                    if (card != null && fragmentManager != null && context != null){
+                        card.balance -= expense.value
+                        CRUDController.update(card, fragmentManager!!, context!!, this)
+                    }
+                }
+                else{
+                    wallet.amount -= expense.value
+                    CRUDController.update(wallet, fragmentManager!!, context!!, this)
                 }
             }
 
