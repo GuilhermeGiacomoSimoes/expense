@@ -27,7 +27,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
     private lateinit var listCards          : ArrayList<Card>
     private          var hideBalance        = false
     private          var breakCount         = 0
-    private          var expensesExist      = false
+    private          var expensesDoNotExist = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -219,19 +219,20 @@ class ExpenseFragment : Fragment(), CallBackReturn {
                 "com.simoes.expense.model.models.${NameClasses.Expense.name}" -> {
                     this.listExpense        = list as ArrayList<Expense>
                     configListViewExpense   ( )
-                    expensesExist = true
+                    expensesDoNotExist      = false
                 }
                 "com.simoes.expense.model.models.${NameClasses.Wallet.name}" -> {
                     this.wallet = list[0] as Wallet
                 }
             }
-        } else {
-            if (expensesExist) {
-                txt_not_expenses.visibility = View.VISIBLE
-            }
         }
 
-        if (breakCount == 2) {
+        if (breakCount == 3) {
+            if (expensesDoNotExist) {
+                expensesDoNotExist = true
+                txt_not_expenses.visibility = View.VISIBLE
+            }
+
             breakCount = 0
             if ( swiperefresh != null && swiperefresh.isRefreshing ){
                 swiperefresh.isRefreshing = false
