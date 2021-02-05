@@ -209,13 +209,16 @@ class ExpenseFragment : Fragment(), CallBackReturn {
                 "com.simoes.expense.model.models.${NameClasses.Expense.name}" -> {
                     this.listExpense        = list as ArrayList<Expense>
                     configListViewExpense   ( )
+                    expensesExist = true
                 }
                 "com.simoes.expense.model.models.${NameClasses.Wallet.name}" -> {
                     this.wallet = list[0] as Wallet
                 }
             }
         } else {
-            txt_not_expenses.visibility = View.VISIBLE
+            if (expensesExist) {
+                txt_not_expenses.visibility = View.VISIBLE
+            }
         }
 
         if (breakCount == 2) {
