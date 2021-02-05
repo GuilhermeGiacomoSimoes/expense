@@ -26,7 +26,7 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
     private lateinit var expense  : Expense
     private var position = 0
     private var statusRequest = ""
-    private lateinit var wallet : Wallet
+    private var wallet : Wallet? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -75,11 +75,13 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
             if ( fragmentManager != null && context != null) {
                 val amount = if (expense.card != null) {
                     expense.card!!.balance
+                } else if(  wallet != null ) {
+                    wallet?.amount
                 } else {
-                    wallet.amount
+                    .0
                 }
 
-                pay( amount, expense )
+                pay( amount!!, expense )
             }
         }
 
@@ -103,7 +105,7 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
     companion object {
         var instance = ExpenseDetailDialog()
 
-        fun showDialog( fragmentManager: FragmentManager, expense: Expense , position : Int, fragment : Fragment, wallet : Wallet) {
+        fun showDialog( fragmentManager: FragmentManager, expense: Expense , position : Int, fragment : Fragment, wallet : Wallet?) {
             with(instance) {
                 if (!isAdded) {
                     this.wallet     = wallet

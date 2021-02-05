@@ -22,7 +22,7 @@ import kotlin.collections.ArrayList
 
 class ExpenseFragment : Fragment(), CallBackReturn {
 
-    private lateinit var wallet             : Wallet
+    private          var wallet             : Wallet? = null
     private lateinit var listExpense        : ArrayList<Expense>
     private lateinit var listCards          : ArrayList<Card>
     private          var hideBalance        = false
@@ -184,8 +184,10 @@ class ExpenseFragment : Fragment(), CallBackReturn {
                     }
                 }
                 else{
-                    wallet.amount -= expense.value
-                    CRUDController.update(wallet, fragmentManager!!, context!!, this)
+                    if (wallet != null) {
+                        wallet!!.amount -= expense.value
+                        CRUDController.update(wallet!!, fragmentManager!!, context!!, this)
+                    }
                 }
 
                 expense.paidOut = true
