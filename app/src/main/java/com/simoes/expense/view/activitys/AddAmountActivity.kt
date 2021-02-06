@@ -13,7 +13,6 @@ import com.simoes.expense.helpers.CallBackReturn
 import com.simoes.expense.model.models.Card
 import com.simoes.expense.view.fragments.FeedbackDialog
 import kotlinx.android.synthetic.main.activity_add_amount.*
-import kotlinx.android.synthetic.main.activity_add_expense.*
 
 class AddAmountActivity : AppCompatActivity(), CallBackReturn {
 
