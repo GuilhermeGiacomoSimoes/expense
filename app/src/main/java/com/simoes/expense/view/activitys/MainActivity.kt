@@ -36,6 +36,15 @@ class MainActivity : AppCompatActivity(), CallBackReturn {
             ft.replace(R.id.container, MoreFragment())
             ft.commit()
         }
+
+        verifyWallet()
+    }
+
+    private fun verifyWallet() {
+        val walletCreated = Helper.getPersistData(Helper.WALLET_CREATED, this)
+        if ( walletCreated == null || walletCreated == false.toString()) {
+            CRUDController.findAll(Wallet(), supportFragmentManager, this, this)
+        }
     }
 
     override fun onResume() {
