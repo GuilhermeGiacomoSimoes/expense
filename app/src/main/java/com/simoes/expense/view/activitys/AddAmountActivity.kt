@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
+import com.simoes.expense.helpers.NameClasses
 import com.simoes.expense.model.models.Card
 import com.simoes.expense.model.models.Wallet
 import com.simoes.expense.view.fragments.FeedbackDialog
@@ -20,7 +21,9 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
     private lateinit var listCards          : ArrayList<Card>
     private lateinit var cardSelected       : Card
     private var isLoadingCardsAndWallet     = false
+    private var isWallet                    = false
     private var count                       = 0
+    private lateinit var wallet             : Wallet
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +35,7 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
             if( checkIfTheMandatoryFieldsAreFilled() ) {
                 txt_add_amount.visibility       = View.GONE
                 loading_add_amount.visibility   = View.VISIBLE
-                btn_add_amount_bank.isEnabled   = true
+                btn_add_amount_bank.isEnabled   = false
 
                 addAmountBank()
                 clearScreen()
@@ -48,7 +51,12 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
                 position            : Int,
                 id                  : Long
             ) {
-                cardSelected = listCards[position]
+                if (position == 1) {
+                    isWallet = true
+                } else {
+                    isWallet = false
+                    cardSelected = listCards[position - 1]
+                }
             }
 
             override fun onNothingSelected(parentView: AdapterView<*>?) {
@@ -59,7 +67,7 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
 
     private fun findCardsAndWallet() {
         CRUDController.findAll( Card(), supportFragmentManager , this, this)
-        CRUDController.findAll( Wallet(), supportFragmentManager , this, this)
+        CRUDController.findAll( Wallet(), supportFragmentManager, this, this )
     }
 
     private fun checkIfTheMandatoryFieldsAreFilled() : Boolean {
@@ -83,6 +91,8 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
     private fun getListBankName(listCard: ArrayList<Card> ) : ArrayList<String> {
         val names = ArrayList<String>()
 
+        names.add("Carteira")
+
         for ( bank in listCard ) {
             names.add( bank.name )
         }
@@ -92,10 +102,17 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
 
     private fun addAmountBank() {
         val edtAmount   =  edt_amount_add.text.toString().toDouble()
-        val bank        = cardSelected
-        bank.balance    += edtAmount
+        
+        if( isWallet ) {
+            wallet.amount += edtAmount
+            CRUDController.update( wallet, supportFragmentManager, this , this)
+        }
+        else{
+            val bank        = cardSelected
+            bank.balance    += edtAmount
 
-        CRUDController.update( bank, supportFragmentManager, this , this)
+            CRUDController.update( bank, supportFragmentManager, this , this)
+        }
     }
 
     override fun callback(isSuccess: Boolean) {
@@ -110,16 +127,18 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
     override fun callback(list: ArrayList<Any>){
         if ( ! isLoadingCardsAndWallet ) {
             count ++
-
             if ( ! list.isNullOrEmpty() ) {
-                listCards           = list as ArrayList<Card>
-                val listBankName    = getListBankName( listCards )
-                inflateListBank(listBankName)
+                if (list[0].javaClass.name == NameClasses.Card.toString()) {
+                    listCards           = list as ArrayList<Card>
+                    val listBankName    = getListBankName( listCards )
+                    inflateListBank(listBankName)
+                }
+                else {
+                    this.wallet = list[0] as Wallet
+                }
             }
-        }
 
-        if ( count >= 2){
-            isLoadingCardsAndWallet = true
+            isLoadingCardsAndWallet = count > 1
         }
     }
 }
