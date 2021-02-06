@@ -108,10 +108,18 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
     }
 
     override fun callback(list: ArrayList<Any>){
-        if ( !list.isNullOrEmpty() ) {
-            listCards           = list as ArrayList<Card>
-            val listBankName    = getListBankName( listCards )
-            inflateListBank(listBankName)
+        if ( ! isLoadingCardsAndWallet ) {
+            count ++
+
+            if ( ! list.isNullOrEmpty() ) {
+                listCards           = list as ArrayList<Card>
+                val listBankName    = getListBankName( listCards )
+                inflateListBank(listBankName)
+            }
+        }
+
+        if ( count >= 2){
+            isLoadingCardsAndWallet = true
         }
     }
 }
