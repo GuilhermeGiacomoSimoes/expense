@@ -57,6 +57,11 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
         }
     }
 
+    private fun findCardsAndWallet() {
+        CRUDController.findAll( Card(), supportFragmentManager , this, this)
+        CRUDController.findAll( Wallet(), supportFragmentManager , this, this)
+    }
+
     private fun checkIfTheMandatoryFieldsAreFilled() : Boolean {
         return edt_amount_add.text?.isNotEmpty() == true
     }
