@@ -11,19 +11,22 @@ import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
 import com.simoes.expense.model.models.Card
+import com.simoes.expense.model.models.Wallet
 import com.simoes.expense.view.fragments.FeedbackDialog
 import kotlinx.android.synthetic.main.activity_add_amount.*
 
 class AddAmountActivity : AppCompatActivity(), CallBackReturn {
 
-    private lateinit var listCards      : ArrayList<Card>
-    private lateinit var cardSelected   : Card
+    private lateinit var listCards          : ArrayList<Card>
+    private lateinit var cardSelected       : Card
+    private var isLoadingCardsAndWallet     = false
+    private var count                       = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_amount)
 
-        CRUDController.findAll( Card(), supportFragmentManager , this, this)
+        findCardsAndWallet()
 
         btn_add_amount_bank.setOnClickListener {
             if( checkIfTheMandatoryFieldsAreFilled() ) {
