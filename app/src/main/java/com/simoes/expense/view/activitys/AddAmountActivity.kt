@@ -24,12 +24,14 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
     private var isWallet                    = false
     private var count                       = 0
     private lateinit var wallet             : Wallet
+    private val names                       = arrayListOf("Carteira")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_amount)
 
         findCardsAndWallet()
+        inflateListBank()
 
         btn_add_amount_bank.setOnClickListener {
             if( checkIfTheMandatoryFieldsAreFilled() ) {
@@ -78,20 +80,17 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
         edt_amount_add.text?.clear()
     }
 
-    private fun inflateListBank( listBank : ArrayList<String> ) {
+    private fun inflateListBank() {
         val adapter : ArrayAdapter<String> = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_dropdown_item,
-            listBank
+            names
         )
 
         list_bank_for_add_amount.adapter = adapter
     }
 
     private fun getListBankName(listCard: ArrayList<Card> ) : ArrayList<String> {
-        val names = ArrayList<String>()
-
-        names.add("Carteira")
 
         for ( bank in listCard ) {
             names.add( bank.name )
@@ -102,7 +101,7 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
 
     private fun addAmountBank() {
         val edtAmount   =  edt_amount_add.text.toString().toDouble()
-        
+
         if( isWallet ) {
             wallet.amount += edtAmount
             CRUDController.update( wallet, supportFragmentManager, this , this)
@@ -130,8 +129,8 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
             if ( ! list.isNullOrEmpty() ) {
                 if (list[0].javaClass.name == NameClasses.Card.toString()) {
                     listCards           = list as ArrayList<Card>
-                    val listBankName    = getListBankName( listCards )
-                    inflateListBank(listBankName)
+                    getListBankName(list)
+                    inflateListBank()
                 }
                 else {
                     this.wallet = list[0] as Wallet
