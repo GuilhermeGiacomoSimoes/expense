@@ -127,7 +127,7 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
         if ( ! isLoadingCardsAndWallet ) {
             count ++
             if ( ! list.isNullOrEmpty() ) {
-                if (list[0].javaClass.name == NameClasses.Card.toString()) {
+                if (list[0].javaClass.name == "com.simoes.expense.model.models.${NameClasses.Card.toString()}") {
                     listCards           = list as ArrayList<Card>
                     getListBankName(list)
                     inflateListBank()
