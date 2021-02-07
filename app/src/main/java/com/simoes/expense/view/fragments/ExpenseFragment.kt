@@ -28,6 +28,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
     private          var hideBalance        = false
     private          var breakCount         = 0
     private          var expensesDoNotExist = true
+    private          var balance            = .0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -106,10 +107,10 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         return listBalance
     }
 
-    private fun changeBalanceView( balances: Double ) {
+    private fun changeBalanceView() {
         if (context != null) {
             if ( edt_balance != null){
-                edt_balance.text = balances.toString()
+                edt_balance.text = this.balance.toString()
 
                 hideBalance()
             }
@@ -215,8 +216,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
                     listCards               = list as ArrayList<Card>
 
                     val listCardBalance     = getListBankBalance ( listCards )
-                    val sumOfBalances       = sumOfBalances      ( listCardBalance )
-                    changeBalanceView       ( sumOfBalances )
+                    this.balance            =  sumOfBalances      ( listCardBalance )
                 }
                 "com.simoes.expense.model.models.${NameClasses.Expense.name}" -> {
                     this.listExpense        = list as ArrayList<Expense>
@@ -225,11 +225,16 @@ class ExpenseFragment : Fragment(), CallBackReturn {
                 }
                 "com.simoes.expense.model.models.${NameClasses.Wallet.name}" -> {
                     this.wallet = list[0] as Wallet
+                    if (this.wallet != null) {
+                        this.balance += this.wallet!!.amount
+                    }
                 }
             }
         }
 
         if (breakCount == 3) {
+            changeBalanceView ()
+
             if (expensesDoNotExist) {
                 expensesDoNotExist = true
                 txt_not_expenses.visibility = View.VISIBLE
