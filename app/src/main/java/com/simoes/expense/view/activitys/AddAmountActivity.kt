@@ -53,7 +53,7 @@ class AddAmountActivity : AppCompatActivity(), CallBackReturn {
                 position            : Int,
                 id                  : Long
             ) {
-                if (position == 1) {
+                if (position == 0) {
                     isWallet = true
                 } else {
                     isWallet = false
