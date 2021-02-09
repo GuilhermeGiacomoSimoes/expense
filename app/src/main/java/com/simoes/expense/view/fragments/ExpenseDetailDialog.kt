@@ -119,7 +119,7 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
     }
 
     override fun callback(list: ArrayList<Any>) {
-        TODO("Not yet implemented")
+        return
     }
 
     override fun callback(isSuccess: Boolean) {
