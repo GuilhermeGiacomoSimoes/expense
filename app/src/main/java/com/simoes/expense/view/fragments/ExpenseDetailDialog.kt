@@ -15,10 +15,12 @@ import androidx.fragment.app.FragmentManager
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
+import com.simoes.expense.helpers.DateHelper
 import com.simoes.expense.helpers.Helper
 import com.simoes.expense.model.models.Expense
 import com.simoes.expense.model.models.Wallet
 import kotlinx.android.synthetic.main.expense_detail_dialog.*
+import java.text.SimpleDateFormat
 import java.util.ArrayList
 
 class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
@@ -43,6 +45,37 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
 
         configureTexts()
         configureButtons()
+        verifyRepeat()
+    }
+
+    private fun verifyRepeat() {
+        if ( expense.repeat ) {
+            if( SimpleDateFormat("dd/MM/yyyy").parse(expense.dueDate).time < DateHelper.nowMilliseconds()) {
+                expense.dueDate = addAMonthToTheDate(expense.dueDate)
+                expense.paidOut = false
+                if ( context != null && fragmentManager != null ) {
+                    CRUDController.update(expense, fragmentManager!!, context!!, this)
+                }else if(fragmentManager != null){
+                    FeedbackDialog.showDialog(fragmentManager!!, "Erro ao atualizar o banco", "Erro")
+                }
+            }
+        }
+    }
+
+    private fun addAMonthToTheDate(dueDate : String) : String {
+        val dateSplit  = dueDate.split("/")
+        var month = Integer.parseInt(dateSplit[1])
+        var year =  Integer.parseInt(dateSplit[2])
+
+        if( month > 11 ){
+            month = 1
+            year ++
+
+        } else {
+            month ++
+        }
+
+        return "${dateSplit[0]}/${month}/${year}"
     }
 
     private fun configureTexts() {
