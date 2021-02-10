@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -21,7 +22,6 @@ import com.simoes.expense.model.models.Expense
 import com.simoes.expense.model.models.Wallet
 import kotlinx.android.synthetic.main.expense_detail_dialog.*
 import java.text.SimpleDateFormat
-import java.util.ArrayList
 
 class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
 
@@ -46,6 +46,19 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
         configureTexts()
         configureButtons()
         verifyRepeat()
+        constructListPaid()
+    }
+
+    private fun constructListPaid() {
+        if ( context != null && expense.datePaid.size > 0 ) {
+            progressbar_expense_detail.visibility = View.GONE
+            list_paid_expense.visibility = View.VISIBLE
+
+            list_paid_expense.adapter = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, expense.datePaid)
+        } else {
+            list_paid_expense.visibility = View.GONE
+            progressbar_expense_detail.visibility = View.GONE
+        }
     }
 
     private fun verifyRepeat() {
