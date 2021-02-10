@@ -17,5 +17,6 @@ class Expense : Object(), Serializable {
     var repeat  : Boolean = false
     var dueDate : String  = ""
     var card    : Card?   = null
-    lateinit var datePaid : ArrayList<String>
+    var datePaid = ArrayList<String>()
+
 }
