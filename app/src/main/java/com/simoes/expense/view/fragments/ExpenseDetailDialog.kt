@@ -105,6 +105,7 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
             statusRequest = "Pago com sucesso"
 
             expense.paidOut = true
+            expense.datePaid.add( DateHelper.nowExtensive() + " - pago")
             CRUDController.update( expense, fragmentManager!!, context!! , this)
 
             val intent = Intent()
