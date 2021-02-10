@@ -94,7 +94,7 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
     private fun configureTexts() {
         title_expense_dialog.text = expense.name
         value_expense_dialog.text = expense.value.toString()
-        date_expense_dialog.text  = expense.dueDate.toString()
+        date_expense_dialog.text  = expense.dueDate
     }
 
     private fun pay( amount : Double , expense : Expense ) {
