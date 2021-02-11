@@ -74,7 +74,7 @@ class TransferActivity : AppCompatActivity(), CallBackReturn {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("Not yet implemented")
+                return
             }
         }
 
@@ -119,12 +119,21 @@ class TransferActivity : AppCompatActivity(), CallBackReturn {
 
     override fun callback(list: ArrayList<Any>) {
         if (list.isNotEmpty()) {
+            this.cards = list as ArrayList<Card>
             buildSpinner(list as ArrayList<Card>)
         }
     }
 
     override fun callback(isSuccess: Boolean) {
-        TODO("Not yet implemented")
+        if( isSuccess ) {
+            countCallback ++
+        }
+
+        if ( countCallback > 1 ) {
+            loading_transfer.visibility = View.GONE
+            txt_btn_transfer.visibility = View.VISIBLE
+            Toast.makeText(this, "Transferência realizada com sucesso", Toast.LENGTH_SHORT).show()
+        }
     }
 
 }
