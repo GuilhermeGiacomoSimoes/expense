@@ -59,6 +59,7 @@
                 android:hint="valor"
                 android:id="@+id/edt_value_transfer"
                 android:layout_margin="10dp"
+                android:inputType="numberDecimal"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
