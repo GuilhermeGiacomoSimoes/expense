@@ -117,6 +117,10 @@ class TransferActivity : AppCompatActivity(), CallBackReturn {
         return names
     }
 
+    private fun clearFields() {
+        edt_value_transfer.text?.clear()
+    }
+
     override fun callback(list: ArrayList<Any>) {
         if (list.isNotEmpty()) {
             this.cards = list as ArrayList<Card>
@@ -132,6 +136,9 @@ class TransferActivity : AppCompatActivity(), CallBackReturn {
         if ( countCallback > 1 ) {
             loading_transfer.visibility = View.GONE
             txt_btn_transfer.visibility = View.VISIBLE
+
+            clearFields()
+
             Toast.makeText(this, "Transferência realizada com sucesso", Toast.LENGTH_SHORT).show()
         }
     }
