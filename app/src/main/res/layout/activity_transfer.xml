@@ -118,7 +118,7 @@
                 android:indeterminateTintMode="src_in"
                 android:padding="5dp"
                 android:visibility="gone"
-                android:id="@+id/loading_add_expense"
+                android:id="@+id/loading_transfer"
                 />
 
             <TextView
@@ -129,7 +129,7 @@
                 android:textColor="@color/background_color"
                 android:textAlignment="center"
                 android:layout_margin="10dp"
-                android:id="@+id/txt_btn_save_expense"
+                android:id="@+id/txt_btn_transfer"
                 />
 
         </androidx.cardview.widget.CardView>
