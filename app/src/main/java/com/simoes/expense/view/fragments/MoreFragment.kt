@@ -38,5 +38,9 @@ class MoreFragment : Fragment() {
         openListCards.setOnClickListener {
             startActivity(Intent( context, ListCardActivity::class.java ))
         }
+
+        openTransf.setOnClickListener {
+
+        }
     }
 }
