@@ -40,7 +40,7 @@ class MoreFragment : Fragment() {
         }
 
         openTransf.setOnClickListener {
-
+            startActivity(Intent( context, TransferActivity::class.java ))
         }
     }
 }
