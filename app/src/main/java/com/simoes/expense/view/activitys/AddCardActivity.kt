@@ -19,7 +19,7 @@ class AddCardActivity : AppCompatActivity(), CallBackReturn {
 
     private lateinit var days           : Array<String>
     private          var day            = 0
-    private          val listFlags      = arrayOf( FlagCards.VISA.name, FlagCards.MASTERCARD.name )
+    private          val listFlags      = arrayOf( FlagCards.VISA.name, FlagCards.MASTERCARD.name, FlagCards.ELO.name )
     private lateinit var flagSelected   : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
