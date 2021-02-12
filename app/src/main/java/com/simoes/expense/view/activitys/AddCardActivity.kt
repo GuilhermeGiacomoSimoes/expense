@@ -129,6 +129,9 @@ class AddCardActivity : AppCompatActivity(), CallBackReturn {
         else if ( this.flagSelected == FlagCards.VISA.name ){
             card.flagCards = FlagCards.VISA
         }
+        else if ( this.flagSelected == FlagCards.ELO.name ) {
+            card.flagCards = FlagCards.ELO
+        }
 
         card.name       = edt_name_card.text.toString()
         card.limit      = edt_limit_card.text.toString().toDouble()
