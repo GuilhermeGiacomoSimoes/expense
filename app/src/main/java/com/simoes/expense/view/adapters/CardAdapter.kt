@@ -17,6 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
+import com.simoes.expense.helpers.DateHelper
 import com.simoes.expense.helpers.FlagCards
 import com.simoes.expense.helpers.Helper
 import com.simoes.expense.model.CRUDModel
@@ -102,7 +103,6 @@ class CardAdapter(private var listCard: ArrayList<Card>, private var context: Co
         }
 
         txtPayInvoice.setOnClickListener {
-
             if ( expenseAmountIsGreaterThanTheBalance(card) ) {
                 FeedbackDialog.showDialog( ( context as ListCardActivity ).supportFragmentManager, "Você não tem saldo o suficiente para efeturar o pagamento", "Saldo insuficiente" )
             } else {
@@ -126,19 +126,27 @@ class CardAdapter(private var listCard: ArrayList<Card>, private var context: Co
     @RequiresApi(Build.VERSION_CODES.O)
     private fun payInvoice(card: Card ) {
         var valuePaid = 0.0
+        val expenses = card.expenses
 
         for ( expense in card.expenses ) {
             if ( ( ! expense.paidOut) && checkExpiration(expense, card) ) {
                 valuePaid += expense.value
                 expense.paidOut = true
 
-                val cardToExpense: Card = card
-                cardToExpense.expenses = ArrayList<Expense>()
-                expense.card = cardToExpense
-                CRUDController.update( expense, (context as ListCardActivity).supportFragmentManager, context, this )
+                card.expenses = ArrayList<Expense>()
+                expense.card = card
+                expense.datePaid.add(DateHelper.nowExtensive() + " - pago")
+                CRUDController.update(
+                    expense,
+                    (context as ListCardActivity).supportFragmentManager,
+                    context,
+                    this
+                )
+                expense.card = null
             }
         }
 
+        card.expenses = expenses
         card.balance -= valuePaid
         CRUDController.update( card, (context as ListCardActivity).supportFragmentManager, context, this )
     }
