@@ -205,50 +205,57 @@ class ExpenseFragment : Fragment(), CallBackReturn {
                 }
             }
         }
-        fragmentManager?.beginTransaction()?.detach(this)?.attach(this)?.commit();
+
+        reloadScreen = true
     }
 
     override fun callback(list: ArrayList<Any>) {
-        breakCount ++;
+        if (iRequestData){
 
-        if (!list.isNullOrEmpty()){
-            when (list[0].javaClass.name) {
-                "com.simoes.expense.model.models.${NameClasses.Card.name}" -> {
-                    listCards               = list as ArrayList<Card>
+            breakCount ++;
 
-                    val listCardBalance     = getListBankBalance ( listCards )
-                    this.balance            =  sumOfBalances      ( listCardBalance )
-                }
-                "com.simoes.expense.model.models.${NameClasses.Expense.name}" -> {
-                    this.listExpense        = list as ArrayList<Expense>
-                    configListViewExpense   ( )
-                    expensesDoNotExist      = false
-                }
-                "com.simoes.expense.model.models.${NameClasses.Wallet.name}" -> {
-                    this.wallet = list[0] as Wallet
-                    if (this.wallet != null) {
-                        this.balance += this.wallet!!.amount
+            if (!list.isNullOrEmpty()){
+                when (list[0].javaClass.name) {
+                    "com.simoes.expense.model.models.${NameClasses.Card.name}" -> {
+                        listCards               = list as ArrayList<Card>
+
+                        val listCardBalance     = getListBankBalance ( listCards )
+                        this.balance            =  sumOfBalances      ( listCardBalance )
+                    }
+                    "com.simoes.expense.model.models.${NameClasses.Expense.name}" -> {
+                        this.listExpense        = list as ArrayList<Expense>
+                        configListViewExpense   ( )
+                        expensesDoNotExist      = false
+                    }
+                    "com.simoes.expense.model.models.${NameClasses.Wallet.name}" -> {
+                        this.wallet = list[0] as Wallet
+                        if (this.wallet != null) {
+                            this.balance += this.wallet!!.amount
+                        }
                     }
                 }
             }
-        }
 
-        if (breakCount == 3) {
-            changeBalanceView ()
+            if (breakCount >= 3) {
+                changeBalanceView ()
+                iRequestData = false
 
-            if (expensesDoNotExist) {
-                expensesDoNotExist = true
-                txt_not_expenses.visibility = View.VISIBLE
-            }
+                if (expensesDoNotExist) {
+                    expensesDoNotExist = true
+                    txt_not_expenses.visibility = View.VISIBLE
+                }
 
-            breakCount = 0
-            if ( swiperefresh != null && swiperefresh.isRefreshing ){
-                swiperefresh.isRefreshing = false
+                breakCount = 0
+                if ( swiperefresh != null && swiperefresh.isRefreshing ) {
+                    swiperefresh.isRefreshing = false
+                }
             }
         }
     }
 
     override fun callback(isSuccess: Boolean) {
-        return
+        if (reloadScreen){
+            fragmentManager?.beginTransaction()?.detach(this)?.attach(this)?.commit()
+        }
     }
 }
