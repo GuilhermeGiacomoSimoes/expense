@@ -278,7 +278,7 @@ class CardAdapter(private var listCard: ArrayList<Card>, private var context: Co
 
     private fun buildVencDescription( dueDate : Int )                               = "Venc: ${getDueData( dueDate )}"
 
-    private fun buildDescription    ( totalExpenses : Double, limit : Double )      = "R$$totalExpenses de R$$limit"
+    private fun buildDescription    ( totalExpenses : Double, limit : Double )      = "${Helper.getValueMoney(totalExpenses)} de ${Helper.getValueMoney(limit)}"
 
     override fun getItem(position: Int): Any {
         return listCard[position]
