@@ -114,20 +114,22 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
 
     private fun configureButtons() {
         btn_payment_expense_dialog.setOnClickListener {
-            if ( fragmentManager != null && context != null) {
-                val amount = when {
-                    expense.card != null -> {
-                        expense.card!!.balance
+            if ( ! expense.paidOut ) {
+                if ( fragmentManager != null && context != null ) {
+                    val amount = when {
+                        expense.card != null -> {
+                            expense.card!!.balance
+                        }
+                        wallet != null -> {
+                            wallet?.amount
+                        }
+                        else -> {
+                            .0
+                        }
                     }
-                    wallet != null -> {
-                        wallet?.amount
-                    }
-                    else -> {
-                        .0
-                    }
-                }
 
-                pay( amount!! )
+                    pay( amount!! )
+                }
             }
         }
 
