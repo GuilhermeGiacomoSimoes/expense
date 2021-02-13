@@ -13,7 +13,9 @@
         android:layout_margin="15dp"
         app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardElevation="10dp"
+        >
 
         <ProgressBar
             android:layout_width="match_parent"
