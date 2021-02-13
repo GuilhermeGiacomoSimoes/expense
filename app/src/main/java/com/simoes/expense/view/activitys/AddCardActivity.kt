@@ -70,7 +70,7 @@ class AddCardActivity : AppCompatActivity(), CallBackReturn {
                 }
 
                 override fun onNothingSelected(parentView: AdapterView<*>?) {
-                    //TODO implements
+                    return
                 }
             }
         }
