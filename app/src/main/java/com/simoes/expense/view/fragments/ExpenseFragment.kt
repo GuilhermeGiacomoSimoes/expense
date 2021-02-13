@@ -178,9 +178,11 @@ class ExpenseFragment : Fragment(), CallBackReturn {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        reloadScreen = true
+
         if (resultCode == Activity.RESULT_OK) {
             if  (requestCode == Helper.PAYMENT_EXPENSE) {
-                val expense = data?.getSerializableExtra(Helper.EXPENSE_RETURN) as Expense
+                    val expense = data?.getSerializableExtra(Helper.EXPENSE_RETURN) as Expense
 
                 if ( expense.card != null ) {
                     val card = getCardByExpense( expense )
@@ -189,7 +191,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
                         CRUDController.update(card!!, fragmentManager!!, context!!, this)
                     }
                 }
-                else{
+                else {
                     if (wallet != null) {
                         wallet!!.amount -= expense.value
                         CRUDController.update(wallet!!, fragmentManager!!, context!!, this)
@@ -198,16 +200,18 @@ class ExpenseFragment : Fragment(), CallBackReturn {
             }
 
             if (requestCode == Helper.DELETE_EXPENSE) {
-                val card = getCardIndexByExpense( data?.getSerializableExtra(Helper.EXPENSE_RETURN) as Expense )
-                card?.expenses?.remove( data.getSerializableExtra(Helper.EXPENSE_RETURN) as Expense )
+                val expense = data?.getSerializableExtra(Helper.EXPENSE_RETURN) as Expense
 
-                if (card != null && fragmentManager != null && context != null){
-                    CRUDController.update(card, fragmentManager!!, context!!, this)
+                if (expense.card != null) {
+                    val card = expense.card!!
+                    card.expenses.remove( expense )
+
+                    if (fragmentManager != null && context != null){
+                        CRUDController.update(card, fragmentManager!!, context!!, this)
+                    }
                 }
             }
         }
-
-        reloadScreen = true
     }
 
     override fun callback(list: ArrayList<Any>) {
