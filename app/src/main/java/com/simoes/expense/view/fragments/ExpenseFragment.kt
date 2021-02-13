@@ -163,7 +163,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         }
     }
 
-    private fun getCardIndexByExpense( expense: Expense ) : Card ? {
+    private fun getCardByExpense( expense: Expense ) : Card ? {
         for (card in listCards) {
             for (e in card.expenses) {
                 if ( e.uuid == expense.uuid) {
@@ -183,7 +183,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
                 val expense = data?.getSerializableExtra(Helper.EXPENSE_RETURN) as Expense
 
                 if ( expense.card != null ) {
-                    val card = expense.card
+                    val card = getCardByExpense( expense )
                     if (fragmentManager != null && context != null){
                         card!!.balance -= expense.value
                         CRUDController.update(card!!, fragmentManager!!, context!!, this)
