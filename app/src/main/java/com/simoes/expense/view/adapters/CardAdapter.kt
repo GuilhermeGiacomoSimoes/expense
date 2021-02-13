@@ -55,6 +55,7 @@ class CardAdapter(private var listCard: ArrayList<Card>, private var context: Co
         val txtPayInvoice       = layout.findViewById<TextView>(R.id.txt_pay_invoice)
         val loadingChangeCard   = layout.findViewById<ProgressBar>(R.id.loading_change_card)
         val cardView            = layout.findViewById<ConstraintLayout>(R.id.cardView)
+        val txtAmount           = layout.findViewById<TextView>(R.id.txt_amount)
 
         this.loadingChangeCard = loadingChangeCard
         this.cardView           = cardView
@@ -68,7 +69,8 @@ class CardAdapter(private var listCard: ArrayList<Card>, private var context: Co
                                 simbleFlag,
                                 card,
                                 addExpenseCard,
-                                position
+                                position,
+                                txtAmount
                  )
 
         return layout
@@ -142,14 +144,15 @@ class CardAdapter(private var listCard: ArrayList<Card>, private var context: Co
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun buildCard(progresBarCard   : ProgressBar,
-                          txtDescription   : TextView,
-                          txtNameCard      : TextView,
-                          txtVencDard      : TextView,
-                          simbleFlag       : ImageView,
-                          card             : Card,
-                          addExpenseCard   : TextView,
-                          position          : Int
+    private fun buildCard(progresBarCard    : ProgressBar,
+                          txtDescription    : TextView,
+                          txtNameCard       : TextView,
+                          txtVencDard       : TextView,
+                          simbleFlag        : ImageView,
+                          card              : Card,
+                          addExpenseCard    : TextView,
+                          position          : Int,
+                          txtAmount         : TextView
     ){
 
         addExpenseCard.setOnClickListener {
@@ -164,6 +167,11 @@ class CardAdapter(private var listCard: ArrayList<Card>, private var context: Co
 
         buildProgressBar( progresBarCard, card.limit.toInt(), totalExpenses.toInt() )
         changeImage     ( simbleFlag,     card )
+        buildTxtAmount  ( txtAmount, position )
+    }
+
+    private fun buildTxtAmount( txtAmount : TextView, position: Int ) {
+        txtAmount.text = "Saldo: ${listCard[position].balance}"
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
