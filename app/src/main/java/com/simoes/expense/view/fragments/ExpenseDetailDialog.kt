@@ -97,7 +97,7 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
         date_expense_dialog.text  = expense.dueDate
     }
 
-    private fun pay( amount : Double , expense : Expense ) {
+    private fun pay( amount : Double ) {
         if (expense.value < amount) {
             txt_paid_out.visibility                 = View.GONE
             loading_paidout.visibility              = View.VISIBLE
