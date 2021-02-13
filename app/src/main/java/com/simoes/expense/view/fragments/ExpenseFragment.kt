@@ -194,9 +194,6 @@ class ExpenseFragment : Fragment(), CallBackReturn {
                         CRUDController.update(wallet!!, fragmentManager!!, context!!, this)
                     }
                 }
-
-                expense.paidOut = true
-                CRUDController.update(expense, fragmentManager!!, context!!, this)
             }
 
             if (requestCode == Helper.DELETE_EXPENSE) {
