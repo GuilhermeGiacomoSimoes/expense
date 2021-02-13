@@ -115,8 +115,8 @@ class ExpenseFragment : Fragment(), CallBackReturn {
     private fun changeBalanceView() {
         if (context != null) {
             if ( edt_balance != null){
-                edt_balance.text = Helper.getValueMoney(this.balance)
-
+                val amount = Helper.getValueMoney(this.balance)
+                edt_balance.text = amount.split("$")[1].trim()
                 hideBalance()
             }
         }
