@@ -183,9 +183,9 @@ class ExpenseFragment : Fragment(), CallBackReturn {
 
                 if ( expense.card != null ) {
                     val card = expense.card
-                    if (card != null && fragmentManager != null && context != null){
-                        card.balance -= expense.value
-                        CRUDController.update(card, fragmentManager!!, context!!, this)
+                    if (fragmentManager != null && context != null){
+                        card!!.balance -= expense.value
+                        CRUDController.update(card!!, fragmentManager!!, context!!, this)
                     }
                 }
                 else{
