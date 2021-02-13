@@ -18,9 +18,8 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val expense = listExpense[position]
-        val layout : View
 
-        layout = if ( convertView == null ) {
+        val layout : View = if ( convertView == null ) {
             val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             inflater.inflate(R.layout.expenses_adapter, null)
         } else {
