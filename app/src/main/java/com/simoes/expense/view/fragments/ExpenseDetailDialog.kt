@@ -29,6 +29,7 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
     private var position = 0
     private var statusRequest = ""
     private var wallet : Wallet? = null
+    private var action = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -128,7 +129,8 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
                         }
                     }
 
-                    pay( amount!! )
+                    action = Helper.PAYMENT_EXPENSE
+                    pay( amount )
                 }
             }
         }
@@ -140,12 +142,8 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
                 btn_delete_expense_dialog.isEnabled    = false
                 statusRequest = "Deletado com sucesso"
 
-                CRUDController.delete( expense,  fragmentManager!!, context!!, this)
-
-                val intent = Intent()
-                intent.putExtra(Helper.EXPENSE_RETURN, expense)
-
-                targetFragment?.onActivityResult(Helper.DELETE_EXPENSE, Activity.RESULT_OK, intent)
+                action = Helper.DELETE_EXPENSE
+                CRUDController.delete( expense,  fragmentManager!!, context!!, this )
             }
         }
     }
@@ -167,10 +165,7 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
     }
 
     override fun callback(list: ArrayList<Any>) {
-        val intent = Intent()
-        intent.putExtra(Helper.EXPENSE_RETURN, expense)
-
-        targetFragment?.onActivityResult(Helper.PAYMENT_EXPENSE, Activity.RESULT_OK, intent)
+        return
     }
 
     override fun callback(isSuccess: Boolean) {
@@ -184,6 +179,10 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
             btn_delete_expense_dialog.isEnabled    = true
 
             Toast.makeText(context, statusRequest, Toast.LENGTH_LONG).show()
+
+            val intent = Intent()
+            intent.putExtra(Helper.EXPENSE_RETURN, expense)
+            targetFragment?.onActivityResult(action, Activity.RESULT_OK, intent)
         }
 
         dismiss()
