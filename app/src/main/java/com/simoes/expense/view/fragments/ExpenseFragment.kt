@@ -29,6 +29,8 @@ class ExpenseFragment : Fragment(), CallBackReturn {
     private          var breakCount         = 0
     private          var expensesDoNotExist = true
     private          var balance            = .0
+    private          var reloadScreen       = false
+    private          var iRequestData       = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +44,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         super.onResume()
 
         if ( fragmentManager != null && context != null ) {
+            iRequestData = true
             findInformations()
         }
     }
@@ -54,6 +57,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         }
 
         if ( fragmentManager != null && context != null ) {
+            iRequestData = true
             findInformations()
         }
 

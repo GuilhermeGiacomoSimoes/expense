@@ -127,7 +127,7 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
                     }
                 }
 
-                pay( amount!!, expense )
+                pay( amount!! )
             }
         }
 
