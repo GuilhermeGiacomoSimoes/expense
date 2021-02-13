@@ -67,6 +67,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         }
 
         swiperefresh.setOnRefreshListener {
+            iRequestData = true
             findInformations()
         }
     }
