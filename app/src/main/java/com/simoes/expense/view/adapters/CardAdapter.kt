@@ -179,7 +179,7 @@ class CardAdapter(private var listCard: ArrayList<Card>, private var context: Co
     }
 
     private fun buildTxtAmount( txtAmount : TextView, position: Int ) {
-        txtAmount.text = "Saldo: ${listCard[position].balance}"
+        txtAmount.text = "Saldo: ${Helper.getValueMoney(listCard[position].balance)}"
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
