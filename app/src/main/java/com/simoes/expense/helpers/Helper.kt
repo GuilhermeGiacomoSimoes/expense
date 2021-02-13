@@ -53,6 +53,13 @@ class Helper {
             Context.MODE_PRIVATE
         )
 
+        fun getValueMoney ( value : Double ) : String {
+            val v = value.toString()
+            v.replace(".", ",")
+
+            return "R$ $v"
+        }
+
         fun getTranslateExpenseTypePortuguese(key: String) : String? {
             val hash = hashMapOf(
                 "PUB" to "Bar",
