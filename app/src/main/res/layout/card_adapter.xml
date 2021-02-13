@@ -129,6 +129,16 @@
                 android:textSize="18sp"
                 />
 
+            <TextView
+                android:id="@+id/txt_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Saldo: R$ 200,00"
+                app:layout_constraintBottom_toTopOf="@+id/txt_venc_card"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_margin="20dp"
+                />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
