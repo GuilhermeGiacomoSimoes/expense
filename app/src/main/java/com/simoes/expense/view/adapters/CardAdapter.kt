@@ -37,9 +37,8 @@ class CardAdapter(private var listCard: ArrayList<Card>, private var context: Co
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
         val card = listCard[position]
-        val layout : View
 
-        layout = if ( convertView == null ) {
+        val layout : View = if ( convertView == null ) {
             val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             inflater.inflate(R.layout.card_adapter, null)
         } else {
