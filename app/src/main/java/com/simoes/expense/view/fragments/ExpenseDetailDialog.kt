@@ -107,6 +107,11 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
 
             expense.paidOut = true
             expense.datePaid.add( DateHelper.nowExtensive() + " - pago")
+
+            if(expense.card != null) {
+                expense.card!!.balance -= expense.value
+            }
+
             CRUDController.update( expense, fragmentManager!!, context!! , this)
         } else {
             FeedbackDialog.showDialog(fragmentManager!!, "Você não tem saldo suficiente para efetuar o pagamento", "Saldo insuficiente")
