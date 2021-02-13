@@ -6,9 +6,11 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.simoes.expense.R
 import com.simoes.expense.model.models.Expense
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 class Helper {
 
@@ -54,10 +56,8 @@ class Helper {
         )
 
         fun getValueMoney ( value : Double ) : String {
-            val v = value.toString()
-            v.replace(".", ",")
-
-            return "R$ $v"
+            val ptBr = Locale("pt", "BR")
+            return NumberFormat.getCurrencyInstance(ptBr).format(value)
         }
 
         fun getTranslateExpenseTypePortuguese(key: String) : String? {
