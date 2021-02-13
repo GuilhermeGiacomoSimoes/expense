@@ -122,7 +122,7 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
                             expense.card!!.balance
                         }
                         wallet != null -> {
-                            wallet?.amount
+                            wallet!!.amount
                         }
                         else -> {
                             .0
