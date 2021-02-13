@@ -99,7 +99,7 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
     }
 
     private fun pay( amount : Double ) {
-        if (expense.value < amount) {
+        if (expense.value <= amount) {
             txt_paid_out.visibility                 = View.GONE
             loading_paidout.visibility              = View.VISIBLE
             btn_payment_expense_dialog.isEnabled    = false
