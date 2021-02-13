@@ -107,11 +107,6 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
             expense.paidOut = true
             expense.datePaid.add( DateHelper.nowExtensive() + " - pago")
             CRUDController.update( expense, fragmentManager!!, context!! , this)
-
-            val intent = Intent()
-            intent.putExtra(Helper.EXPENSE_RETURN, expense)
-
-            targetFragment?.onActivityResult(Helper.PAYMENT_EXPENSE, Activity.RESULT_OK, intent)
         } else {
             FeedbackDialog.showDialog(fragmentManager!!, "Você não tem saldo suficiente para efetuar o pagamento", "Saldo insuficiente")
         }
@@ -170,7 +165,10 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
     }
 
     override fun callback(list: ArrayList<Any>) {
-        return
+        val intent = Intent()
+        intent.putExtra(Helper.EXPENSE_RETURN, expense)
+
+        targetFragment?.onActivityResult(Helper.PAYMENT_EXPENSE, Activity.RESULT_OK, intent)
     }
 
     override fun callback(isSuccess: Boolean) {
