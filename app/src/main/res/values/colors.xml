@@ -6,4 +6,6 @@
     <color name="background_color">#f7fafd</color>
     <color name="background_color_card_and_container">#fff</color>
     <color name="danger">#FF0000</color>
+    <color name="color_click_item">#40FFFFFF</color>
+    <color name="color_dont_click_item">#00000000</color>
 </resources>
