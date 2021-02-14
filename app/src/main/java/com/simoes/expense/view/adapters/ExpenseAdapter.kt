@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.simoes.expense.R
 import com.simoes.expense.helpers.Helper
+import com.simoes.expense.helpers.TypeCategory
 import com.simoes.expense.helpers.TypeExpense
 import com.simoes.expense.model.models.Expense
 import java.util.*
@@ -33,7 +34,7 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
         txtDueDate.text         = expense.dueDate
 
         val txtValueExpense     = layout.findViewById<TextView>(R.id.txt_value_expense)
-        txtValueExpense.text    = expense.value.toString()
+        txtValueExpense.text    = Helper.getValueMoney(expense.value)
 
         val imgExpense          = layout.findViewById<ImageView>(R.id.img_expense)
 
