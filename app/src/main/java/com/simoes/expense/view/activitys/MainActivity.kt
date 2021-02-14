@@ -1,7 +1,11 @@
 package com.simoes.expense.view.activitys
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
@@ -15,23 +19,53 @@ import java.util.ArrayList
 
 class MainActivity : AppCompatActivity(), CallBackReturn {
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        btn_expenses.backgroundTintList = ContextCompat.getColorStateList(applicationContext, R.color.color_dont_click_item)
+        btn_history.backgroundTintList = ContextCompat.getColorStateList(applicationContext, R.color.color_dont_click_item)
+        btn_more.backgroundTintList = ContextCompat.getColorStateList(applicationContext, R.color.color_click_item)
+        txt_expense_view.visibility = View.GONE
+        txt_graph_view.visibility = View.GONE
+        txt_more_view.visibility = View.VISIBLE
+
         btn_expenses.setOnClickListener {
+            btn_expenses.backgroundTintList = ContextCompat.getColorStateList(applicationContext, R.color.color_click_item)
+            btn_history.backgroundTintList = ContextCompat.getColorStateList(applicationContext, R.color.color_dont_click_item)
+            btn_more.backgroundTintList = ContextCompat.getColorStateList(applicationContext, R.color.color_dont_click_item)
+            txt_expense_view.visibility = View.VISIBLE
+            txt_graph_view.visibility = View.GONE
+            txt_more_view.visibility = View.GONE
+
+
             val ft = supportFragmentManager.beginTransaction()
             ft.replace(R.id.container, ExpenseFragment())
             ft.commit()
         }
 
         btn_history.setOnClickListener {
+            btn_expenses.backgroundTintList = ContextCompat.getColorStateList(applicationContext, R.color.color_dont_click_item)
+            btn_history.backgroundTintList = ContextCompat.getColorStateList(applicationContext, R.color.color_click_item)
+            btn_more.backgroundTintList = ContextCompat.getColorStateList(applicationContext, R.color.color_dont_click_item)
+            txt_expense_view.visibility = View.GONE
+            txt_graph_view.visibility = View.VISIBLE
+            txt_more_view.visibility = View.GONE
+
             val ft = supportFragmentManager.beginTransaction()
             ft.replace(R.id.container, ChartsFragment())
             ft.commit()
         }
 
         btn_more.setOnClickListener {
+            btn_expenses.backgroundTintList = ContextCompat.getColorStateList(applicationContext, R.color.color_dont_click_item)
+            btn_history.backgroundTintList = ContextCompat.getColorStateList(applicationContext, R.color.color_dont_click_item)
+            btn_more.backgroundTintList = ContextCompat.getColorStateList(applicationContext, R.color.color_click_item)
+            txt_expense_view.visibility = View.GONE
+            txt_graph_view.visibility = View.GONE
+            txt_more_view.visibility = View.VISIBLE
+
             val ft = supportFragmentManager.beginTransaction()
             ft.replace(R.id.container, MoreFragment())
             ft.commit()
