@@ -35,6 +35,7 @@
             android:layout_height="50dp"
             android:orientation="horizontal"
             android:layout_alignParentBottom="true"
+            android:backgroundTint="#00000000"
             >
 
             <androidx.cardview.widget.CardView
@@ -46,7 +47,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:backgroundTint="#FF"
+                android:backgroundTint="#00000000"
                 app:cardElevation="0dp"
                 app:cardCornerRadius="10dp"
                 >
@@ -88,7 +89,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:backgroundTint="#FF"
+                android:backgroundTint="#00000000"
                 app:cardElevation="0dp"
                 app:cardCornerRadius="10dp"
                 >
