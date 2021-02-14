@@ -110,7 +110,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Despesas"
+                        android:text="Histórico"
                         android:textColor="#FFF"
                         android:layout_marginRight="10dp"
                         android:visibility="gone"
@@ -121,14 +121,14 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="55dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:id="@+id/btn_more"
                 android:layout_marginEnd="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:backgroundTint="#FF"
+                android:backgroundTint="#00000000"
                 app:cardElevation="0dp"
                 app:cardCornerRadius="10dp"
                 >
@@ -150,7 +150,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Despesas"
+                        android:text="Mais"
                         android:textColor="#FFF"
                         android:layout_marginRight="10dp"
                         android:visibility="gone"
