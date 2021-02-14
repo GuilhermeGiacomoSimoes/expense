@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class DateHelper {
-
     companion object {
         //ex 30/08/2020 06:26:00
         fun nowExtensive() : String {
@@ -21,5 +20,4 @@ class DateHelper {
             return SimpleDateFormat("dd/MM/yyyy HH:mm").format( Date() )
         }
     }
-
 }
