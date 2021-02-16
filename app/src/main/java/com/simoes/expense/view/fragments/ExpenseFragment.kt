@@ -153,10 +153,11 @@ class ExpenseFragment : Fragment(), CallBackReturn {
     private fun configListViewExpense() {
         if ( context != null ) {
             listExpense = sortExpense( listExpense )
+            listExpense.add(Expense())
             list_expenses.adapter = ExpenseAdapter( listExpense , context!! )
 
             list_expenses.setOnItemClickListener {  _, _, position, _ ->
-                if ( fragmentManager != null ) {
+                if ( fragmentManager != null && position < listExpense.size - 1) {
                     ExpenseDetailDialog.showDialog( fragmentManager!!, listExpense[position], position, this, this.wallet)
                 }
             }
