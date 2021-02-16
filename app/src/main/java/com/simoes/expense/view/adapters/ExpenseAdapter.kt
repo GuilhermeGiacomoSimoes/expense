@@ -2,7 +2,6 @@ package com.simoes.expense.view.adapters
 
 import android.content.Context
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,10 +22,10 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         var layout = inflater.inflate(R.layout.expenses_adapter, null)
 
-        if (position >= listExpense.size - 1) {
-            layout = inflater.inflate(R.layout.bottom_list, null)
+        if (position >= listExpense.size - 1 || position == 0) {
+            layout = inflater.inflate(R.layout.bottom_or_top_list, null)
         }
-        else{
+        else {
             val txtNameExpense      = layout.findViewById<TextView>(R.id.txt_name_expense)
             txtNameExpense.text     = expense.name
 
