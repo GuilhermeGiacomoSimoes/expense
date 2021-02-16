@@ -4,11 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="60dp"
     android:orientation="vertical"
+    android:id="@+id/layout_spacing"
     >
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:textSize="60dp"
+        android:layout_height="70dp"
+        android:textSize="70dp"
+        android:id="@+id/txt_spacing"
         />
 </LinearLayout>
