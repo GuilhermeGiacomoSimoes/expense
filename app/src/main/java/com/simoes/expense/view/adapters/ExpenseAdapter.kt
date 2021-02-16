@@ -2,6 +2,7 @@ package com.simoes.expense.view.adapters
 
 import android.content.Context
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,6 @@ import android.widget.TextView
 import com.simoes.expense.R
 import com.simoes.expense.helpers.Helper
 import com.simoes.expense.helpers.TypeCategory
-import com.simoes.expense.helpers.TypeExpense
 import com.simoes.expense.model.models.Expense
 import java.util.*
 
@@ -20,40 +20,41 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val expense = listExpense[position]
 
-        val layout : View = if ( convertView == null ) {
-            val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            inflater.inflate(R.layout.expenses_adapter, null)
-        } else {
-            convertView
+        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        var layout = inflater.inflate(R.layout.expenses_adapter, null)
+
+        if (position >= listExpense.size - 1) {
+            layout = inflater.inflate(R.layout.bottom_list, null)
         }
+        else{
+            val txtNameExpense      = layout.findViewById<TextView>(R.id.txt_name_expense)
+            txtNameExpense.text     = expense.name
 
-        val txtNameExpense      = layout.findViewById<TextView>(R.id.txt_name_expense)
-        txtNameExpense.text     = expense.name
+            val txtDueDate          = layout.findViewById<TextView>(R.id.txt_due_date)
+            txtDueDate.text         = expense.dueDate
 
-        val txtDueDate          = layout.findViewById<TextView>(R.id.txt_due_date)
-        txtDueDate.text         = expense.dueDate
+            val txtValueExpense     = layout.findViewById<TextView>(R.id.txt_value_expense)
+            txtValueExpense.text    = Helper.getValueMoney(expense.value).split("$")[1]
 
-        val txtValueExpense     = layout.findViewById<TextView>(R.id.txt_value_expense)
-        txtValueExpense.text    = Helper.getValueMoney(expense.value)
+            val imgExpense          = layout.findViewById<ImageView>(R.id.img_expense)
 
-        val imgExpense          = layout.findViewById<ImageView>(R.id.img_expense)
+            val imageCardOrMoney    = getImageCardOrMoney( expense )
+            imgExpense.setImageResource( imageCardOrMoney )
 
-        val imageCardOrMoney    = getImageCardOrMoney( expense )
-        imgExpense.setImageResource( imageCardOrMoney )
-
-        if ( Helper.expenseOwn( expense ) ) {
-            if ( ! expense.paidOut ){
-                txtNameExpense.setTextColor(Color.parseColor("#FF0000"))
+            if ( Helper.expenseOwn( expense ) ) {
+                if ( ! expense.paidOut ){
+                    txtNameExpense.setTextColor(Color.parseColor("#FF0000"))
+                }
+                else {
+                    txtNameExpense.setTextColor(Color.parseColor("#2d9b30"))
+                }
             }
-            else {
+            else if(expense.paidOut) {
                 txtNameExpense.setTextColor(Color.parseColor("#2d9b30"))
             }
-        }
-        else if(expense.paidOut) {
-            txtNameExpense.setTextColor(Color.parseColor("#2d9b30"))
-        }
-        else {
-            txtNameExpense.setTextColor(Color.parseColor("#000000"))
+            else {
+                txtNameExpense.setTextColor(Color.parseColor("#000000"))
+            }
         }
 
         return layout
