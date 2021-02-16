@@ -18,8 +18,7 @@ import com.simoes.expense.model.models.Expense
 import com.simoes.expense.model.models.Wallet
 import com.simoes.expense.view.adapters.ExpenseAdapter
 import kotlinx.android.synthetic.main.fragment_expense.*
-import kotlin.collections.ArrayList
-
+    
 class ExpenseFragment : Fragment(), CallBackReturn {
 
     private          var wallet             : Wallet? = null
@@ -37,6 +36,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         return inflater.inflate(R.layout.fragment_expense , container, false)
     }
 
