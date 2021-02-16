@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity(), CallBackReturn {
             txt_graph_view.visibility = View.GONE
             txt_more_view.visibility = View.GONE
 
-
             val ft = supportFragmentManager.beginTransaction()
             ft.replace(R.id.container, ExpenseFragment())
             ft.commit()
