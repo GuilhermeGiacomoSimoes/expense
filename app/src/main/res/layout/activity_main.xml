@@ -9,16 +9,12 @@
     android:background="@color/background_color"
     >
 
-
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginBottom="50dp"
         android:background="@color/background_color_card_and_container"
-        >
-
+        android:orientation="vertical">
 
     </FrameLayout>
 
@@ -35,7 +31,6 @@
             android:layout_height="50dp"
             android:orientation="horizontal"
             android:layout_alignParentBottom="true"
-            android:backgroundTint="#00000000"
             >
 
             <androidx.cardview.widget.CardView
