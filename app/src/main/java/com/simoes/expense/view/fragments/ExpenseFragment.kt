@@ -154,6 +154,14 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         if ( context != null ) {
             listExpense = sortExpense( listExpense )
             listExpense.add(Expense())
+
+            val aux = ArrayList<Expense>()
+            aux.addAll(listExpense)
+            listExpense.clear()
+
+            listExpense.add( Expense() )
+            listExpense.addAll(aux)
+
             list_expenses.adapter = ExpenseAdapter( listExpense , context!! )
 
             list_expenses.setOnItemClickListener {  _, _, position, _ ->
