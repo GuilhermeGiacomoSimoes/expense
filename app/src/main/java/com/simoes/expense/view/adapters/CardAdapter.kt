@@ -39,40 +39,42 @@ class CardAdapter(private var listCard: ArrayList<Card>, private var context: Co
 
         val card = listCard[position]
 
-        val layout : View = if ( convertView == null ) {
-            val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            inflater.inflate(R.layout.card_adapter, null)
-        } else {
-            convertView
+        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        var layout =inflater.inflate(R.layout.card_adapter, null)
+
+        if ( position == 0 ) {
+            layout = inflater.inflate(R.layout.bottom_or_top_list, null)
         }
+        else {
+            val progresBarCard      = layout.findViewById<ProgressBar>(R.id.progres_bar_card)
+            val txtDescription      = layout.findViewById<TextView>(R.id.txt_description)
+            val txtNameCard         = layout.findViewById<TextView>(R.id.txt_name_card)
+            val txtVencDard         = layout.findViewById<TextView>(R.id.txt_venc_card)
+            val simbleFlag          = layout.findViewById<ImageView>(R.id.simble_flag)
+            val addExpenseCard      = layout.findViewById<TextView>(R.id.txt_add_expense_card)
+            val txtDeleteCard       = layout.findViewById<TextView>(R.id.txt_delete_card)
+            val txtPayInvoice       = layout.findViewById<TextView>(R.id.txt_pay_invoice)
+            val loadingChangeCard   = layout.findViewById<ProgressBar>(R.id.loading_change_card)
+            val cardView            = layout.findViewById<ConstraintLayout>(R.id.cardView)
+            val txtAmount           = layout.findViewById<TextView>(R.id.txt_amount)
 
-        val progresBarCard      = layout.findViewById<ProgressBar>(R.id.progres_bar_card)
-        val txtDescription      = layout.findViewById<TextView>(R.id.txt_description)
-        val txtNameCard         = layout.findViewById<TextView>(R.id.txt_name_card)
-        val txtVencDard         = layout.findViewById<TextView>(R.id.txt_venc_card)
-        val simbleFlag          = layout.findViewById<ImageView>(R.id.simble_flag)
-        val addExpenseCard      = layout.findViewById<TextView>(R.id.txt_add_expense_card)
-        val txtDeleteCard       = layout.findViewById<TextView>(R.id.txt_delete_card)
-        val txtPayInvoice       = layout.findViewById<TextView>(R.id.txt_pay_invoice)
-        val loadingChangeCard   = layout.findViewById<ProgressBar>(R.id.loading_change_card)
-        val cardView            = layout.findViewById<ConstraintLayout>(R.id.cardView)
-        val txtAmount           = layout.findViewById<TextView>(R.id.txt_amount)
+            this.loadingChangeCard = loadingChangeCard
+            this.cardView           = cardView
 
-        this.loadingChangeCard = loadingChangeCard
-        this.cardView           = cardView
+            configButtons( card, txtDeleteCard, txtPayInvoice, loadingChangeCard, cardView)
 
-        configButtons( card, txtDeleteCard, txtPayInvoice, loadingChangeCard, cardView)
+            buildCard(              progresBarCard,
+                txtDescription,
+                txtNameCard,
+                txtVencDard,
+                simbleFlag,
+                card,
+                addExpenseCard,
+                position,
+                txtAmount
+            )
 
-        buildCard(              progresBarCard,
-                                txtDescription,
-                                txtNameCard,
-                                txtVencDard,
-                                simbleFlag,
-                                card,
-                                addExpenseCard,
-                                position,
-                                txtAmount
-                 )
+        }
 
         return layout
     }
