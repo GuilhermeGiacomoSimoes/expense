@@ -27,7 +27,6 @@ class ExpenseFragment : Fragment(), CallBackReturn {
     private          var hideBalance        = false
     private          var breakCount         = 0
     private          var expensesDoNotExist = true
-    private          var balance            = .0
     private          var reloadScreen       = false
     private          var iRequestData       = false
 
@@ -43,6 +42,8 @@ class ExpenseFragment : Fragment(), CallBackReturn {
     override fun onResume() {
         super.onResume()
 
+        edt_balance.text = "0,00"
+
         if ( fragmentManager != null && context != null ) {
             iRequestData = true
             findInformations()
@@ -55,12 +56,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         if(context != null) {
             hideBalance = Helper.getPersistData(Helper.PERSIST_VIEW_BALANCE, context!!).equals(true.toString())
         }
-
-        if ( fragmentManager != null && context != null ) {
-            iRequestData = true
-            findInformations()
-        }
-
+        
         hide_balance.setOnClickListener {
             hideBalance  = ! hideBalance
             hideBalance()
@@ -112,11 +108,15 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         return listBalance
     }
 
-    private fun changeBalanceView() {
+    private fun changeBalanceView( amount : Double ) {
         if (context != null) {
             if ( edt_balance != null){
-                val amount = Helper.getValueMoney(this.balance)
-                edt_balance.text = amount.split("$")[1].trim()
+
+                var valueNow = Helper.moneyStrToDouble(edt_balance.text.toString())
+                valueNow += amount
+
+                val value = Helper.getValueMoney(valueNow)
+                edt_balance.text = value.split("$")[1].trim()
                 hideBalance()
             }
         }
@@ -235,7 +235,8 @@ class ExpenseFragment : Fragment(), CallBackReturn {
                         listCards               = list as ArrayList<Card>
 
                         val listCardBalance     = getListBankBalance ( listCards )
-                        this.balance            =  sumOfBalances      ( listCardBalance )
+                        val balance            =  sumOfBalances      ( listCardBalance )
+                        changeBalanceView( balance )
                     }
                     "com.simoes.expense.model.models.${NameClasses.Expense.name}" -> {
                         this.listExpense        = list as ArrayList<Expense>
@@ -244,15 +245,18 @@ class ExpenseFragment : Fragment(), CallBackReturn {
                     }
                     "com.simoes.expense.model.models.${NameClasses.Wallet.name}" -> {
                         this.wallet = list[0] as Wallet
+                        var balance = .0
+
                         if (this.wallet != null) {
-                            this.balance += this.wallet!!.amount
+                            balance += this.wallet!!.amount
                         }
+
+                        changeBalanceView( balance )
                     }
                 }
             }
 
             if (breakCount >= 3) {
-                changeBalanceView ()
                 iRequestData = false
 
                 if (expensesDoNotExist) {
