@@ -248,6 +248,10 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
             null
         }
 
+        if (chk_paidout.isChecked) {
+            expense.datePaid.add(DateHelper.nowExtensive() + " - pago")
+        }
+
         val now         = Helper.dateNow()
         var monthNow    = now.split(" ")[0].split("/")[1]
         var yearNow     = now.split(" ")[0].split("/")[0]
