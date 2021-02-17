@@ -60,6 +60,20 @@ class Helper {
             return NumberFormat.getCurrencyInstance(ptBr).format(value)
         }
 
+        fun moneyStrToDouble( money : String ) : Double {
+            val splitMoney = money.split("$")
+
+            var valueStr = if ( splitMoney.size > 1 ) {
+                splitMoney[1]
+            } else {
+                money
+            }
+
+            valueStr = valueStr.replace(",", ".")
+
+            return valueStr.toDouble()
+        }
+
         fun getTranslateExpenseTypePortuguese(key: String) : String? {
             val hash = hashMapOf(
                 "PUB" to "Bar",
