@@ -46,6 +46,7 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
             cardSelected = cardToAddExpense
             day          = cardToAddExpense.dueDate.toString()
             typeExpense  = TypeExpense.CARD
+            amount       = cardToAddExpense.balance
         }
 
         configListCategory()
