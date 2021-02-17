@@ -24,13 +24,6 @@ class MainActivity : AppCompatActivity(), CallBackReturn {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btn_expenses.backgroundTintList = ContextCompat.getColorStateList(applicationContext, R.color.color_dont_click_item)
-        btn_history.backgroundTintList = ContextCompat.getColorStateList(applicationContext, R.color.color_dont_click_item)
-        btn_more.backgroundTintList = ContextCompat.getColorStateList(applicationContext, R.color.color_click_item)
-        txt_expense_view.visibility = View.GONE
-        txt_graph_view.visibility = View.GONE
-        txt_more_view.visibility = View.VISIBLE
-
         btn_expenses.setOnClickListener {
             btn_expenses.backgroundTintList = ContextCompat.getColorStateList(applicationContext, R.color.color_click_item)
             btn_history.backgroundTintList = ContextCompat.getColorStateList(applicationContext, R.color.color_dont_click_item)
@@ -80,7 +73,15 @@ class MainActivity : AppCompatActivity(), CallBackReturn {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onResume() {
+        btn_expenses.backgroundTintList = ContextCompat.getColorStateList(applicationContext, R.color.color_dont_click_item)
+        btn_history.backgroundTintList = ContextCompat.getColorStateList(applicationContext, R.color.color_dont_click_item)
+        btn_more.backgroundTintList = ContextCompat.getColorStateList(applicationContext, R.color.color_click_item)
+        txt_expense_view.visibility = View.GONE
+        txt_graph_view.visibility = View.GONE
+        txt_more_view.visibility = View.VISIBLE
+
         val ft = supportFragmentManager.beginTransaction()
         ft.replace(R.id.container, MoreFragment())
         ft.commit()
