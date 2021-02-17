@@ -330,14 +330,6 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
             inflateListBank(listBankName)
 
             screen_view.visibility = View.VISIBLE
-
-            calcAmount( listCards )
-        }
-    }
-
-    private fun calcAmount( cards: ArrayList<Card> ) {
-        for ( card in cards ) {
-            amount += card.balance
         }
     }
 
