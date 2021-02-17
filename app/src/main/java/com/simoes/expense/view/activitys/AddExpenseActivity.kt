@@ -11,10 +11,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
-import com.simoes.expense.helpers.CallBackReturn
-import com.simoes.expense.helpers.Helper
-import com.simoes.expense.helpers.TypeCategory
-import com.simoes.expense.helpers.TypeExpense
+import com.simoes.expense.helpers.*
 import com.simoes.expense.model.models.Card
 import com.simoes.expense.model.models.Expense
 import com.simoes.expense.view.adapters.CategoryAdapter
@@ -212,6 +209,7 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
                 id                  : Long
             ) {
                 cardSelected = listCards[position]
+                amount = cardSelected.balance
             }
 
             override fun onNothingSelected(parentView: AdapterView<*>?) {
