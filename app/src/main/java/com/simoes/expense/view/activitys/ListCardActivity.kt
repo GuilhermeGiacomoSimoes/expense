@@ -8,7 +8,9 @@ import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
 import com.simoes.expense.helpers.Helper
+import com.simoes.expense.helpers.NameClasses
 import com.simoes.expense.model.models.Card
+import com.simoes.expense.model.models.Wallet
 import com.simoes.expense.view.adapters.CardAdapter
 import kotlinx.android.synthetic.main.activity_list_card.*
 import java.util.ArrayList
@@ -16,6 +18,8 @@ import java.util.ArrayList
 class ListCardActivity : AppCompatActivity(), CallBackReturn {
 
     private lateinit var listCard: ArrayList<Card>
+    private var amountWallet = .0
+    private var requisitionCounter = 0
 
     override fun onResume() {
         super.onResume()
@@ -60,20 +64,46 @@ class ListCardActivity : AppCompatActivity(), CallBackReturn {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
+    private fun configAmountCards( cards : ArrayList<Card> ) {
+        var amountCard = .0
+
+        for ( card in cards ) {
+            amountCard += card.balance
+        }
+
+        edt_balance_card.text = Helper.getValueMoney(amountCard).split("$")[1].trim()
+    }
+
+    private fun configAmountWallet( wallet : Wallet ) {
+        edt_balance_waller.text = Helper.getValueMoney(wallet.amount).split("$")[1].trim()
+    }
+
     override fun callback(isSuccess: Boolean) {
-        TODO("Not yet implemented")
+        return
     }
 
     override fun callback(list: ArrayList<Any>) {
+        requisitionCounter ++
+
         if( ! list.isNullOrEmpty()) {
-            this.listCard = list as ArrayList<Card>
-            configListViewCards()
+            if ( list[0].javaClass.name == "com.simoes.expense.model.models.${NameClasses.Card.name}" ) {
+                this.listCard = list as ArrayList<Card>
+                configListViewCards()
+                configAmountCards(this.listCard)
+            } else {
+                val wallet = list[0] as Wallet
+                this.amountWallet = wallet.amount
+                configAmountWallet(wallet)
+            }
         }
         else {
             txt_not_cards.visibility = View.VISIBLE
         }
 
-        showOrHideSpinner( ! swiperefreshCards.isRefreshing )
+        if (requisitionCounter > 1){
+            requisitionCounter = 0
+            showOrHideSpinner( ! swiperefreshCards.isRefreshing )
+        }
     }
 
     override fun onBackPressed() {
