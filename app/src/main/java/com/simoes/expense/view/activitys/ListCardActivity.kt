@@ -46,7 +46,11 @@ class ListCardActivity : AppCompatActivity(), CallBackReturn {
     }
 
     private fun configListViewCards() {
-        list_cards.adapter = CardAdapter( this.listCard, this )
+        val cards = ArrayList<Card>()
+        cards.add(Card())
+        cards.addAll(this.listCard)
+
+        list_cards.adapter = CardAdapter( cards, this )
     }
 
     private fun showOrHideSpinner( show : Boolean ) {
