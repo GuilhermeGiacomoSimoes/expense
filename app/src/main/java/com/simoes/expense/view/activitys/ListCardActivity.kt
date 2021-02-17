@@ -29,10 +29,16 @@ class ListCardActivity : AppCompatActivity(), CallBackReturn {
         showOrHideSpinner( !swiperefreshCards.isRefreshing )
 
         findCards()
+        findWallet()
 
         swiperefreshCards.setOnRefreshListener {
             findCards()
+            findWallet()
         }
+    }
+
+    private fun findWallet() {
+        CRUDController.findAll( Wallet(), supportFragmentManager, this, this )
     }
 
     private fun findCards() {
