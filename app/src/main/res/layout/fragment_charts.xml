@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".view.fragments.ChartsFragment"
     android:orientation="vertical"
+    android:layout_marginBottom="60dp"
     >
 
     <TextView
