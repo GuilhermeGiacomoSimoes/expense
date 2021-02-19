@@ -62,6 +62,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         }
 
         swiperefresh.setOnRefreshListener {
+            edt_balance.text = "0,00"
             iRequestData = true
             findInformations()
         }
@@ -190,7 +191,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
 
         if (resultCode == Activity.RESULT_OK) {
             if  (requestCode == Helper.PAYMENT_EXPENSE) {
-                    val expense = data?.getSerializableExtra(Helper.EXPENSE_RETURN) as Expense
+                val expense = data?.getSerializableExtra(Helper.EXPENSE_RETURN) as Expense
 
                 if ( expense.card != null ) {
                     val card = getCardByExpense( expense )
@@ -215,7 +216,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
                     val card = expense.card!!
                     card.expenses.remove( expense )
 
-                    if (fragmentManager != null && context != null){
+                    if (fragmentManager != null && context != null) {
                         CRUDController.update(card, fragmentManager!!, context!!, this)
                     }
                 }
