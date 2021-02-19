@@ -297,6 +297,11 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
     private fun updateCard( expense: Expense ) {
         expense.card = null
         cardSelected.expenses.add( expense )
+
+        if ( chk_paidout.isChecked ) {
+            cardSelected.balance -= expense.value
+        }
+        
         CRUDController.update( cardSelected, supportFragmentManager, this , this)
     }
 
