@@ -32,6 +32,7 @@
             android:backgroundTint="#F2FFFFFF"
             android:padding="10dp"
             android:id="@+id/layout_balance"
+            android:visibility="gone"
             >
 
             <TextView

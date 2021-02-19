@@ -301,7 +301,7 @@ class AddExpenseActivity : AppCompatActivity(), CallBackReturn {
         if ( chk_paidout.isChecked ) {
             cardSelected.balance -= expense.value
         }
-        
+
         CRUDController.update( cardSelected, supportFragmentManager, this , this)
     }
 

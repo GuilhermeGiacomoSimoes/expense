@@ -62,6 +62,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         }
 
         swiperefresh.setOnRefreshListener {
+            layout_balance.visibility = View.GONE
             edt_balance.text = "0,00"
             iRequestData = true
             findInformations()
@@ -257,6 +258,8 @@ class ExpenseFragment : Fragment(), CallBackReturn {
             }
 
             if (breakCount >= 3) {
+                layout_balance.visibility = View.VISIBLE
+
                 iRequestData = false
 
                 if (expensesDoNotExist) {
