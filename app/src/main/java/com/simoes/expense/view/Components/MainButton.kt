@@ -1,4 +1,7 @@
 package com.simoes.expense.view.Components
 
-class MainButton {
+import android.view.View
+
+class MainButton : View() {
+
 }
