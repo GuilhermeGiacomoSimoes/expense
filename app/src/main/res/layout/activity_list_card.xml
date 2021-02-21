@@ -173,6 +173,20 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            >
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_eyes"
+                android:id="@+id/hide_balance_cards_and_wallet"
+                />
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </FrameLayout>
