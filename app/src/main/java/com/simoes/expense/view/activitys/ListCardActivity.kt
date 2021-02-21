@@ -32,6 +32,7 @@ class ListCardActivity : AppCompatActivity(), CallBackReturn {
         findWallet()
 
         swiperefreshCards.setOnRefreshListener {
+            layout_amount_wallet_and_cards.visibility = View.GONE
             findCards()
             findWallet()
         }
@@ -111,6 +112,7 @@ class ListCardActivity : AppCompatActivity(), CallBackReturn {
         }
 
         if (requisitionCounter > 1){
+            layout_amount_wallet_and_cards.visibility = View.VISIBLE
             requisitionCounter = 0
             showOrHideSpinner( ! swiperefreshCards.isRefreshing )
         }

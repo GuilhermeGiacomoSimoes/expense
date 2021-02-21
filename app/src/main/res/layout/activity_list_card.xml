@@ -16,6 +16,22 @@
         android:id="@+id/txt_not_cards"
         />
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefreshCards"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/list_cards"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -24,6 +40,8 @@
         android:background="#F2FFFFFF"
         android:backgroundTint="#F2FFFFFF"
         android:padding="10dp"
+        android:id="@+id/layout_amount_wallet_and_cards"
+        android:visibility="gone"
         >
 
         <LinearLayout
@@ -135,22 +153,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swiperefreshCards"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/list_cards"
-            android:divider="@null"
-            android:dividerHeight="0dp"
-            />
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
 
 </FrameLayout>
