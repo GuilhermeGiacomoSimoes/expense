@@ -20,6 +20,7 @@ class ListCardActivity : AppCompatActivity(), CallBackReturn {
     private lateinit var listCard: ArrayList<Card>
     private var amountWallet = .0
     private var requisitionCounter = 0
+    private var hideBalanceCardsAndWallet = false
 
     override fun onResume() {
         super.onResume()
@@ -27,6 +28,8 @@ class ListCardActivity : AppCompatActivity(), CallBackReturn {
         setContentView(R.layout.activity_list_card)
 
         showOrHideSpinner( !swiperefreshCards.isRefreshing )
+
+        configShowOrViewBalances()
 
         findCards()
         findWallet()
@@ -36,6 +39,42 @@ class ListCardActivity : AppCompatActivity(), CallBackReturn {
             findCards()
             findWallet()
         }
+
+        hide_balance_cards_and_wallet.setOnClickListener {
+            hideBalance( ! hideBalanceCardsAndWallet )
+        }
+    }
+
+    private fun configShowOrViewBalances() {
+        val r = Helper.getPersistData(Helper.PERSIST_VIEW_BALANCE_LIST_CARDS, this)
+
+        if (r != null) {
+            hideBalanceCardsAndWallet = ( r ==  true.toString() )
+            hideBalance( r ==  true.toString() )
+        }
+    }
+
+    private fun hideBalance( hide : Boolean ) {
+        if ( hide ) {
+            hide_balance_cards_and_wallet.setImageResource(R.drawable.ic_eyes)
+
+            view_hide_balance_wallet.visibility = View.GONE
+            edt_balance_waller.visibility = View.VISIBLE
+
+            view_hide_balance_cards.visibility = View.GONE
+            edt_balance_card.visibility = View.VISIBLE
+        }
+        else {
+            hide_balance_cards_and_wallet.setImageResource(R.drawable.ic_eyes_cancel)
+
+            view_hide_balance_wallet.visibility = View.VISIBLE
+            edt_balance_waller.visibility = View.GONE
+
+            view_hide_balance_cards.visibility = View.VISIBLE
+            edt_balance_card.visibility = View.GONE
+        }
+
+        Helper.persistData(Helper.PERSIST_VIEW_BALANCE_LIST_CARDS, this, hide.toString())
     }
 
     private fun findWallet() {
