@@ -5,16 +5,24 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.simoes.expense.R
 import com.simoes.expense.helpers.Helper
 import com.simoes.expense.helpers.TypeCategory
 import com.simoes.expense.model.models.Expense
 import java.util.*
 
-class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var context: Context) : BaseAdapter() {
+class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var context: Context) : RecyclerView.Adapter<ExpenseAdapter.ViewHolder>() {
+
+    class ViewHolder ( view : View ) : RecyclerView.ViewHolder( view ) {
+
+        init {
+
+        }
+
+    }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val expense = listExpense[position]
@@ -104,5 +112,17 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
                 R.drawable.ic_other
             }
         }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        TODO("Not yet implemented")
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getItemCount(): Int {
+        TODO("Not yet implemented")
     }
 }
