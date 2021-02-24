@@ -18,7 +18,7 @@ import com.simoes.expense.model.models.Expense
 import com.simoes.expense.model.models.Wallet
 import com.simoes.expense.view.adapters.ExpenseAdapter
 import kotlinx.android.synthetic.main.fragment_expense.*
-    
+
 class ExpenseFragment : Fragment(), CallBackReturn {
 
     private          var wallet             : Wallet? = null
@@ -51,6 +51,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        configuraSwipeAndDelete()
 
         if(context != null) {
             hideBalance = Helper.getPersistData(Helper.PERSIST_VIEW_BALANCE, context!!).equals(true.toString())
@@ -67,6 +68,22 @@ class ExpenseFragment : Fragment(), CallBackReturn {
             iRequestData = true
             findInformations()
         }
+    }
+
+    private fun configuraSwipeAndDelete() {
+        val touchListener = SwipeToDismissTouchListener(
+            ListViewAdapter(list_expenses),
+            object : DismissCallbacks<ListViewAdapter?> {
+                override fun canDismiss(position: Int): Boolean {
+                    return true
+                }
+
+                override fun onDismiss(view: ListViewAdapter?, position: Int) {
+                    //
+                }
+            })
+
+        list_expenses.setOnTouchListener(touchListener)
     }
 
     private fun findInformations() {
