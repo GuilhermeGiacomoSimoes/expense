@@ -6,77 +6,75 @@
     android:orientation="horizontal"
     >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="10dp"
+        >
+
+        <ImageView
+            android:id="@+id/img_expense"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_money_expense"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Internet"
+                android:textSize="18sp"
+                android:textColor="#000"
+                android:id="@+id/txt_name_expense"
+                android:layout_marginLeft="20dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="vec: 05/07/2020"
+                android:textSize="12sp"
+                android:id="@+id/txt_due_date"
+                android:layout_marginLeft="20dp"
+                />
+
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
+            android:layout_weight="2"
+            android:orientation="vertical"
             android:gravity="center"
-            android:padding="10dp"
             >
 
-            <ImageView
-                android:id="@+id/img_expense"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_money_expense"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="R$"
+                android:textSize="10sp"
                 />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="1"
-                >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Internet"
-                    android:textSize="18sp"
-                    android:textColor="#000"
-                    android:id="@+id/txt_name_expense"
-                    android:layout_marginLeft="20dp"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="vec: 05/07/2020"
-                    android:textSize="12sp"
-                    android:id="@+id/txt_due_date"
-                    android:layout_marginLeft="20dp"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:orientation="vertical"
-                android:gravity="center"
-                >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="R$"
-                    android:textSize="10sp"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="300,00"
-                    android:textSize="18sp"
-                    android:id="@+id/txt_value_expense"
-                    android:textColor="#000"
-                    />
-
-            </LinearLayout>
-
-
+                android:text="300,00"
+                android:textSize="18sp"
+                android:id="@+id/txt_value_expense"
+                android:textColor="#000"
+                />
 
         </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
