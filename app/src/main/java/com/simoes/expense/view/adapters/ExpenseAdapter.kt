@@ -15,12 +15,18 @@ import java.util.*
 
 class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var context: Context) : RecyclerView.Adapter<ExpenseAdapter.ViewHolder>() {
 
-    class ViewHolder ( view : View ) : RecyclerView.ViewHolder( view ) {
+    class ViewHolder ( layout : View ) : RecyclerView.ViewHolder( layout ) {
+        val txtNameExpense  : TextView
+        val txtDueDate      : TextView
+        val txtValueExpense : TextView
+        val imgExpense      : ImageView
 
         init {
-
+            txtNameExpense      = layout.findViewById<TextView>(R.id.txt_name_expense)
+            txtDueDate          = layout.findViewById<TextView>(R.id.txt_due_date)
+            txtValueExpense     = layout.findViewById<TextView>(R.id.txt_value_expense)
+            imgExpense          = layout.findViewById<ImageView>(R.id.img_expense)
         }
-
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
