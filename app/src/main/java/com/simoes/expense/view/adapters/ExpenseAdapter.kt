@@ -37,13 +37,17 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
                 layoutExpenseAdapter    = layout.findViewById<LinearLayout>(R.id.layout_expense_adapter)
             }
         }
-
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val expense = listExpense[position]
 
         if ( position != 0 && position < listExpense.size - 1 ) {
+
+            holder.layoutExpenseAdapter.setOnClickListener {
+                ExpenseDetailDialog.showDialog( fragmentManager, expense, position, fragment, wallet)
+            }
+
             holder.txtNameExpense.text      = expense.name
             holder.txtDueDate.text          = expense.dueDate
             holder.txtValueExpense.text     = Helper.getValueMoney(expense.value).split("$")[1]
