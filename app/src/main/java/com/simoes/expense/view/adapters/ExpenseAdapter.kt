@@ -58,7 +58,10 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
                 holder.txtNameExpense.setTextColor(Color.parseColor("#000000"))
             }
         }
+    }
 
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
