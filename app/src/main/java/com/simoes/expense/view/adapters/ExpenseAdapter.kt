@@ -60,38 +60,8 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
 
         val holder = ViewHolder(layout)
 
-    private fun getImageCardOrMoney( expense : Expense ) : Int {
-        return when (expense.category) {
-            TypeCategory.PUB -> {
-                R.drawable.ic_pub
-            }
-            TypeCategory.SUPERMARKET -> {
-                R.drawable.ic_supermarket
-            }
-            TypeCategory.ALCOHOLIC_BEVERAGES -> {
-                R.drawable.ic_alcoholic_beverages
-            }
-            TypeCategory.TICKETS -> {
-                R.drawable.ic_tickets
-            }
-            TypeCategory.FOOD -> {
-                R.drawable.ic_food
-            }
-            TypeCategory.INTERNET -> {
-                R.drawable.ic_internet
-            }
-            TypeCategory.WATER -> {
-                R.drawable.ic_water
-            }
-            TypeCategory.ENERGY -> {
-                R.drawable.ic_energy
-            }
-            TypeCategory.FURNITURE -> {
-                R.drawable.ic_furniture
-            }
-            else -> {
-                R.drawable.ic_other
-            }
+        if (holder.adapterPosition >= listExpense.size - 1 || holder.adapterPosition == 0) {
+            layout = inflater.inflate(R.layout.bottom_or_top_list, null)
         }
 
         return holder
