@@ -53,17 +53,12 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
         }
     }
 
-    override fun getItem(position: Int): Any {
-        return listExpense[position]
-    }
 
     override fun getItemId(position: Int): Long {
         return 0
     }
 
-    override fun getCount(): Int {
-        return listExpense.size
-    }
+        val holder = ViewHolder(layout)
 
     private fun getImageCardOrMoney( expense : Expense ) : Int {
         return when (expense.category) {
@@ -98,17 +93,9 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
                 R.drawable.ic_other
             }
         }
+
+        return holder
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        TODO("Not yet implemented")
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("Not yet implemented")
-    }
-
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun getItemCount() = listExpense.size
 }
