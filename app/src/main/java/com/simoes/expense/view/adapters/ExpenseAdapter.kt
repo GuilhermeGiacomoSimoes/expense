@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.simoes.expense.R
 import com.simoes.expense.helpers.Helper
-import com.simoes.expense.helpers.TypeCategory
 import com.simoes.expense.model.models.Expense
 import java.util.*
 
