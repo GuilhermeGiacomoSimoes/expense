@@ -54,9 +54,9 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
     }
 
 
-    override fun getItemId(position: Int): Long {
-        return 0
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        var layout = inflater.inflate(R.layout.expenses_adapter, null)
 
         val holder = ViewHolder(layout)
 
