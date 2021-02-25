@@ -23,11 +23,14 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
         var imgExpense      = ImageView( context )
 
         init {
-            txtNameExpense      = layout.findViewById<TextView>(R.id.txt_name_expense)
-            txtDueDate          = layout.findViewById<TextView>(R.id.txt_due_date)
-            txtValueExpense     = layout.findViewById<TextView>(R.id.txt_value_expense)
-            imgExpense          = layout.findViewById<ImageView>(R.id.img_expense)
+            if (pos < listExpense.size - 1 && pos > 0) {
+                txtNameExpense      = layout.findViewById<TextView>(R.id.txt_name_expense)
+                txtDueDate          = layout.findViewById<TextView>(R.id.txt_due_date)
+                txtValueExpense     = layout.findViewById<TextView>(R.id.txt_value_expense)
+                imgExpense          = layout.findViewById<ImageView>(R.id.img_expense)
+            }
         }
+
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
