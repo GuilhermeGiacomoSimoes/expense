@@ -72,19 +72,19 @@ class ExpenseFragment : Fragment(), CallBackReturn {
     }
 
     private fun configuraSwipeAndDelete() {
-        val touchListener = SwipeToDismissTouchListener(
-            ListViewAdapter(list_expenses),
-            object : DismissCallbacks<ListViewAdapter?> {
-                override fun canDismiss(position: Int): Boolean {
-                    return true
-                }
-
-                override fun onDismiss(view: ListViewAdapter?, position: Int) {
-                    //
-                }
-            })
-
-        list_expenses.setOnTouchListener(touchListener)
+//        val touchListener = SwipeToDismissTouchListener(
+//            ListViewAdapter(list_expenses),
+//            object : DismissCallbacks<ListViewAdapter?> {
+//                override fun canDismiss(position: Int): Boolean {
+//                    return true
+//                }
+//
+//                override fun onDismiss(view: ListViewAdapter?, position: Int) {
+//                    //
+//                }
+//            })
+//
+//        list_expenses.setOnTouchListener(touchListener)
     }
 
     private fun findInformations() {
@@ -181,7 +181,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
             listExpense.add( Expense() )
             listExpense.addAll(aux)
 
-            list_expenses.adapter = ExpenseAdapter( listExpense , context!! )
+            list_expenses.adapter = ExpenseAdapter( listExpense , context!!, fragmentManager!!, this , this.wallet)
             list_expenses.layoutManager = LinearLayoutManager( context )
 //            list_expenses.setOnItemClickListener {  _, _, position, _ ->
 //                if ( fragmentManager != null && position < listExpense.size - 1 && position != 0) {
