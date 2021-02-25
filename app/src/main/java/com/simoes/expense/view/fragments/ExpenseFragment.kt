@@ -183,11 +183,6 @@ class ExpenseFragment : Fragment(), CallBackReturn {
 
             list_expenses.adapter = ExpenseAdapter( listExpense , context!!, fragmentManager!!, this , this.wallet)
             list_expenses.layoutManager = LinearLayoutManager( context )
-//            list_expenses.setOnItemClickListener {  _, _, position, _ ->
-//                if ( fragmentManager != null && position < listExpense.size - 1 && position != 0) {
-//                    ExpenseDetailDialog.showDialog( fragmentManager!!, listExpense[position], position, this, this.wallet)
-//                }
-//            }
         }
     }
 
