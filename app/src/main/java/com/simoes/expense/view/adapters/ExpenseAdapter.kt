@@ -32,11 +32,12 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val expense = listExpense[position]
 
-        holder.txtNameExpense.text      = expense.name
-        holder.txtDueDate.text          = expense.dueDate
-        holder.txtValueExpense.text     = Helper.getValueMoney(expense.value).split("$")[1]
-        val imageCardOrMoney            = Helper.getImageCardOrMoney( expense )
-        holder.imgExpense.setImageResource( imageCardOrMoney )
+        if ( position != 0 && position < listExpense.size - 1 ) {
+            holder.txtNameExpense.text      = expense.name
+            holder.txtDueDate.text          = expense.dueDate
+            holder.txtValueExpense.text     = Helper.getValueMoney(expense.value).split("$")[1]
+            val imageCardOrMoney            = Helper.getImageCardOrMoney( expense )
+            holder.imgExpense.setImageResource( imageCardOrMoney )
 
         if ( Helper.expenseOwn( expense ) ) {
             if ( ! expense.paidOut ){
