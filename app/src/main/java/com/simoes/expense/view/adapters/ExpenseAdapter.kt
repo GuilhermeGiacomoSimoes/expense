@@ -28,6 +28,7 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
             imgExpense          = layout.findViewById<ImageView>(R.id.img_expense)
         }
     }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val expense = listExpense[position]
 
@@ -53,15 +54,12 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
         }
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        var layout = inflater.inflate(R.layout.expenses_adapter, null)
-
-        val holder = ViewHolder(layout)
+        val inflater = LayoutInflater.from(parent.context)
+        var holder = ViewHolder(inflater.inflate(R.layout.expenses_adapter, null))
 
         if (holder.adapterPosition >= listExpense.size - 1 || holder.adapterPosition == 0) {
-            layout = inflater.inflate(R.layout.bottom_or_top_list, null)
+            holder = ViewHolder(inflater.inflate(R.layout.bottom_or_top_list, null))
         }
 
         return holder
