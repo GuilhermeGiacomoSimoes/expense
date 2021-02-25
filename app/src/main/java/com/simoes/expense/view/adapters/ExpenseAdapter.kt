@@ -6,14 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simoes.expense.R
 import com.simoes.expense.helpers.Helper
 import com.simoes.expense.model.models.Expense
+import com.simoes.expense.model.models.Wallet
+import com.simoes.expense.view.fragments.ExpenseDetailDialog
 import java.util.*
 
-class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var context: Context) : RecyclerView.Adapter<ExpenseAdapter.ViewHolder>() {
+class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var context: Context, private val fragmentManager : FragmentManager, private val fragment: Fragment, private val wallet: Wallet?) : RecyclerView.Adapter<ExpenseAdapter.ViewHolder>() {
 
     class ViewHolder ( layout : View , pos : Int , context: Context, listExpense: ArrayList<Expense>) : RecyclerView.ViewHolder( layout ) {
 
