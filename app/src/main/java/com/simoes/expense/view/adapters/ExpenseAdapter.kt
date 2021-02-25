@@ -28,48 +28,29 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
             imgExpense          = layout.findViewById<ImageView>(R.id.img_expense)
         }
     }
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val expense = listExpense[position]
 
-        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        var layout = inflater.inflate(R.layout.expenses_adapter, null)
+        holder.txtNameExpense.text      = expense.name
+        holder.txtDueDate.text          = expense.dueDate
+        holder.txtValueExpense.text     = Helper.getValueMoney(expense.value).split("$")[1]
+        val imageCardOrMoney            = Helper.getImageCardOrMoney( expense )
+        holder.imgExpense.setImageResource( imageCardOrMoney )
 
-        if (position >= listExpense.size - 1 || position == 0) {
-            layout = inflater.inflate(R.layout.bottom_or_top_list, null)
-        }
-        else {
-            val txtNameExpense      = layout.findViewById<TextView>(R.id.txt_name_expense)
-            txtNameExpense.text     = expense.name
-
-            val txtDueDate          = layout.findViewById<TextView>(R.id.txt_due_date)
-            txtDueDate.text         = expense.dueDate
-
-            val txtValueExpense     = layout.findViewById<TextView>(R.id.txt_value_expense)
-            txtValueExpense.text    = Helper.getValueMoney(expense.value).split("$")[1]
-
-            val imgExpense          = layout.findViewById<ImageView>(R.id.img_expense)
-
-            val imageCardOrMoney    = getImageCardOrMoney( expense )
-            imgExpense.setImageResource( imageCardOrMoney )
-
-            if ( Helper.expenseOwn( expense ) ) {
-                if ( ! expense.paidOut ){
-                    txtNameExpense.setTextColor(Color.parseColor("#FF0000"))
-                }
-                else {
-                    txtNameExpense.setTextColor(Color.parseColor("#2d9b30"))
-                }
-            }
-            else if(expense.paidOut) {
-                txtNameExpense.setTextColor(Color.parseColor("#2d9b30"))
+        if ( Helper.expenseOwn( expense ) ) {
+            if ( ! expense.paidOut ){
+                holder.txtNameExpense.setTextColor(Color.parseColor("#FF0000"))
             }
             else {
-                txtNameExpense.setTextColor(Color.parseColor("#000000"))
+                holder.txtNameExpense.setTextColor(Color.parseColor("#2d9b30"))
             }
         }
-
-        return layout
+        else if(expense.paidOut) {
+            holder.txtNameExpense.setTextColor(Color.parseColor("#2d9b30"))
+        }
+        else {
+            holder.txtNameExpense.setTextColor(Color.parseColor("#000000"))
+        }
     }
 
     override fun getItem(position: Int): Any {
