@@ -66,10 +66,10 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        var holder = ViewHolder(inflater.inflate(R.layout.expenses_adapter, parent, false))
+        var holder = ViewHolder(inflater.inflate(R.layout.expenses_adapter, parent, false), viewType, context, listExpense)
 
-        if (holder.adapterPosition >= listExpense.size - 1 || holder.adapterPosition == 0) {
-            holder = ViewHolder(inflater.inflate(R.layout.bottom_or_top_list, parent, false))
+        if (viewType >= listExpense.size - 1 || viewType == 0) {
+            holder = ViewHolder(inflater.inflate(R.layout.bottom_or_top_list, parent, false), viewType, context, listExpense)
         }
 
         return holder
