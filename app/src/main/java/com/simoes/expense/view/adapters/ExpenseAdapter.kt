@@ -26,13 +26,15 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
         var txtDueDate      = TextView( context )
         var txtValueExpense = TextView( context )
         var imgExpense      = ImageView( context )
+        var layoutExpenseAdapter = LinearLayout( context )
 
         init {
             if (pos < listExpense.size - 1 && pos > 0) {
-                txtNameExpense      = layout.findViewById<TextView>(R.id.txt_name_expense)
-                txtDueDate          = layout.findViewById<TextView>(R.id.txt_due_date)
-                txtValueExpense     = layout.findViewById<TextView>(R.id.txt_value_expense)
-                imgExpense          = layout.findViewById<ImageView>(R.id.img_expense)
+                txtNameExpense          = layout.findViewById<TextView>(R.id.txt_name_expense)
+                txtDueDate              = layout.findViewById<TextView>(R.id.txt_due_date)
+                txtValueExpense         = layout.findViewById<TextView>(R.id.txt_value_expense)
+                imgExpense              = layout.findViewById<ImageView>(R.id.img_expense)
+                layoutExpenseAdapter    = layout.findViewById<LinearLayout>(R.id.layout_expense_adapter)
             }
         }
 
