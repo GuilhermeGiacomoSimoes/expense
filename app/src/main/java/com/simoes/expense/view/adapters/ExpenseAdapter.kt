@@ -39,20 +39,22 @@ class ExpenseAdapter(private var listExpense: ArrayList<Expense>, private var co
             val imageCardOrMoney            = Helper.getImageCardOrMoney( expense )
             holder.imgExpense.setImageResource( imageCardOrMoney )
 
-        if ( Helper.expenseOwn( expense ) ) {
-            if ( ! expense.paidOut ){
-                holder.txtNameExpense.setTextColor(Color.parseColor("#FF0000"))
+            if ( Helper.expenseOwn( expense ) ) {
+                if ( ! expense.paidOut ){
+                    holder.txtNameExpense.setTextColor(Color.parseColor("#FF0000"))
+                }
+                else {
+                    holder.txtNameExpense.setTextColor(Color.parseColor("#2d9b30"))
+                }
             }
-            else {
+            else if(expense.paidOut) {
                 holder.txtNameExpense.setTextColor(Color.parseColor("#2d9b30"))
             }
+            else {
+                holder.txtNameExpense.setTextColor(Color.parseColor("#000000"))
+            }
         }
-        else if(expense.paidOut) {
-            holder.txtNameExpense.setTextColor(Color.parseColor("#2d9b30"))
-        }
-        else {
-            holder.txtNameExpense.setTextColor(Color.parseColor("#000000"))
-        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
