@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
@@ -181,12 +182,12 @@ class ExpenseFragment : Fragment(), CallBackReturn {
             listExpense.addAll(aux)
 
             list_expenses.adapter = ExpenseAdapter( listExpense , context!! )
-
-            list_expenses.setOnItemClickListener {  _, _, position, _ ->
-                if ( fragmentManager != null && position < listExpense.size - 1 && position != 0) {
-                    ExpenseDetailDialog.showDialog( fragmentManager!!, listExpense[position], position, this, this.wallet)
-                }
-            }
+            list_expenses.layoutManager = LinearLayoutManager( context )
+//            list_expenses.setOnItemClickListener {  _, _, position, _ ->
+//                if ( fragmentManager != null && position < listExpense.size - 1 && position != 0) {
+//                    ExpenseDetailDialog.showDialog( fragmentManager!!, listExpense[position], position, this, this.wallet)
+//                }
+//            }
         }
     }
 
