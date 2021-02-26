@@ -233,12 +233,10 @@ class ExpenseFragment : Fragment(), CallBackReturn {
                     val background = ColorDrawable(Color.RED)
 
                     if (dX < 0) {
-                        background.setBounds(layout_expense_adapter.right + dX.toInt(), layout_expense_adapter.top, layout_expense_adapter.right, layout_expense_adapter.bottom)
-                        icon!!.setBounds(left, top, right, bottom)
-                    } else if (dX > 0) {
-                        background.setBounds(layout_expense_adapter.left + dX.toInt(), layout_expense_adapter.top, layout_expense_adapter.left, layout_expense_adapter.bottom)
-                        icon!!.setBounds(top, top, top, bottom)
+                        background.setBounds(itemView.right + dX.toInt(), itemView.top, itemView.right, itemView.bottom)
+                        icon!!.setBounds(left.toInt(), top, right.toInt(), bottom)
                     }
+
                     background.draw(c)
                     icon!!.draw(c)
 
