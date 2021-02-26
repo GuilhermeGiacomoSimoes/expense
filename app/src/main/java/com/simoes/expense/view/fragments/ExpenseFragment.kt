@@ -2,13 +2,19 @@ package com.simoes.expense.view.fragments
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
@@ -18,7 +24,9 @@ import com.simoes.expense.model.models.Card
 import com.simoes.expense.model.models.Expense
 import com.simoes.expense.model.models.Wallet
 import com.simoes.expense.view.adapters.ExpenseAdapter
+import kotlinx.android.synthetic.main.expenses_adapter.*
 import kotlinx.android.synthetic.main.fragment_expense.*
+
 
 class ExpenseFragment : Fragment(), CallBackReturn {
 
@@ -183,6 +191,69 @@ class ExpenseFragment : Fragment(), CallBackReturn {
 
             list_expenses.adapter = ExpenseAdapter( listExpense , context!!, fragmentManager!!, this , this.wallet)
             list_expenses.layoutManager = LinearLayoutManager( context )
+
+            val simpleItemTouchCallback: ItemTouchHelper.SimpleCallback = object :
+                ItemTouchHelper.SimpleCallback(
+                    0,
+                    ItemTouchHelper.LEFT
+                ) {
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    return false
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
+                    Toast.makeText(context, "on Swiped ", Toast.LENGTH_SHORT).show()
+                    //Remove swiped item from list and notify the RecyclerView
+//                    val position = viewHolder.adapterPosition
+//                    arrayList.remove(position)
+//                    adapter.notifyDataSetChanged()
+                }
+
+                override fun onChildDraw(
+                    c: Canvas,
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    dX: Float,
+                    dY: Float,
+                    actionState: Int,
+                    isCurrentlyActive: Boolean
+                ) {
+                    val top = layout_expense_adapter.top + (layout_expense_adapter.height - 70) / 2
+                    val left = layout_expense_adapter.width - 70 - (layout_expense_adapter.height - 70) / 2
+                    val right = left + 70
+                    val bottom = top + 70
+
+                    val icon = ContextCompat.getDrawable( context!!, R.drawable.delete )
+                    val background = ColorDrawable(Color.RED)
+
+                    if (dX < 0) {
+                        background.setBounds(layout_expense_adapter.right + dX.toInt(), layout_expense_adapter.top, layout_expense_adapter.right, layout_expense_adapter.bottom)
+                        icon!!.setBounds(left, top, right, bottom)
+                    } else if (dX > 0) {
+                        background.setBounds(layout_expense_adapter.left + dX.toInt(), layout_expense_adapter.top, layout_expense_adapter.left, layout_expense_adapter.bottom)
+                        icon!!.setBounds(top, top, top, bottom)
+                    }
+                    background.draw(c)
+                    icon!!.draw(c)
+
+                    super.onChildDraw(
+                        c,
+                        recyclerView,
+                        viewHolder,
+                        dX,
+                        dY,
+                        actionState,
+                        isCurrentlyActive
+                    )
+                }
+            }
+
+            val itemTouchHelper = ItemTouchHelper(simpleItemTouchCallback)
+            itemTouchHelper.attachToRecyclerView(list_expenses)
         }
     }
 
