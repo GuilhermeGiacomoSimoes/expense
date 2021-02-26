@@ -6,6 +6,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -222,8 +223,9 @@ class ExpenseFragment : Fragment(), CallBackReturn {
                     actionState: Int,
                     isCurrentlyActive: Boolean
                 ) {
-                    val top = layout_expense_adapter.top + (layout_expense_adapter.height - 70) / 2
-                    val left = layout_expense_adapter.width - 70 - (layout_expense_adapter.height - 70) / 2
+                    val itemView = viewHolder.itemView
+                    val top = itemView.top + (itemView.height - 70) / 2
+                    val left = itemView.width - ( DisplayMetrics().widthPixels / resources.displayMetrics.scaledDensity ) - (itemView.height - 70) / 2
                     val right = left + 70
                     val bottom = top + 70
 
