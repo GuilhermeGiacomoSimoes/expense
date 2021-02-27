@@ -59,7 +59,6 @@ class ExpenseFragment : Fragment(), CallBackReturn {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        configuraSwipeAndDelete()
 
         if(context != null) {
             hideBalance = Helper.getPersistData(Helper.PERSIST_VIEW_BALANCE, context!!).equals(true.toString())
