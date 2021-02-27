@@ -63,7 +63,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
         if(context != null) {
             hideBalance = Helper.getPersistData(Helper.PERSIST_VIEW_BALANCE, context!!).equals(true.toString())
         }
-        
+
         hide_balance.setOnClickListener {
             hideBalance  = ! hideBalance
             hideBalance()
@@ -188,11 +188,8 @@ class ExpenseFragment : Fragment(), CallBackReturn {
                 }
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                    Toast.makeText(context, "on Swiped ", Toast.LENGTH_SHORT).show()
-                    //Remove swiped item from list and notify the RecyclerView
-//                    val position = viewHolder.adapterPosition
-//                    arrayList.remove(position)
-//                    adapter.notifyDataSetChanged()
+                    val position = viewHolder.adapterPosition - 1
+                    val expense = listExpense[position]
                 }
 
                 override fun onChildDraw(
