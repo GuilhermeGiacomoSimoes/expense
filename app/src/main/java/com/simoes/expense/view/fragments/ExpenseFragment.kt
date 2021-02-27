@@ -224,6 +224,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
                     isCurrentlyActive: Boolean
                 ) {
                     val itemView = viewHolder.itemView
+
                     val top = itemView.top + (itemView.height - 70) / 2
                     val left = itemView.width - ( DisplayMetrics().widthPixels / resources.displayMetrics.scaledDensity ) - (itemView.height - 70) / 2
                     val right = left + 70
