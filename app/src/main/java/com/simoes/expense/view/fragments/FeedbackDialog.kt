@@ -38,7 +38,7 @@ class FeedbackDialog: DialogFragment() {
     }
 
     companion object {
-        private fun getInstance()  = FeedbackDialog()
+        private fun getInstance() = FeedbackDialog()
 
         fun showDialog(fragmentManager: FragmentManager, description: String?, title: String?) {
             with(getInstance()) {

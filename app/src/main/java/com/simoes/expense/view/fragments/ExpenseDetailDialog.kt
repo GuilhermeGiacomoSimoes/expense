@@ -140,17 +140,17 @@ class ExpenseDetailDialog : DialogFragment(), CallBackReturn {
             }
         }
 
-        btn_delete_expense_dialog.setOnClickListener {
-            if ( fragmentManager != null && context != null ) {
-                txt_delete_expense.visibility          = View.GONE
-                loading_delete.visibility              = View.VISIBLE
-                btn_delete_expense_dialog.isEnabled    = false
-                statusRequest = "Deletado com sucesso"
-
-                action = Helper.DELETE_EXPENSE
-                CRUDController.delete( expense,  fragmentManager!!, context!!, this )
-            }
-        }
+//        btn_delete_expense_dialog.setOnClickListener {
+//            if ( fragmentManager != null && context != null ) {
+//                txt_delete_expense.visibility          = View.GONE
+//                loading_delete.visibility              = View.VISIBLE
+//                btn_delete_expense_dialog.isEnabled    = false
+//                statusRequest = "Deletado com sucesso"
+//
+//                action = Helper.DELETE_EXPENSE
+//                CRUDController.delete( expense,  fragmentManager!!, context!!, this )
+//            }
+//        }
     }
 
     companion object {

@@ -10,12 +10,12 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.common.ErrorDialogFragment
 import com.simoes.expense.R
 import com.simoes.expense.controller.CRUDController
 import com.simoes.expense.helpers.CallBackReturn
@@ -190,6 +190,7 @@ class ExpenseFragment : Fragment(), CallBackReturn {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
                     val position = viewHolder.adapterPosition - 1
                     val expense = listExpense[position]
+
                 }
 
                 override fun onChildDraw(
