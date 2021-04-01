@@ -97,10 +97,8 @@ class ChartsFragment : Fragment(), CallBackReturn {
 
             val barDataSet = BarDataSet(banks, Helper.getTranslateExpenseTypePortuguese(key))
 
-            if (Helper.getColorByTypeCategory(key) != null){
-                barDataSet.color = Helper.getColorByTypeCategory(key) !!
-            }
-
+            barDataSet.color = Helper.getColorByTypeCategory(key) !!
+            
             barDataSet.valueTextColor = Color.BLACK
             barDataSet.valueTextSize = 16f
 
