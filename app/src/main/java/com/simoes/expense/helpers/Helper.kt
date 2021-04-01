@@ -120,8 +120,7 @@ class Helper {
                 "INTERNET" to Color.rgb(238,130,238),
                 "WATER" to Color.rgb(123,104,238),
                 "ENERGY" to Color.rgb(199,21,133),
-                "FURNITURE" to Color.rgb(250,128,114),
-                "OTHER" to Color.rgb(255,0,0)
+                "FURNITURE" to Color.rgb(250,128,114)
             )
 
             return if (hash.containsKey(key)) hash[key] else Color.rgb(255,0,0)
