@@ -124,7 +124,7 @@ class Helper {
                 "OTHER" to Color.rgb(255,0,0)
             )
 
-            return hash[key]
+            return if (hash.containsKey(key)) hash[key] else Color.rgb(255,0,0)
         }
 
         fun getImageCardOrMoney( expense : Expense ) : Int {
